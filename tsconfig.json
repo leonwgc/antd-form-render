@@ -1,0 +1,23 @@
+{
+	"version": "3.3.3",
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"~/*": ["src/*"]
+		},
+		"module": "esnext",
+		"target": "es5",
+		"jsx": "react",
+		"sourceMap": true,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"allowJs": true,
+		"strictNullChecks": false,
+		"outDir": "dist",
+		"lib": ["es2015", "dom", "es2015.promise"]
+	},
+	"include": ["src/**/*"],
+	"exclude": ["dist", "node_modules"]
+}

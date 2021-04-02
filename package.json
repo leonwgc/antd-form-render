@@ -1,0 +1,86 @@
+{
+  "name": "antd-form-render",
+  "version": "1.0.0",
+  "description": "基于React Hooks antd4.x 和js配置的表单渲染方案",
+  "tags": [
+    "react",
+    "antd",
+    "form",
+    "formrender",
+    "dynamic"
+  ],
+  "keywords": [
+    "react",
+    "antd",
+    "form",
+    "formrender",
+    "json",
+    "ui",
+    "framework",
+    "frontend"
+  ],
+  "license": "MIT",
+  "repository": "https://github.com/leonwgc/antd-form-render",
+  "bugs": {
+    "url": "https://github.com/leonwgc/antd-form-render/issues"
+  },
+  "module": "es/index.js",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "release": "bash scripts/release.sh"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "antd": ">=4.0.0"
+  },
+  "dependencies": {
+    "antd": "^4.6.5",
+    "react-dom": "^16.8.0",
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.6",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-stage-0": "^7.8.3",
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
+    "antd-dayjs-webpack-plugin": "^1.0.1",
+    "autoprefixer": "^9.7.6",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-import": "^1.13.0",
+    "postcss-preset-env": "^6.7.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-require-ignore": "^0.1.1",
+    "chalk": "^4.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^0.28.5",
+    "eslint": "^6.8.0",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^4.0.3",
+    "less": "^3.0.1",
+    "less-loader": "^4.0.3",
+    "mini-css-extract-plugin": "^0.4.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-loader": "^4.1.0",
+    "style-loader": "^0.20.3",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.2",
+    "webpackbar": "^4.0.0",
+    "yargs": "^15.3.1"
+  }
+}
