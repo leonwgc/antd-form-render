@@ -1,73 +1,119 @@
-## 基于 react hooks 和 antd4.x 的表单配置方案
+# antd-form-render
 
-用法参考注释
+简单使用 javascript 对象配置，实现Antd表单开发. 已经在多个项目中使用。
 
-```javascript
-import React, { useState, useEffect } from 'react';
-import FormRender from '../src/index';
-import { Form, Button, Space, Input, Radio, Select, InputNumber } from 'antd';
-import './App.less';
+## 安装
+
+ 用npm [npm](https://npmjs.org/) / [yarn](https://yarnpkg.com) 安装:
+
+
+
+    $ npm install --save antd-form-render
+    $ yarn add antd-form-render
+
+
+
+## 功能
+
+* 配置一维数组实现 一行一列
+* 配置二维数组实现 一行多列
+
+
+### 实现一行一列
+
+```jsx
+import React, { useState } from 'react';
+import FormRender from 'antd-form-render';
+import { Form, Button, Space, Input, Radio, Select } from 'antd';
 
 export default function App() {
-  const [form] = Form.useForm();
-  const [form2] = Form.useForm();
   const [data, setData] = useState({});
 
-  // 如果是一维数组，则从上往下一行放一个 item
+  // 定义form
+  const [form] = Form.useForm();
+
+  // 一维数组定义layout，从上往下一行放一个表单控件
   const layout = [
     {
       type: Input,
-      label: '姓名',
+      label: '手机号',
       placeholder: '请输入',
-      name: 'name',
+      name: 'tel',
       // 对Input的配置 , elProps对type指定的组件配置
       elProps: {
-        maxLength: 10,
+        maxLength: 11,
+      },
+      // 对Form.Item的配置
+      itemProps: {
+        rules: [
+          { required: true, message: '请输入' },
+          { pattern: /^1\d{10}$/, message: '手机号必须为11位数字' },
+        ],
+      },
+    },
+    {
+      type: Input.Password,
+      label: '密码',
+      placeholder: '请输入',
+      name: 'pwd',
+      itemProps: {
+        rules: [{ required: true, message: '请输入' }],
+      },
+    },
+    {
+      type: Input.Password,
+      label: '确认密码',
+      placeholder: '请输入',
+      name: 'confirmPwd',
+      itemProps: {
+        rules: [
+          { required: true, message: '请输入' },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('pwd') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('两次密码不一致'));
+            },
+          }),
+        ],
       },
     },
     {
       type: Radio.Group,
       label: '性别',
       name: 'gender',
-      // 对Radio.Group的配置
       elProps: {
         options: [
-          { label: '男', value: 'male' },
-          { label: '女', value: 'female' },
+          { label: '男', value: '男' },
+          { label: '女', value: '女' },
         ],
-      },
-      // 对Form.Item的配置
-      itemProps: {
-        help: '下面的组件根据选择动态渲染',
       },
     },
     {
       // 根据条件动态返回object
       getJSON() {
-        return data.gender === 'male'
+        return data.gender === '男'
           ? {
               type: Input,
-              label: '男孩输入兴趣爱好',
+              label: '兴趣爱好(男)',
               placeholder: '请输入兴趣爱好',
-              name: 'malefav',
-              // 对Form.Item的配置
+              name: 'hobby',
               itemProps: {
-                rules: [{ required: true, message: '请输入男孩输入兴趣爱好' }],
+                rules: [{ required: true, message: '请输入兴趣爱好' }],
               },
             }
-          : data.gender === 'female'
+          : data.gender === '女'
           ? {
               type: Select,
-              label: '女孩选择兴趣爱好',
+              label: '兴趣爱好(女)',
               placeholder: '请选择兴趣爱好',
-              name: 'femalefav',
-              // 对Form.Item的配置
+              name: 'hobby',
               itemProps: {
                 itemProps: {
                   rules: [{ required: true, message: '请选择兴趣爱好' }],
                 },
               },
-              // 对Select的配置
               elProps: {
                 options: [
                   { label: '画画', value: '画画' },
@@ -81,14 +127,12 @@ export default function App() {
     },
     {
       type: Input.TextArea,
-      name: 'remark',
-      label: '个性描述',
-      // 对Input.TextArea的配置
+      name: 'desc',
+      label: '简介',
       elProps: {
-        placeholder: '个性描述',
-        rows: 6,
+        placeholder: '个人简介',
+        rows: 4,
       },
-      // 对Form.Item的配置
       itemProps: {
         rules: [
           {
@@ -101,104 +145,81 @@ export default function App() {
       // 自定义render
       render() {
         return (
-          <Form.Item label="自定义render">
-            <Form.Item name="amount" rules={[{ required: true, message: '请输入' }]} noStyle>
-              <InputNumber min={1} placeholder="请输入" />
-            </Form.Item>
-            <span className="unit">元</span>
-            <span className="remind">大于1的正整数</span>
+          <Form.Item>
+            <Space>
+              <Button htmlType="submit" type="primary">
+                确定
+              </Button>
+              <Button htmlType="reset">重置</Button>
+            </Space>
           </Form.Item>
         );
       },
     },
-    {
-      // 自定义render
-      render() {
-        return (
-          <div className="search-part">
-            <Space>
-              <Button htmlType="submit" type="primary">
-                搜索
-              </Button>
-              <Button htmlType="reset">重置</Button>
-            </Space>
-            <div>{JSON.stringify(data)}</div>
-          </div>
-        );
-      },
-    },
-  ];
-
-  // 如果是二维数组，则每个子数组元素的数量，则为一行显示的item数量 ,子数组长度被24整除
-  const layout1 = [
-    [
-      {
-        type: Input,
-        label: '姓名1',
-        placeholder: '请输入',
-        name: 'name1',
-        // 对Input的配置 , elProps对type指定的组件配置
-        elProps: {
-          maxLength: 10,
-        },
-      },
-      {
-        type: Input,
-        label: '姓名2',
-        placeholder: '请输入',
-        name: 'name2',
-        // 对Input的配置 , elProps对type指定的组件配置
-        elProps: {
-          maxLength: 10,
-        },
-      },
-    ],
-    [
-      {
-        type: Input,
-        label: '姓名3',
-        placeholder: '请输入',
-        name: 'name3',
-        // 对Input的配置 , elProps对type指定的组件配置
-        elProps: {
-          maxLength: 10,
-        },
-      },
-      {
-        type: Input,
-        label: '姓名4',
-        placeholder: '请输入',
-        name: 'name4',
-        // 对Input的配置 , elProps对type指定的组件配置
-        elProps: {
-          maxLength: 10,
-        },
-      },
-    ],
   ];
 
   return (
-    <div>
-      <Form
-        form={form}
-        className="app"
-        layout="vertical"
-        onValuesChange={(v) => {
-          setData((p) => ({ ...p, ...v }));
-        }}
-      >
-        <h2>一行一列 (配置一维数组)</h2>
-        <FormRender layoutData={layout} />
-      </Form>
-      <Form form={form2} className="app" layout="vertical">
-        <h2>一行多列 (配置二维数组)</h2>
-        <FormRender layoutData={layout1}></FormRender>
-      </Form>
-    </div>
+    <Form
+      form={form}
+      onValuesChange={(v) => {
+        setData((p) => ({ ...p, ...v }));
+      }}
+    >
+      <FormRender layoutData={layout} />
+    </Form>
   );
+}
+
+```
+
+### 实现一行n列如下 ,比如一行2列 
+
+```jsx
+
+ const layout = [
+    [
+      {
+        type: Input,
+        label: '11',
+        placeholder: '请输入',
+        name: '11',
+      },
+      {
+        type: Input,
+        label: '12',
+        placeholder: '请输入',
+        name: '12',
+      },
+    ],
+    [
+      {
+        type: Input,
+        label: '21',
+        placeholder: '请输入',
+        name: '21',
+      },
+      {
+        type: Input,
+        label: '22',
+        placeholder: '请输入',
+        name: '22',
+      },
+    ],
+  ];
+```
+
+配置项目说明
+```javascript
+export interface Item {
+  type: React.Component; // 组件类型， 比如Input 等
+  name: string;  //Form.Item的name
+  rules?: any;  // Form.Item的rules
+  label?: string; // Form.Item的label
+  render?: () => React.ReactNode; //自定义 render 
+  getJSON?: () => object | null; // 动态返回Item配置
+  elProps?: object; // 组件的props配置 , 比如type为Input, elProps则会配置到Input
+  itemProps?: object; // Form.Item的props配置，除了上面name,lable,rules三个常用的，其他的可以放在这里配置
 }
 ```
 
-效果如下
-
-![demo](https://static.zuifuli.com/images/git-demo.png)
+ 可以自己运行示例， yarn start / npm start 查看demo

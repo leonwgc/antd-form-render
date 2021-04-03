@@ -1,6 +1,6 @@
 {
   "name": "antd-form-render",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "基于react hooks, antd4 , js对象配置的表单渲染方案",
   "keywords": [
     "react",
@@ -18,7 +18,7 @@
   "scripts": {
     "clear": "rm -rf ./lib && clear",
     "start": "webpack-dev-server --dev",
-    "build:lib": "yarn clear && babel --config-file ./babel.config.js src --out-dir lib"
+    "build:lib": "yarn clear && babel  src --out-dir lib"
   },
   "peerDependencies": {
     "antd": ">=4.0.0",
@@ -71,5 +71,10 @@
     "webpack-dev-server": "^3.11.2",
     "webpackbar": "^4.0.0",
     "yargs": "^15.3.1"
-  }
+  },
+  "files": [
+    "dist",
+    "lib",
+    "es"
+  ]
 }
