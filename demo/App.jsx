@@ -7,62 +7,115 @@ export default function App() {
   const [form] = Form.useForm();
   const [form2] = Form.useForm();
   const [data, setData] = useState({});
+  const formItemLayout = {
+    labelCol: {
+      span: 6,
+    },
+    wrapperCol: {
+      span: 16,
+    },
+  };
+  const tailFormItemLayout = {
+    wrapperCol: {
+      span: 16,
+      offset: 6,
+    },
+  };
 
   // 如果是一维数组，则从上往下一行放一个 item
   const layout = [
     {
       type: Input,
-      label: '姓名',
+      label: '手机号',
       placeholder: '请输入',
-      name: 'name',
+      name: 'tel',
       // 对Input的配置 , elProps对type指定的组件配置
       elProps: {
-        maxLength: 10,
+        maxLength: 11,
+        addonBefore: (
+          <Form.Item name="prefix" noStyle initialValue="86">
+            <Select
+              style={{
+                width: 70,
+              }}
+            >
+              <Option value="86">+86</Option>
+              <Option value="87">+87</Option>
+            </Select>
+          </Form.Item>
+        ),
+      },
+      // 对Form.Item的配置
+      itemProps: {
+        rules: [
+          { required: true, message: '请输入' },
+          { pattern: /^1\d{10}$/, message: '手机号必须为11位数字' },
+        ],
+      },
+    },
+    {
+      type: Input.Password,
+      label: '密码',
+      placeholder: '请输入',
+      name: 'pwd',
+      itemProps: {
+        rules: [{ required: true, message: '请输入' }],
+      },
+    },
+    {
+      type: Input.Password,
+      label: '确认密码',
+      placeholder: '请输入',
+      name: 'confirmPwd',
+      itemProps: {
+        rules: [
+          { required: true, message: '请输入' },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('pwd') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('两次密码不一致'));
+            },
+          }),
+        ],
       },
     },
     {
       type: Radio.Group,
       label: '性别',
       name: 'gender',
-      // 对Radio.Group的配置
       elProps: {
         options: [
           { label: '男', value: '男' },
           { label: '女', value: '女' },
         ],
       },
-      // 对Form.Item的配置
-      itemProps: {
-        help: '下面的组件根据选择动态渲染',
-      },
     },
     {
       // 根据条件动态返回object
       getJSON() {
-        return data.gender === 'male'
+        return data.gender === '男'
           ? {
               type: Input,
               label: '兴趣爱好(男)',
               placeholder: '请输入兴趣爱好',
               name: 'hobby',
-              // 对Form.Item的配置
               itemProps: {
-                rules: [{ required: true, message: '请输入男孩输入兴趣爱好' }],
+                rules: [{ required: true, message: '请输入兴趣爱好' }],
               },
             }
-          : data.gender === 'female'
+          : data.gender === '女'
           ? {
               type: Select,
               label: '兴趣爱好(女)',
               placeholder: '请选择兴趣爱好',
               name: 'hobby',
-              // 对Form.Item的配置
               itemProps: {
                 itemProps: {
                   rules: [{ required: true, message: '请选择兴趣爱好' }],
                 },
               },
-              // 对Select的配置
               elProps: {
                 options: [
                   { label: '画画', value: '画画' },
@@ -76,14 +129,12 @@ export default function App() {
     },
     {
       type: Input.TextArea,
-      name: '情况说明',
-      label: 'desc',
-      // 对Input.TextArea的配置
+      name: 'desc',
+      label: '简介',
       elProps: {
-        placeholder: '情况说明',
-        rows: 6,
+        placeholder: '个人简介',
+        rows: 4,
       },
-      // 对Form.Item的配置
       itemProps: {
         rules: [
           {
@@ -96,28 +147,15 @@ export default function App() {
       // 自定义render
       render() {
         return (
-          <Form.Item label="自定义render">
-            <Form.Item name="amount" rules={[{ required: true, message: '请输入' }]} noStyle>
-              <InputNumber min={1} placeholder="请输入" />
-            </Form.Item>
-            <span className="remind">自定义render</span>
-          </Form.Item>
-        );
-      },
-    },
-    {
-      // 自定义render
-      render() {
-        return (
-          <div className="search-part">
+          <Form.Item {...tailFormItemLayout}>
             <Space>
               <Button htmlType="submit" type="primary">
                 确定
               </Button>
               <Button htmlType="reset">重置</Button>
             </Space>
-            <div>{JSON.stringify(data)}</div>
-          </div>
+         
+          </Form.Item>
         );
       },
     },
@@ -171,14 +209,13 @@ export default function App() {
     ],
   ];
 
-  console.log(FormRender);
-
   return (
     <div className="app">
       <Form
         form={form}
         className="form"
         layout="horizontal"
+        {...formItemLayout}
         onValuesChange={(v) => {
           setData((p) => ({ ...p, ...v }));
         }}

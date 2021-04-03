@@ -1,5 +1,4 @@
 const path = require('path');
-const fs = require('fs');
 const chalk = require('chalk');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -14,13 +13,12 @@ const port = 9004;
 
 const getHtmlTpl = require('./tpl');
 
-const entry = isDev ? './demo/index' : './src/index';
+const entry = './demo/index';
 
 const output = {
   path: getPath('./dist'),
   chunkFilename: `[name].js`,
   filename: '[name].js',
-  ...(isProd ? { library: 'AntdFormRender', libraryTarget: 'umd' } : null),
 };
 
 const resolveAlias = {
