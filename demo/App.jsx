@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import FormRender from '../src/index';
+import FormRender from '../lib/index';
 import { Form, Button, Space, Input, Radio, Select, InputNumber } from 'antd';
 import './App.less';
 
@@ -27,8 +27,8 @@ export default function App() {
       // 对Radio.Group的配置
       elProps: {
         options: [
-          { label: '男', value: 'male' },
-          { label: '女', value: 'female' },
+          { label: '男', value: '男' },
+          { label: '女', value: '女' },
         ],
       },
       // 对Form.Item的配置
@@ -42,9 +42,9 @@ export default function App() {
         return data.gender === 'male'
           ? {
               type: Input,
-              label: '男孩输入兴趣爱好',
+              label: '兴趣爱好(男)',
               placeholder: '请输入兴趣爱好',
-              name: 'malefav',
+              name: 'hobby',
               // 对Form.Item的配置
               itemProps: {
                 rules: [{ required: true, message: '请输入男孩输入兴趣爱好' }],
@@ -53,9 +53,9 @@ export default function App() {
           : data.gender === 'female'
           ? {
               type: Select,
-              label: '女孩选择兴趣爱好',
+              label: '兴趣爱好(女)',
               placeholder: '请选择兴趣爱好',
-              name: 'femalefav',
+              name: 'hobby',
               // 对Form.Item的配置
               itemProps: {
                 itemProps: {
@@ -76,11 +76,11 @@ export default function App() {
     },
     {
       type: Input.TextArea,
-      name: 'remark',
-      label: '个性描述',
+      name: '情况说明',
+      label: 'desc',
       // 对Input.TextArea的配置
       elProps: {
-        placeholder: '个性描述',
+        placeholder: '情况说明',
         rows: 6,
       },
       // 对Form.Item的配置
@@ -100,8 +100,7 @@ export default function App() {
             <Form.Item name="amount" rules={[{ required: true, message: '请输入' }]} noStyle>
               <InputNumber min={1} placeholder="请输入" />
             </Form.Item>
-            <span className="unit">元</span>
-            <span className="remind">大于1的正整数</span>
+            <span className="remind">自定义render</span>
           </Form.Item>
         );
       },
@@ -113,7 +112,7 @@ export default function App() {
           <div className="search-part">
             <Space>
               <Button htmlType="submit" type="primary">
-                搜索
+                确定
               </Button>
               <Button htmlType="reset">重置</Button>
             </Space>
@@ -172,12 +171,14 @@ export default function App() {
     ],
   ];
 
+  console.log(FormRender);
+
   return (
-    <div>
+    <div className="app">
       <Form
         form={form}
-        className="app"
-        layout="vertical"
+        className="form"
+        layout="horizontal"
         onValuesChange={(v) => {
           setData((p) => ({ ...p, ...v }));
         }}
@@ -185,7 +186,7 @@ export default function App() {
         <h2>一行一列 (配置一维数组)</h2>
         <FormRender layoutData={layout} />
       </Form>
-      <Form form={form2} className="app" layout="vertical">
+      <Form form={form2} className="form1" layout="vertical">
         <h2>一行多列 (配置二维数组)</h2>
         <FormRender layoutData={layout1}></FormRender>
       </Form>

@@ -6,12 +6,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackBar = require('webpackbar');
+const argv = require('yargs').argv;
 
-const isDev = true;
-const isProd = !isDev;
+const isDev = argv.dev;
+const isProd = argv.build;
 const port = 9004;
 
 const getHtmlTpl = require('./tpl');
+
+const entry = isDev ? './demo/index' : './src/index';
+
+const output = {
+  path: getPath('./dist'),
+  chunkFilename: `[name].js`,
+  filename: '[name].js',
+  ...(isProd ? { library: 'AntdFormRender', libraryTarget: 'umd' } : null),
+};
 
 const resolveAlias = {
   '~': path.resolve(__dirname, './src'),
@@ -78,12 +88,8 @@ function getPath(_path) {
 const config = {
   mode: isDev ? 'development' : 'production',
   bail: !isDev,
-  entry: './demo/index',
-  output: {
-    path: getPath('./dist'),
-    chunkFilename: `[name].[contenthash:6].js`,
-    filename: isDev ? '[name].js' : `[name].[contenthash:6].js`,
-  },
+  entry,
+  output,
   devtool: isDev ? 'cheap-module-source-map' : false,
   target: 'web',
   module: {
@@ -132,6 +138,13 @@ const config = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: resolveAlias,
   },
+  externals: isProd
+    ? {
+        'react': 'react',
+        'react-dom': 'react-dom',
+        'antd': 'antd',
+      }
+    : {},
   optimization: {
     splitChunks: {
       name: false,

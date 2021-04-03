@@ -9,7 +9,6 @@ module.exports = (api) => {
           targets: {
             browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9'],
           },
-          modules: false,
         },
       ],
       ['@babel/preset-react'],
