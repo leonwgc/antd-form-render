@@ -1,38 +1,24 @@
 {
   "name": "antd-form-render",
-  "version": "1.0.0",
-  "description": "基于React Hooks antd4.x 和js配置的表单渲染方案",
-  "tags": [
-    "react",
-    "antd",
-    "form",
-    "formrender",
-    "dynamic"
-  ],
+  "version": "1.0.2",
+  "description": "基于react hooks, antd4 , js对象配置的表单渲染方案",
   "keywords": [
     "react",
     "antd",
     "form",
-    "formrender",
-    "json",
-    "ui",
-    "framework",
-    "frontend"
+    "formrender"
   ],
   "license": "MIT",
   "repository": "https://github.com/leonwgc/antd-form-render",
   "bugs": {
     "url": "https://github.com/leonwgc/antd-form-render/issues"
   },
-  "module": "es/index.js",
   "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "module": "lib/index.js",
   "scripts": {
     "clear": "rm -rf ./lib && clear",
     "start": "webpack-dev-server --dev",
-    "build": "yarn clear && webpack --build",
-    "build:lib": "babel --config-file ./babel.config.js src --out-dir lib",
-    "release": "bash scripts/release.sh"
+    "build:lib": "yarn clear && babel --config-file ./babel.config.js src --out-dir lib"
   },
   "peerDependencies": {
     "antd": ">=4.0.0",
