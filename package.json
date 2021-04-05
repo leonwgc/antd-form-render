@@ -18,7 +18,9 @@
   "scripts": {
     "clear": "rm -rf ./lib && clear",
     "start": "webpack-dev-server --dev",
-    "build:lib": "yarn clear && babel  src --out-dir lib"
+    "build:lib": "yarn clear && babel  src --out-dir lib",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "peerDependencies": {
     "antd": ">=4.0.0",
@@ -57,13 +59,16 @@
     "eslint-plugin-react-hooks": "^2.5.0",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^4.0.3",
+    "husky": "^6.0.0",
     "less": "^3.0.1",
     "less-loader": "^4.0.3",
+    "lint-staged": "^10.5.4",
     "mini-css-extract-plugin": "^0.4.0",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^4.1.0",
     "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.2.1",
     "style-loader": "^0.20.3",
     "url-loader": "^1.0.1",
     "webpack": "^4.42.0",
@@ -76,5 +81,11 @@
     "dist",
     "lib",
     "es"
-  ]
+  ],
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ]
+  }
 }

@@ -3,6 +3,8 @@ import FormRender from '../lib/index';
 import { Form, Button, Space, Input, Radio, Select, InputNumber } from 'antd';
 import './App.less';
 
+const { Option } = Select;
+
 export default function App() {
   const [form] = Form.useForm();
   const [form2] = Form.useForm();
@@ -21,6 +23,8 @@ export default function App() {
       offset: 6,
     },
   };
+
+  var a = 1;
 
   // 如果是一维数组，则从上往下一行放一个 item
   const layout = [
@@ -154,7 +158,6 @@ export default function App() {
               </Button>
               <Button htmlType="reset">重置</Button>
             </Space>
-         
           </Form.Item>
         );
       },
