@@ -20,6 +20,6 @@ module.exports = {
 // build: 影响项目构建或依赖项修改
 // revert: 恢复上一次提交
 // ci: 持续集成相关文件修改
-// chore: 其他修改（不在上述类型中的修改）
+// chore: 其他修改（不在上述类型中的修改），改进构建，增加依赖库，工具等
 
 // echo 'feat: hello' | npx commitlint
