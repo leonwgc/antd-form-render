@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FormRender from '../lib/index';
-import { Form, Button, Space, Input, Radio, Select, InputNumber } from 'antd';
+import { Form, Button, Space, Input, Radio, Select, InputNumber, message } from 'antd';
 import './App.less';
 
 const { Option } = Select;
@@ -221,6 +221,9 @@ export default function App() {
         {...formItemLayout}
         onValuesChange={(v) => {
           setData((p) => ({ ...p, ...v }));
+        }}
+        onFinish={(v) => {
+          message.success(JSON.stringify(v));
         }}
       >
         <h2>一行一列 (配置一维数组)</h2>
