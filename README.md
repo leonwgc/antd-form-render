@@ -222,4 +222,6 @@ export interface Item {
 }
 ```
 
- 可以自己运行示例， yarn start / npm start 查看demo
+ 运行示例， yarn start / npm start 查看demo , 效果如下
+ 
+![demo-antd-fr.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/56182b6e09b645e2bd00e4eb335ceaf5~tplv-k3u1fbpfcp-watermark.image)

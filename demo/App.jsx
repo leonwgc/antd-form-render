@@ -24,8 +24,6 @@ export default function App() {
     },
   };
 
-  var a = 1;
-
   // 如果是一维数组，则从上往下一行放一个 item
   const layout = [
     {
