@@ -1,25 +1,20 @@
 # antd-form-render
 
-简单使用 javascript 对象配置，实现Antd表单开发. 已经在多个项目中使用。
+简单使用 javascript 对象配置，实现 Antd 表单开发. 已经在多个项目中使用。
 
 ## 安装
 
- 用npm [npm](https://npmjs.org/) / [yarn](https://yarnpkg.com) 安装:
-
-
+用 npm [npm](https://npmjs.org/) / [yarn](https://yarnpkg.com) 安装:
 
     $ npm install --save antd-form-render
     $ yarn add antd-form-render
 
-
-
 ## 功能
 
-* 配置一维数组实现 一行一列
-* 配置二维数组实现 一行多列
+- 配置一维数组实现 1 行 1/2/3/4 列 (自动布局,自上向下，自左向右布局)
+- 配置二维数组实现 一行多列 (手动布局,每一行显示几列根据数组长度决定)
 
-
-### 实现一行一列
+### 实现 1 行 1 列
 
 ```jsx
 import React, { useState } from 'react';
@@ -169,59 +164,85 @@ export default function App() {
     </Form>
   );
 }
-
 ```
 
-### 实现一行n列如下 ,比如一行2列 
+### 实现 1 行 n 列如下 ,比如一行 2 列(子数组的长度决定列数，长度能被 24 整除)
 
 ```jsx
-
- const layout = [
-    [
-      {
-        type: Input,
-        label: '11',
-        placeholder: '请输入',
-        name: '11',
-      },
-      {
-        type: Input,
-        label: '12',
-        placeholder: '请输入',
-        name: '12',
-      },
-    ],
-    [
-      {
-        type: Input,
-        label: '21',
-        placeholder: '请输入',
-        name: '21',
-      },
-      {
-        type: Input,
-        label: '22',
-        placeholder: '请输入',
-        name: '22',
-      },
-    ],
-  ];
+const layout = [
+  [
+    {
+      type: Input,
+      label: '11',
+      placeholder: '请输入',
+      name: '11',
+    },
+    {
+      type: Input,
+      label: '12',
+      placeholder: '请输入',
+      name: '12',
+    },
+  ],
+  [
+    {
+      type: Input,
+      label: '21',
+      placeholder: '请输入',
+      name: '21',
+    },
+    {
+      type: Input,
+      label: '22',
+      placeholder: '请输入',
+      name: '22',
+    },
+  ],
+];
 ```
 
-配置项目说明
+### 实现 1 行 2/3/4 列如下
+
 ```javascript
+  // 一维数组,设置了cols 为1/2/3/4 ,实现自动从左至右，从上到下的 1*cols 1行多列自动布局
+
+  const layout3 = [];
+
+  for (let i = 0; i < 11; i++) {
+    layout3.push({
+      type: Input,
+      label: `输入框${i + 1}`,
+      placeholder: '请输入',
+      name: `name${i}`,
+    });
+  }
+
+  <FormRender layoutData={layout3} cols={cols}></FormRender>
+
+```
+
+配置说明
+
+```javascript
+// 组件
+export interface FormRenderer {
+  layoutData: Array<Item>; // 1/2维数组
+  cols: Enum; 1/2/3/4 // 自动布局1行显示几列 default 1
+}
+
+//配置项
 export interface Item {
   type: React.Component; // 组件类型， 比如Input 等
-  name: string;  //Form.Item的name
-  rules?: any;  // Form.Item的rules
+  name: string; //Form.Item的name
+  rules?: any; // Form.Item的rules
   label?: string; // Form.Item的label
-  render?: () => React.ReactNode; //自定义 render 
+  render?: () => React.ReactNode; //自定义 render
   getJSON?: () => object | null; // 动态返回Item配置
   elProps?: object; // 组件的props配置 , 比如type为Input, elProps则会配置到Input
   itemProps?: object; // Form.Item的props配置，除了上面name,lable,rules三个常用的，其他的可以放在这里配置
 }
 ```
 
- 运行示例， yarn start / npm start 查看demo , 效果如下
- 
-![demo-antd-fr.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/56182b6e09b645e2bd00e4eb335ceaf5~tplv-k3u1fbpfcp-watermark.image)
+运行示例， yarn start / npm start 查看 demo , 效果如下
+
+![antd-form-render.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/275d4cab80e4456c87cb90c7223353b5~tplv-k3u1fbpfcp-watermark.image)

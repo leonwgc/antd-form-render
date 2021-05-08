@@ -27,17 +27,14 @@ const itemRender = (item, key, span = 24) => {
   );
 };
 
-// 默认二维数组
-// 如果是一维数组，则从上往下一行放一个 item
-// 如果是二维数组，则每个子数组元素的数量，则为一行显示的item数量 ,数量应该可以被24整除
-export default function FormRenderer({ layoutData }) {
-  let useOneColumnInRow = false;
-  const firstItem = layoutData[0];
-  if (!Array.isArray(firstItem)) {
-    useOneColumnInRow = true;
-  }
+const isType = (type) => (n) => {
+  return Object.prototype.toString.call(n) === `[object ${type}]`;
+};
 
-  return !useOneColumnInRow ? (
+const isNumber = isType('Number');
+
+const renderTowDimensionLayout = (layoutData) => {
+  return (
     <div className="renderer">
       {layoutData.map((arr, idx) => {
         const len = arr.length;
@@ -45,6 +42,7 @@ export default function FormRenderer({ layoutData }) {
           throw new Error('数组的长度必须能被24整除');
         }
         const span = 24 / len;
+
         return (
           <Row key={idx} gutter={{ xs: 8, sm: 16, md: 24 }}>
             {arr.map((item, subIndex) => itemRender(item, subIndex, span))}
@@ -52,6 +50,47 @@ export default function FormRenderer({ layoutData }) {
         );
       })}
     </div>
+  );
+};
+
+// 默认二维数组
+// 如果是一维数组，则从上往下一行放一个 item , 除非设置了cols=2/3/4 ,自动1行cols列布局
+// 如果是二维数组，则每个子数组元素的数量，则为一行显示的item数量 ,数量应该可以被24整除
+export default function FormRenderer({ layoutData, cols = 1 }) {
+  let isOneDimensionArray = false;
+  const firstItem = layoutData[0];
+  if (!Array.isArray(firstItem)) {
+    isOneDimensionArray = true;
+  }
+
+  const useAutoLayout = isOneDimensionArray && isNumber(cols) && cols > 1 && cols <= 4;
+
+  if (useAutoLayout) {
+    let arr = layoutData;
+    let _tLayout = [];
+    do {
+      if (arr.length >= cols) {
+        _tLayout.push(arr.slice(0, cols));
+        arr.splice(0, cols);
+      } else {
+        let left = cols - arr.length;
+        while (left--) {
+          arr.push({
+            render() {
+              return <div></div>; // placeholder
+            },
+          });
+        }
+        _tLayout.push(arr.slice(0, cols));
+        arr.length = 0;
+      }
+    } while (arr.length);
+
+    return renderTowDimensionLayout(_tLayout);
+  }
+
+  return !isOneDimensionArray ? (
+    renderTowDimensionLayout(layoutData)
   ) : (
     <div className="renderer">{layoutData.map((item, idx) => itemRender(item, idx, 24))}</div>
   );

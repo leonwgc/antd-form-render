@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import FormRender from '../lib/index';
+import FormRender from '../src/index';
 import { Form, Button, Space, Input, Radio, Select, InputNumber, message } from 'antd';
 import './App.less';
 
@@ -7,31 +7,16 @@ const { Option } = Select;
 
 export default function App() {
   const [form] = Form.useForm();
-  const [form2] = Form.useForm();
   const [data, setData] = useState({});
-  const formItemLayout = {
-    labelCol: {
-      span: 6,
-    },
-    wrapperCol: {
-      span: 16,
-    },
-  };
-  const tailFormItemLayout = {
-    wrapperCol: {
-      span: 16,
-      offset: 6,
-    },
-  };
+  const [cols, setCols] = useState(4);
 
-  // 如果是一维数组，则从上往下一行放一个 item
+  // 如果是一维数组，则从上往下一行放一个 item (未设置cols)
   const layout = [
     {
       type: Input,
       label: '手机号',
       placeholder: '请输入',
       name: 'tel',
-      // 对Input的配置 , elProps对type指定的组件配置
       elProps: {
         maxLength: 11,
         addonBefore: (
@@ -47,7 +32,7 @@ export default function App() {
           </Form.Item>
         ),
       },
-      // 对Form.Item的配置
+
       itemProps: {
         rules: [
           { required: true, message: '请输入' },
@@ -149,7 +134,7 @@ export default function App() {
       // 自定义render
       render() {
         return (
-          <Form.Item {...tailFormItemLayout}>
+          <Form.Item>
             <Space>
               <Button htmlType="submit" type="primary">
                 确定
@@ -170,7 +155,6 @@ export default function App() {
         label: '姓名1',
         placeholder: '请输入',
         name: 'name1',
-        // 对Input的配置 , elProps对type指定的组件配置
         elProps: {
           maxLength: 10,
         },
@@ -180,7 +164,6 @@ export default function App() {
         label: '姓名2',
         placeholder: '请输入',
         name: 'name2',
-        // 对Input的配置 , elProps对type指定的组件配置
         elProps: {
           maxLength: 10,
         },
@@ -192,7 +175,6 @@ export default function App() {
         label: '姓名3',
         placeholder: '请输入',
         name: 'name3',
-        // 对Input的配置 , elProps对type指定的组件配置
         elProps: {
           maxLength: 10,
         },
@@ -201,8 +183,6 @@ export default function App() {
         type: Input,
         label: '姓名4',
         placeholder: '请输入',
-        name: 'name4',
-        // 对Input的配置 , elProps对type指定的组件配置
         elProps: {
           maxLength: 10,
         },
@@ -210,27 +190,59 @@ export default function App() {
     ],
   ];
 
+  // 一维数组,设置了cols 为1/2/3/4 ,实现自动从左至右，从上到下的 1*cols 1行多列自动布局
+
+  const layout3 = [];
+
+  for (let i = 0; i < 11; i++) {
+    layout3.push({
+      type: Input,
+      label: `输入框${i + 1}`,
+      placeholder: '请输入',
+      name: `name${i}`,
+    });
+  }
+
   return (
     <div className="app">
-      <Form
-        form={form}
-        className="form"
-        layout="horizontal"
-        {...formItemLayout}
-        onValuesChange={(v) => {
-          setData((p) => ({ ...p, ...v }));
-        }}
-        onFinish={(v) => {
-          message.success(JSON.stringify(v));
-        }}
-      >
-        <h2>一行一列 (配置一维数组)</h2>
-        <FormRender layoutData={layout} />
-      </Form>
-      <Form form={form2} className="form1" layout="vertical">
-        <h2>一行多列 (配置二维数组)</h2>
-        <FormRender layoutData={layout1}></FormRender>
-      </Form>
+      <section>
+        <Form
+          form={form}
+          className="form"
+          layout="horizontal"
+          onValuesChange={(v) => {
+            setData((p) => ({ ...p, ...v }));
+          }}
+          onFinish={(v) => {
+            message.success(JSON.stringify(v));
+          }}
+        >
+          <h2>一行一列 (配置一维数组)</h2>
+          <FormRender layoutData={layout} />
+        </Form>
+        <Form className="form1" layout="vertical">
+          <h2>一行多列 (配置二维数组)</h2>
+          <FormRender layoutData={layout1}></FormRender>
+        </Form>
+      </section>
+      <section>
+        <Form className="form2" layout="vertical">
+          <h2>一行多列 (配置一维数组和cols)</h2>
+          <div style={{ margin: '16px 0' }}>
+            <Radio.Group
+              onChange={(e) => setCols(Number(e.target.value))}
+              optionType="button"
+              value={cols}
+            >
+              <Radio value={1}>1行1列</Radio>
+              <Radio value={2}>1行2列</Radio>
+              <Radio value={3}>1行3列</Radio>
+              <Radio value={4}>1行4列</Radio>
+            </Radio.Group>
+          </div>
+          <FormRender layoutData={layout3} cols={cols}></FormRender>
+        </Form>
+      </section>
     </div>
   );
 }
