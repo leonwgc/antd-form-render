@@ -19,7 +19,7 @@
   "scripts": {
     "clear": "rm -rf ./lib && clear",
     "start": "webpack-dev-server --dev",
-    "build:lib": "yarn clear && tsc && babel src/index.tsx --out-file lib/index.js",
+    "build:lib": "yarn clear && tsc && babel src  -x '.tsx','.jsx' -d lib",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
