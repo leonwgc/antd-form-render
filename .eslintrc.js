@@ -1,13 +1,17 @@
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
-  plugins: ['react', 'react-hooks'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['react', 'react-hooks', '@typescript-eslint'],
   settings: {
     react: {
       version: 'detect',
     },
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
   env: {
     browser: true,
     commonjs: true,

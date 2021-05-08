@@ -7,3 +7,5 @@ webpack.config.js
 webpack.server.config.js
 deploy/*
 app.js
+lib
+demo

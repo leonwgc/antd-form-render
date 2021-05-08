@@ -1,6 +1,6 @@
 # antd-form-render
 
-简单使用 javascript 对象配置，实现 Antd 表单开发. 已经在多个项目中使用。
+简单使用 javascript 对象配置，实现 antd 表单开发。
 
 ## 安装
 
@@ -204,43 +204,46 @@ const layout = [
 ### 实现 1 行 2/3/4 列如下
 
 ```javascript
-  // 一维数组,设置了cols 为1/2/3/4 ,实现自动从左至右，从上到下的 1*cols 1行多列自动布局
+// 一维数组,设置了cols 为1/2/3/4 ,实现自动从左至右，从上到下的 1*cols 1行多列自动布局
 
-  const layout3 = [];
+const layout3 = [];
 
-  for (let i = 0; i < 11; i++) {
-    layout3.push({
-      type: Input,
-      label: `输入框${i + 1}`,
-      placeholder: '请输入',
-      name: `name${i}`,
-    });
-  }
+for (let i = 0; i < 11; i++) {
+  layout3.push({
+    type: Input,
+    label: `输入框${i + 1}`,
+    placeholder: '请输入',
+    name: `name${i}`,
+  });
+}
 
-  <FormRender layoutData={layout3} cols={cols}></FormRender>
-
+<FormRender layoutData={layout3} cols={cols}></FormRender>;
 ```
 
 配置说明
 
 ```javascript
 // 组件
-export interface FormRenderer {
-  layoutData: Array<Item>; // 1/2维数组
-  cols: Enum; 1/2/3/4 // 自动布局1行显示几列 default 1
-}
+export default function FormRenderer({ layoutData, cols }: FormRenderProps): React.ReactNode;
 
-//配置项
-export interface Item {
-  type: React.Component; // 组件类型， 比如Input 等
-  name: string; //Form.Item的name
-  rules?: any; // Form.Item的rules
-  label?: string; // Form.Item的label
-  render?: () => React.ReactNode; //自定义 render
-  getJSON?: () => object | null; // 动态返回Item配置
-  elProps?: object; // 组件的props配置 , 比如type为Input, elProps则会配置到Input
-  itemProps?: object; // Form.Item的props配置，除了上面name,lable,rules三个常用的，其他的可以放在这里配置
-}
+// 组件props
+export declare type FormRenderProps = {
+    layoutData: Array<Item>; // 1/2维数组
+    cols: null | 1 | 2 | 3 | 4; // 自动布局1行显示几列 default 1
+};
+
+// 数组配置项
+export declare type Item = {
+    type?: React.ComponentType | string; // 组件类型， 比如Input 等
+    name?: string; //Form.Item的name
+    label?: string; // Form.Item的label
+    render?: () => React.ReactNode; //自定义 render
+    getJSON?: () => Item | null; // 动态返回Item配置
+    elProps?: Record<string, unknown>; // 组件的props配置 , 比如type为Input, elProps则会配置到Input
+    itemProps?: Record<string, unknown>;  // Form.Item的props配置，除了上面name,lable,rules三个常用的，其他的可以放在这里配置
+    rules?: Rule[]; // Form.Item的rules
+};
+
 ```
 
 运行示例， yarn start / npm start 查看 demo , 效果如下

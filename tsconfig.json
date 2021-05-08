@@ -1,23 +1,27 @@
 {
-	"version": "3.3.3",
-	"compilerOptions": {
-		"baseUrl": "./",
-		"paths": {
-			"~/*": ["src/*"]
-		},
-		"module": "esnext",
-		"target": "es5",
-		"jsx": "react",
-		"sourceMap": true,
-		"moduleResolution": "node",
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"allowSyntheticDefaultImports": true,
-		"allowJs": true,
-		"strictNullChecks": false,
-		"outDir": "dist",
-		"lib": ["es2015", "dom", "es2015.promise"]
-	},
-	"include": ["src/**/*"],
-	"exclude": ["dist", "node_modules"]
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+    // Ensure that .d.ts files are created by tsc, but not .js files
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    // Ensure that Babel can safely transpile files in the TypeScript project
+    "isolatedModules": true,
+    "target": "es5",
+    "jsx": "react",
+    "module": "commonjs",
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "strictNullChecks": false,
+    "outDir": "lib",
+    "lib": ["es2015", "dom", "es2015.promise"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["lib", "node_modules", "demo"]
 }

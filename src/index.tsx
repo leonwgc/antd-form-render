@@ -1,9 +1,26 @@
 import React from 'react';
 import { Form, Row, Col } from 'antd';
+import { Rule } from 'rc-field-form/lib/interface';
+
+export type FormRenderProps = {
+  layoutData: Array<Item>;
+  cols: null | 1 | 2 | 3 | 4;
+};
+
+export type Item = {
+  type?: React.ComponentType | string;
+  name?: string;
+  label?: string;
+  render?: () => React.ReactNode;
+  getJSON?: () => Item | null;
+  elProps?: Record<string, unknown>;
+  itemProps?: Record<string, unknown>;
+  rules?: Rule[];
+};
 
 // item (nullable object)
 
-const itemRender = (item, key, span = 24) => {
+const itemRender = (item: Item, key: number | string, span = 24) => {
   if (typeof item.getJSON === 'function') {
     item = item.getJSON();
   }
@@ -20,7 +37,7 @@ const itemRender = (item, key, span = 24) => {
         render()
       ) : (
         <Form.Item name={name} label={label} rules={rules} {...itemProps}>
-          {React.createElement(type, { ...props, ...elProps })}
+          {React.createElement(type, { ...props, ...elProps } as React.Attributes)}
         </Form.Item>
       )}
     </Col>
@@ -56,7 +73,7 @@ const renderTowDimensionLayout = (layoutData) => {
 // 默认二维数组
 // 如果是一维数组，则从上往下一行放一个 item , 除非设置了cols=2/3/4 ,自动1行cols列布局
 // 如果是二维数组，则每个子数组元素的数量，则为一行显示的item数量 ,数量应该可以被24整除
-export default function FormRenderer({ layoutData, cols = 1 }) {
+export default function FormRenderer({ layoutData, cols = 1 }: FormRenderProps): React.ReactNode {
   let isOneDimensionArray = false;
   const firstItem = layoutData[0];
   if (!Array.isArray(firstItem)) {
@@ -66,8 +83,8 @@ export default function FormRenderer({ layoutData, cols = 1 }) {
   const useAutoLayout = isOneDimensionArray && isNumber(cols) && cols > 1 && cols <= 4;
 
   if (useAutoLayout) {
-    let arr = layoutData;
-    let _tLayout = [];
+    const arr = layoutData;
+    const _tLayout = [];
     do {
       if (arr.length >= cols) {
         _tLayout.push(arr.slice(0, cols));
@@ -76,7 +93,7 @@ export default function FormRenderer({ layoutData, cols = 1 }) {
         let left = cols - arr.length;
         while (left--) {
           arr.push({
-            render() {
+            render(): React.ReactNode {
               return <div></div>; // placeholder
             },
           });

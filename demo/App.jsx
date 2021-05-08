@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import FormRender from '../src/index';
-import { Form, Button, Space, Input, Radio, Select, InputNumber, message } from 'antd';
+import React, { useState } from 'react';
+import FormRender from '../lib/index';
+import { Form, Button, Space, Input, Radio, Select, message } from 'antd';
 import './App.less';
 
 const { Option } = Select;

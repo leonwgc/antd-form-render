@@ -9,7 +9,7 @@ const argv = require('yargs').argv;
 
 const isDev = argv.dev;
 const isProd = argv.build;
-const port = 9004;
+const port = 9005;
 
 const getHtmlTpl = require('./tpl');
 
