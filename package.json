@@ -1,6 +1,6 @@
 {
   "name": "antd-form-render",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "基于react hooks, antd4 , js对象配置的表单渲染方案",
   "keywords": [
     "react",
@@ -14,12 +14,15 @@
     "url": "https://github.com/leonwgc/antd-form-render/issues"
   },
   "main": "lib/index.js",
-  "module": "lib/index.js",
+  "module": "es/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "clear": "rm -rf ./lib && clear",
     "start": "webpack-dev-server --dev",
-    "build:lib": "yarn clear && tsc && babel src  -x '.tsx','.jsx' -d lib",
+    "clear": "rm -rf ./lib && rm -rf ./es && clear",
+    "types": "tsc && mkdir ./lib && mkdir ./es && cp ./index.d.ts ./lib/ && cp ./index.d.ts ./es/",
+    "build:cjs": "TARGET=cjs babel src  -x '.tsx','.jsx' -d lib",
+    "build:mjs": "TARGET=mjs babel src  -x '.tsx','.jsx'  -d es",
+    "build": "yarn clear && yarn types && yarn build:cjs && yarn build:mjs",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },

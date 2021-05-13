@@ -1,14 +1,14 @@
 module.exports = (api) => {
-  api.cache.using(() => process.env.NODE_ENV);
+  api.cache.using(() => process.env.TARGET);
+
+  const target = process.env.TARGET || 'cjs';
 
   const rt = {
     presets: [
       [
         '@babel/preset-env',
         {
-          targets: {
-            browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9'],
-          },
+          modules: target === 'mjs' ? false : 'cjs',
         },
       ],
       ['@babel/preset-react'],

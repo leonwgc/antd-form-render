@@ -9,3 +9,4 @@ deploy/*
 app.js
 lib
 demo
+es
