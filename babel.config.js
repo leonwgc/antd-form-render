@@ -1,14 +1,14 @@
 module.exports = (api) => {
   api.cache.using(() => process.env.TARGET);
 
-  const target = process.env.TARGET || 'cjs';
+  // const target = process.env.TARGET || 'cjs';
 
   const rt = {
     presets: [
       [
         '@babel/preset-env',
         {
-          modules: target === 'mjs' ? false : 'cjs',
+          modules: false
         },
       ],
       ['@babel/preset-react'],
@@ -17,7 +17,6 @@ module.exports = (api) => {
     plugins: [
       ['@babel/plugin-proposal-decorators', { legacy: true }],
       ['@babel/plugin-proposal-class-properties', { loose: false }],
-      ['@babel/plugin-transform-runtime'],
     ].filter(Boolean),
   };
 

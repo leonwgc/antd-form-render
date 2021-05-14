@@ -19,7 +19,7 @@
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "strictNullChecks": false,
-    "outDir": "./",
+    "outDir": "types",
     "lib": ["es2015", "dom", "es2015.promise"]
   },
   "include": ["src/**/*"],

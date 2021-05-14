@@ -1,6 +1,6 @@
 {
   "name": "antd-form-render",
-  "version": "1.0.5",
+  "version": "1.1.1",
   "description": "基于react hooks, antd4 , js对象配置的表单渲染方案",
   "keywords": [
     "react",
@@ -13,28 +13,28 @@
   "bugs": {
     "url": "https://github.com/leonwgc/antd-form-render/issues"
   },
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "typings": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "start": "webpack-dev-server --dev",
     "clear": "rm -rf ./lib && rm -rf ./es && clear",
     "types": "tsc && mkdir ./lib && mkdir ./es && cp ./index.d.ts ./lib/ && cp ./index.d.ts ./es/",
     "build:cjs": "TARGET=cjs babel src  -x '.tsx','.jsx' -d lib",
     "build:mjs": "TARGET=mjs babel src  -x '.tsx','.jsx'  -d es",
-    "build": "yarn clear && yarn types && yarn build:cjs && yarn build:mjs",
+    "build": "yarn clear && father-build --cjs --esm && tsc",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
   "peerDependencies": {
-    "antd": ">=4.0.0"
-  },
-  "dependencies": {
-    "antd": "^4.6.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "antd": ">=4.0.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
   "devDependencies": {
+    "antd": "^4.6.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -63,6 +63,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
+    "father-build": "^1.19.4",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^4.0.3",
     "husky": "^6.0.0",
@@ -86,7 +87,7 @@
   },
   "files": [
     "dist",
-    "lib",
+    "types",
     "es"
   ],
   "lint-staged": {
