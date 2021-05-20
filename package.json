@@ -1,6 +1,6 @@
 {
   "name": "antd-form-render",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "基于react hooks, antd4 , js对象配置的表单渲染方案",
   "keywords": [
     "react",
@@ -24,7 +24,8 @@
     "build:mjs": "TARGET=mjs babel src  -x '.tsx','.jsx'  -d es",
     "build": "yarn clear && father-build --cjs --esm && tsc",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "pub": "bash pub.sh"
   },
   "peerDependencies": {
     "antd": ">=4.0.0",

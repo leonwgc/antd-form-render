@@ -3,19 +3,20 @@ import { Form, Row, Col } from 'antd';
 import { Rule } from 'rc-field-form/lib/interface';
 
 export type FormRenderProps = {
-  layoutData: Array<Item>;
-  cols: null | 1 | 2 | 3 | 4;
+  layoutData: Item[] | Item[][] | unknown;
+  cols?: null | 1 | 2 | 3 | 4;
 };
 
 export type Item = {
   type?: React.ComponentType | string;
   name?: string;
   label?: string;
-  render?: () => React.ReactNode;
+  render?: () => React.ReactElement;
   getJSON?: () => Item | null;
-  elProps?: Record<string, unknown>;
-  itemProps?: Record<string, unknown>;
+  elProps?: Record<string | number | symbol, unknown>;
+  itemProps?: Record<string | number | symbol, unknown>;
   rules?: Rule[];
+  [p: string]: unknown;
 };
 
 // item (nullable object)
@@ -73,7 +74,10 @@ const renderTowDimensionLayout = (layoutData) => {
 // 默认二维数组
 // 如果是一维数组，则从上往下一行放一个 item , 除非设置了cols=2/3/4 ,自动1行cols列布局
 // 如果是二维数组，则每个子数组元素的数量，则为一行显示的item数量 ,数量应该可以被24整除
-export default function FormRenderer({ layoutData, cols = 1 }: FormRenderProps): React.ReactNode {
+export default function FormRenderer({
+  layoutData,
+  cols = 1,
+}: FormRenderProps): React.ReactElement {
   let isOneDimensionArray = false;
   const firstItem = layoutData[0];
   if (!Array.isArray(firstItem)) {
@@ -83,7 +87,7 @@ export default function FormRenderer({ layoutData, cols = 1 }: FormRenderProps):
   const useAutoLayout = isOneDimensionArray && isNumber(cols) && cols > 1 && cols <= 4;
 
   if (useAutoLayout) {
-    const arr = layoutData;
+    const arr = layoutData as Item[];
     const _tLayout = [];
     do {
       if (arr.length >= cols) {
@@ -93,7 +97,7 @@ export default function FormRenderer({ layoutData, cols = 1 }: FormRenderProps):
         let left = cols - arr.length;
         while (left--) {
           arr.push({
-            render(): React.ReactNode {
+            render(): React.ReactElement {
               return <div></div>; // placeholder
             },
           });
@@ -109,6 +113,8 @@ export default function FormRenderer({ layoutData, cols = 1 }: FormRenderProps):
   return !isOneDimensionArray ? (
     renderTowDimensionLayout(layoutData)
   ) : (
-    <div className="renderer">{layoutData.map((item, idx) => itemRender(item, idx, 24))}</div>
+    <div className="renderer">
+      {(layoutData as Item[]).map((item, idx) => itemRender(item, idx, 24))}
+    </div>
   );
 }
