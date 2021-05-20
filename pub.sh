@@ -11,7 +11,7 @@ fi
   # publish
  git tag "$ver"
 
-if [ $? != 0]; then
+if [[ $? != 0 ]]; then
 	echo "$ver exists" 
 	exit 1
 else
@@ -20,7 +20,7 @@ fi
 
  git push origin "$ver"
 
- if [ $? != 0]; then
+ if [[ $? != 0 ]]; then
 	echo "failed to push tag $ver" 
 	exit 1
 else
