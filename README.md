@@ -228,8 +228,8 @@ export default function FormRenderer({ layoutData, cols }: FormRenderProps): Rea
 
 // 组件props
 export declare type FormRenderProps = {
-    layoutData: Array<Item>; // 1/2维数组
-    cols: null | 1 | 2 | 3 | 4; // 自动布局1行显示几列 default 1
+    layoutData: Item[] | Item[][]; // 1/2维数组
+    cols?: null | 1 | 2 | 3 | 4; // 自动布局1行显示几列 default 1
 };
 
 // 数组配置项
@@ -237,7 +237,7 @@ export declare type Item = {
     type?: React.ComponentType | string; // 组件类型， 比如Input 等
     name?: string; //Form.Item的name
     label?: string; // Form.Item的label
-    render?: () => React.ReactNode; //自定义 render
+    render?: () => React.ReactElement; //自定义 render
     getJSON?: () => Item | null; // 动态返回Item配置
     elProps?: Record<string, unknown>; // 组件的props配置 , 比如type为Input, elProps则会配置到Input
     itemProps?: Record<string, unknown>;  // Form.Item的props配置，除了上面name,lable,rules三个常用的，其他的可以放在这里配置

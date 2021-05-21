@@ -1,14 +1,12 @@
 module.exports = (api) => {
   api.cache.using(() => process.env.TARGET);
 
-  // const target = process.env.TARGET || 'cjs';
-
   const rt = {
     presets: [
       [
         '@babel/preset-env',
         {
-          modules: false
+          modules: false,
         },
       ],
       ['@babel/preset-react'],

@@ -9,19 +9,28 @@
     "emitDeclarationOnly": true,
     // Ensure that Babel can safely transpile files in the TypeScript project
     "isolatedModules": true,
-    "target": "es5",
-    "jsx": "react",
-    "module": "commonjs",
-    "sourceMap": false,
+    "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "importHelpers": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "strict": false,
+    // 允许从没有设置默认导出的模块中默认导入
     "allowSyntheticDefaultImports": true,
-    "allowJs": true,
+    // 包括以.json扩展名导入的模块
+    "resolveJsonModule": true,
+    // 支持装饰器新特性
+    "experimentalDecorators": true,
+    // 引入文件区分大小写
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": false,
+    "emitDecoratorMetadata": true,
+    "allowJs": false,
     "strictNullChecks": false,
     "outDir": "types",
-    "lib": ["es2015", "dom", "es2015.promise"]
+    "lib": ["esnext", "dom", "es7"]
   },
   "include": ["libsrc/**/*"],
-  "exclude": ["lib", "node_modules", "src/demo"]
+  "exclude": ["node_modules", "lib", "es", "dist", "typings", "**/__test__", "test", "demo"]
 }
