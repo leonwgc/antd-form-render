@@ -22,6 +22,6 @@
     "outDir": "types",
     "lib": ["es2015", "dom", "es2015.promise"]
   },
-  "include": ["src/**/*"],
-  "exclude": ["lib", "node_modules", "demo"]
+  "include": ["libsrc/**/*"],
+  "exclude": ["lib", "node_modules", "src/demo"]
 }

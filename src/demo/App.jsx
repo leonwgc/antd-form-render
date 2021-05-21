@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FormRender from '../dist/index.esm';
+import FormRender from '../../dist/index.esm';
 import { Form, Button, Space, Input, Radio, Select, message } from 'antd';
 import './App.less';
 
