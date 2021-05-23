@@ -18,10 +18,12 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "strictNullChecks": false,
     "outDir": "types",
     "lib": ["es2015", "dom", "es2015.promise"]
   },
-  "include": ["libsrc/**/*"],
-  "exclude": ["lib", "node_modules", "src/demo"]
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules", "demo"]
 }
