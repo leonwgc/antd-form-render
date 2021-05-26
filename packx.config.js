@@ -4,10 +4,10 @@ module.exports = {
   entry: {
     index: './demo/index',
   },
-  output: {
-    path: path.resolve(__dirname, './demo-dist'),
-  },
   devServer: {
     port: 3000,
+  },
+  output: {
+    path: path.resolve(__dirname, './dist/packx-demo'),
   },
 };

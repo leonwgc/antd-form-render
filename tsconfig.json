@@ -1,37 +1,26 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "paths": {
-      "~/*": ["src/*"]
-    },
     // Ensure that .d.ts files are created by tsc, but not .js files
     "declaration": true,
     "emitDeclarationOnly": true,
     // Ensure that Babel can safely transpile files in the TypeScript project
     "isolatedModules": true,
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "importHelpers": true,
     "jsx": "react",
-    "esModuleInterop": true,
-    "strict": false,
-    // 允许从没有设置默认导出的模块中默认导入
-    "allowSyntheticDefaultImports": true,
-    // 包括以.json扩展名导入的模块
-    "resolveJsonModule": true,
-    // 支持装饰器新特性
-    "experimentalDecorators": true,
-    // 引入文件区分大小写
-    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
     "sourceMap": false,
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
-    "allowJs": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es5",
     "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowJs": true,
     "strictNullChecks": false,
-    "outDir": "types",
-    "lib": ["esnext", "dom", "es7"]
+    "outDir": "dist",
+    "lib": ["es2015", "dom", "es2015.promise"]
   },
   "include": ["src/**/*"],
-  "exclude": ["dist", "node_modules", "demo"]
+  "exclude": ["lib", "node_modules", "demo"]
 }
