@@ -65,7 +65,7 @@
     "dist"
   ],
   "lint-staged": {
-    "*.{js,jsx}": [
+    "*.{js,jsx,ts,tsx,json,css,scss,md,less}": [
       "eslint --cache --fix",
       "prettier --write"
     ]
