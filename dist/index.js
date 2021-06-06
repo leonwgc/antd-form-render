@@ -173,7 +173,7 @@ var isNumber = isType('Number');
 
 var renderTowDimensionLayout = function renderTowDimensionLayout(layoutData) {
   return /*#__PURE__*/React__default['default'].createElement("div", {
-    className: "renderer"
+    className: "afr"
   }, layoutData.map(function (arr, idx) {
     var len = arr.length;
 
@@ -226,7 +226,7 @@ function FormRenderer(_ref) {
         while (left--) {
           arr.push({
             render: function render() {
-              return /*#__PURE__*/React__default['default'].createElement("div", null); // placeholder
+              return null; // placeholder
             }
           });
         }
@@ -241,10 +241,10 @@ function FormRenderer(_ref) {
   }
 
   return !isOneDimensionArray ? renderTowDimensionLayout(layoutData) : /*#__PURE__*/React__default['default'].createElement("div", {
-    className: "renderer"
-  }, layoutData.map(function (item, idx) {
+    className: "afr"
+  }, /*#__PURE__*/React__default['default'].createElement(antd.Row, null, layoutData.map(function (item, idx) {
     return itemRender(item, idx, 24);
-  }));
+  })));
 }
 
 module.exports = FormRenderer;

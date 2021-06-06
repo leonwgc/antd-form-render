@@ -22,5 +22,5 @@
     "lib": ["es2015", "dom", "es2015.promise"]
   },
   "include": ["src/**/*"],
-  "exclude": ["lib", "node_modules", "demo"]
+  "exclude": ["lib", "node_modules", "demo", "dist"]
 }

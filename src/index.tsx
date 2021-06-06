@@ -53,7 +53,7 @@ const isNumber = isType('Number');
 
 const renderTowDimensionLayout = (layoutData) => {
   return (
-    <div className="renderer">
+    <div className="afr">
       {layoutData.map((arr, idx) => {
         const len = arr.length;
         if (24 % len !== 0) {
@@ -98,7 +98,7 @@ export default function FormRenderer({
         while (left--) {
           arr.push({
             render(): React.ReactElement {
-              return <div></div>; // placeholder
+              return null; // placeholder
             },
           });
         }
@@ -113,8 +113,8 @@ export default function FormRenderer({
   return !isOneDimensionArray ? (
     renderTowDimensionLayout(layoutData)
   ) : (
-    <div className="renderer">
-      {(layoutData as Item[]).map((item, idx) => itemRender(item, idx, 24))}
+    <div className="afr">
+      <Row>{(layoutData as Item[]).map((item, idx) => itemRender(item, idx, 24))}</Row>
     </div>
   );
 }
