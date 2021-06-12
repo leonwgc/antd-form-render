@@ -7,7 +7,7 @@
     // Ensure that Babel can safely transpile files in the TypeScript project
     "isolatedModules": true,
     "jsx": "react",
-    "module": "commonjs",
+    "module": "ESNext",
     "sourceMap": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,

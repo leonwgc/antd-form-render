@@ -20,7 +20,7 @@
     "prepare": "husky install",
     "lint-staged": "lint-staged",
     "start": "packx run",
-    "build": "father-build --cjs --esm && tsc",
+    "build": "father-build --cjs rollup --esm rollup src/index && tsc",
     "pub": "bash pub.sh"
   },
   "peerDependencies": {
