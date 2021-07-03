@@ -1,6 +1,6 @@
 {
   "name": "antd-form-render",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "基于react hooks, antd v4 , js对象配置的表单渲染方案",
   "keywords": [
     "react",
@@ -15,7 +15,7 @@
   },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "typings": "dist/index.d.ts",
+  "typings": "types/index.d.ts",
   "scripts": {
     "prepare": "husky install",
     "lint-staged": "lint-staged",
@@ -40,11 +40,11 @@
     "@babel/preset-typescript": "^7.8.3",
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
+    "@types/antd": "^1.0.0",
     "@types/react": "^16.8.2",
     "@types/react-dom": "^16.8.0",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
-    "antd": "^4.16.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
@@ -52,17 +52,17 @@
     "father-build": "^1.19.5",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
-    "packx": "^0.4.0",
+    "pre-commit": "^1.2.2",
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.4",
-    "yargs": "^15.3.1",
-    "pre-commit": "^1.2.2"
+    "yargs": "^15.3.1"
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md,less}": [

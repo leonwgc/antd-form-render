@@ -1,7 +1,4 @@
 
 node_modules
-lib
-demo
-es
-packx.config.js
 dist
+types

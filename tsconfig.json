@@ -18,9 +18,9 @@
     "esModuleInterop": true,
     "allowJs": true,
     "strictNullChecks": false,
-    "outDir": "dist",
+    "outDir": "types",
     "lib": ["es2015", "dom", "es2015.promise"]
   },
   "include": ["src/**/*"],
-  "exclude": ["lib", "node_modules", "demo", "dist"]
+  "exclude": ["lib", "node_modules", "demo", "types"]
 }
