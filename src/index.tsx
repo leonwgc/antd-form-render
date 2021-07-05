@@ -1,49 +1,8 @@
 import React from 'react';
-import { Form, Row, Col } from 'antd';
-import { Rule } from 'rc-field-form/lib/interface';
-
-export type FormRenderProps = {
-  layoutData: Item[] | Item[][] | unknown;
-  cols?: null | 1 | 2 | 3 | 4;
-};
-
-export type Item = {
-  type?: React.ComponentType | string;
-  name?: string;
-  label?: string;
-  render?: () => React.ReactElement;
-  getJSON?: () => Item | null;
-  elProps?: Record<string | number | symbol, unknown>;
-  itemProps?: Record<string | number | symbol, unknown>;
-  rules?: Rule[];
-  [p: string]: unknown;
-};
-
-// item (nullable object)
-
-const itemRender = (item: Item, key: number | string, span = 24) => {
-  if (typeof item.getJSON === 'function') {
-    item = item.getJSON();
-  }
-
-  if (typeof item !== 'object' || !item) return null;
-
-  // elProps 组件的其他属性
-  // itemProps Form.Item的其他属性
-  const { type, name, rules, label, elProps = {}, itemProps = {}, render, ...props } = item;
-
-  return (
-    <Col span={span} key={key}>
-      {render ? (
-        render()
-      ) : (
-        <Form.Item name={name} label={label} rules={rules} {...itemProps}>
-          {React.createElement(type, { ...props, ...elProps } as React.Attributes)}
-        </Form.Item>
-      )}
-    </Col>
-  );
-};
+import { Row } from 'antd';
+import { FormRenderProps, Item } from './Types';
+import { ItemFlexRender } from './ItemRender';
+export { default as FormSpaceRender } from './SpaceLayout';
 
 const isType = (type) => (n) => {
   return Object.prototype.toString.call(n) === `[object ${type}]`;
@@ -53,7 +12,7 @@ const isNumber = isType('Number');
 
 const renderTowDimensionLayout = (layoutData) => {
   return (
-    <div className="afr">
+    <div className="afr-flex">
       {layoutData.map((arr, idx) => {
         const len = arr.length;
         if (24 % len !== 0) {
@@ -63,7 +22,7 @@ const renderTowDimensionLayout = (layoutData) => {
 
         return (
           <Row key={idx} gutter={{ xs: 8, sm: 16, md: 24 }}>
-            {arr.map((item, subIndex) => itemRender(item, subIndex, span))}
+            {arr.map((item, subIndex) => ItemFlexRender(item, subIndex, span))}
           </Row>
         );
       })}
@@ -113,8 +72,8 @@ export default function FormRenderer({
   return !isOneDimensionArray ? (
     renderTowDimensionLayout(layoutData)
   ) : (
-    <div className="afr">
-      <Row>{(layoutData as Item[]).map((item, idx) => itemRender(item, idx, 24))}</Row>
+    <div className="afr-flex">
+      <Row>{(layoutData as Item[]).map((item, idx) => ItemFlexRender(item, idx, 24))}</Row>
     </div>
   );
 }

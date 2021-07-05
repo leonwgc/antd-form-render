@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Form } from 'antd';
+import { Col, Form, Space, Row } from 'antd';
 
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
@@ -124,8 +124,7 @@ function _objectWithoutProperties(source, excluded) {
   return target;
 }
 
-// item (nullable object)
-var itemRender = function itemRender(item, key) {
+var ItemFlexRender = function ItemFlexRender(item, key) {
   var span = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 24;
 
   if (typeof item.getJSON === 'function') {
@@ -156,6 +155,49 @@ var itemRender = function itemRender(item, key) {
     rules: rules
   }, itemProps), /*#__PURE__*/React.createElement(type, _objectSpread2(_objectSpread2({}, props), elProps))));
 };
+var ItemSpaceRender = function ItemSpaceRender(item, key) {
+  if (typeof item.getJSON === 'function') {
+    item = item.getJSON();
+  }
+
+  if (_typeof(item) !== 'object' || !item) return null; // elProps 组件的其他属性
+  // itemProps Form.Item的其他属性
+
+  var _item2 = item,
+      type = _item2.type,
+      name = _item2.name,
+      rules = _item2.rules,
+      label = _item2.label,
+      _item2$elProps = _item2.elProps,
+      elProps = _item2$elProps === void 0 ? {} : _item2$elProps,
+      _item2$itemProps = _item2.itemProps,
+      itemProps = _item2$itemProps === void 0 ? {} : _item2$itemProps,
+      render = _item2.render,
+      props = _objectWithoutProperties(_item2, ["type", "name", "rules", "label", "elProps", "itemProps", "render"]);
+
+  return /*#__PURE__*/React.createElement(React.Fragment, {
+    key: key
+  }, render ? render() : /*#__PURE__*/React.createElement(Form.Item, _extends({
+    name: name,
+    label: label,
+    rules: rules
+  }, itemProps), /*#__PURE__*/React.createElement(type, _objectSpread2(_objectSpread2({}, props), elProps))));
+};
+
+function SpaceLayout(_ref) {
+  var layoutData = _ref.layoutData,
+      _ref$space = _ref.space,
+      space = _ref$space === void 0 ? 8 : _ref$space;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "afr-space"
+  }, /*#__PURE__*/React.createElement(Space, {
+    size: space,
+    direction: "horizontal",
+    wrap: true
+  }, layoutData.map(function (item, idx) {
+    return ItemSpaceRender(item, idx);
+  })));
+}
 
 var isType = function isType(type) {
   return function (n) {
@@ -167,7 +209,7 @@ var isNumber = isType('Number');
 
 var renderTowDimensionLayout = function renderTowDimensionLayout(layoutData) {
   return /*#__PURE__*/React.createElement("div", {
-    className: "afr"
+    className: "afr-flex"
   }, layoutData.map(function (arr, idx) {
     var len = arr.length;
 
@@ -184,7 +226,7 @@ var renderTowDimensionLayout = function renderTowDimensionLayout(layoutData) {
         md: 24
       }
     }, arr.map(function (item, subIndex) {
-      return itemRender(item, subIndex, span);
+      return ItemFlexRender(item, subIndex, span);
     }));
   }));
 }; // 默认二维数组
@@ -235,10 +277,11 @@ function FormRenderer(_ref) {
   }
 
   return !isOneDimensionArray ? renderTowDimensionLayout(layoutData) : /*#__PURE__*/React.createElement("div", {
-    className: "afr"
+    className: "afr-flex"
   }, /*#__PURE__*/React.createElement(Row, null, layoutData.map(function (item, idx) {
-    return itemRender(item, idx, 24);
+    return ItemFlexRender(item, idx, 24);
   })));
 }
 
 export default FormRenderer;
+export { SpaceLayout as FormSpaceRender };
