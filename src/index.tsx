@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row } from 'antd';
 import { FormRenderProps, Item } from './Types';
-import { ItemFlexRender } from './ItemRender';
+import ItemRender from './ItemRender';
 export { default as FormSpaceRender } from './SpaceLayout';
 
 const isType = (type) => (n) => {
@@ -22,7 +22,9 @@ const renderTowDimensionLayout = (layoutData) => {
 
         return (
           <Row key={idx} gutter={{ xs: 8, sm: 16, md: 24 }}>
-            {arr.map((item, subIndex) => ItemFlexRender(item, subIndex, span))}
+            {arr.map((item, subIndex) => (
+              <ItemRender item={item} key={subIndex} span={span} layoutType="row" />
+            ))}
           </Row>
         );
       })}
@@ -73,7 +75,11 @@ export default function FormRenderer({
     renderTowDimensionLayout(layoutData)
   ) : (
     <div className="afr-flex">
-      <Row>{(layoutData as Item[]).map((item, idx) => ItemFlexRender(item, idx, 24))}</Row>
+      <Row>
+        {(layoutData as Item[]).map((item, idx) => (
+          <ItemRender item={item} key={idx} span={24} layoutType="row" />
+        ))}
+      </Row>
     </div>
   );
 }

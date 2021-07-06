@@ -23,4 +23,4 @@ export type Item = {
   [p: string]: unknown;
 };
 
-export type LayoutType = 'flex' | 'space';
+export type LayoutType = 'row' | 'space';

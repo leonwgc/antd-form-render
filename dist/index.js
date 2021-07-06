@@ -132,46 +132,22 @@ function _objectWithoutProperties(source, excluded) {
   return target;
 }
 
-var ItemFlexRender = function ItemFlexRender(item, key) {
-  var span = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 24;
+var ItemRender = function ItemRender(_ref) {
+  var item = _ref.item,
+      _ref$span = _ref.span,
+      span = _ref$span === void 0 ? 24 : _ref$span,
+      _ref$layoutType = _ref.layoutType,
+      layoutType = _ref$layoutType === void 0 ? 'row' : _ref$layoutType;
+  var _item = item;
 
-  if (typeof item.getJSON === 'function') {
-    item = item.getJSON();
+  if (typeof _item.getJSON === 'function') {
+    _item = _item.getJSON();
   }
 
-  if (_typeof(item) !== 'object' || !item) return null; // elProps 组件的其他属性
+  if (_typeof(_item) !== 'object' || !_item) return null; // elProps 组件的其他属性
   // itemProps Form.Item的其他属性
 
-  var _item = item,
-      type = _item.type,
-      name = _item.name,
-      rules = _item.rules,
-      label = _item.label,
-      _item$elProps = _item.elProps,
-      elProps = _item$elProps === void 0 ? {} : _item$elProps,
-      _item$itemProps = _item.itemProps,
-      itemProps = _item$itemProps === void 0 ? {} : _item$itemProps,
-      render = _item.render,
-      props = _objectWithoutProperties(_item, ["type", "name", "rules", "label", "elProps", "itemProps", "render"]);
-
-  return /*#__PURE__*/React__default['default'].createElement(antd.Col, {
-    span: span,
-    key: key
-  }, render ? render() : /*#__PURE__*/React__default['default'].createElement(antd.Form.Item, _extends({
-    name: name,
-    label: label,
-    rules: rules
-  }, itemProps), /*#__PURE__*/React__default['default'].createElement(type, _objectSpread2(_objectSpread2({}, props), elProps))));
-};
-var ItemSpaceRender = function ItemSpaceRender(item, key) {
-  if (typeof item.getJSON === 'function') {
-    item = item.getJSON();
-  }
-
-  if (_typeof(item) !== 'object' || !item) return null; // elProps 组件的其他属性
-  // itemProps Form.Item的其他属性
-
-  var _item2 = item,
+  var _item2 = _item,
       type = _item2.type,
       name = _item2.name,
       rules = _item2.rules,
@@ -183,9 +159,15 @@ var ItemSpaceRender = function ItemSpaceRender(item, key) {
       render = _item2.render,
       props = _objectWithoutProperties(_item2, ["type", "name", "rules", "label", "elProps", "itemProps", "render"]);
 
-  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, {
-    key: key
-  }, render ? render() : /*#__PURE__*/React__default['default'].createElement(antd.Form.Item, _extends({
+  var wrapperProps = {};
+
+  if (layoutType === 'row') {
+    wrapperProps = _objectSpread2(_objectSpread2({}, wrapperProps), {}, {
+      span: span
+    });
+  }
+
+  return /*#__PURE__*/React__default['default'].createElement(layoutType === 'row' ? antd.Col : React__default['default'].Fragment, wrapperProps, render ? render() : /*#__PURE__*/React__default['default'].createElement(antd.Form.Item, _extends({
     name: name,
     label: label,
     rules: rules
@@ -203,7 +185,11 @@ function SpaceLayout(_ref) {
     direction: "horizontal",
     wrap: true
   }, layoutData.map(function (item, idx) {
-    return ItemSpaceRender(item, idx);
+    return /*#__PURE__*/React__default['default'].createElement(ItemRender, {
+      item: item,
+      key: idx,
+      layoutType: "space"
+    });
   })));
 }
 
@@ -234,7 +220,12 @@ var renderTowDimensionLayout = function renderTowDimensionLayout(layoutData) {
         md: 24
       }
     }, arr.map(function (item, subIndex) {
-      return ItemFlexRender(item, subIndex, span);
+      return /*#__PURE__*/React__default['default'].createElement(ItemRender, {
+        item: item,
+        key: subIndex,
+        span: span,
+        layoutType: "row"
+      });
     }));
   }));
 }; // 默认二维数组
@@ -287,7 +278,12 @@ function FormRenderer(_ref) {
   return !isOneDimensionArray ? renderTowDimensionLayout(layoutData) : /*#__PURE__*/React__default['default'].createElement("div", {
     className: "afr-flex"
   }, /*#__PURE__*/React__default['default'].createElement(antd.Row, null, layoutData.map(function (item, idx) {
-    return ItemFlexRender(item, idx, 24);
+    return /*#__PURE__*/React__default['default'].createElement(ItemRender, {
+      item: item,
+      key: idx,
+      span: 24,
+      layoutType: "row"
+    });
   })));
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Space } from 'antd';
 import { SpaceLayoutProps, Item } from './Types';
-import { ItemSpaceRender } from './ItemRender';
+import ItemRender from './ItemRender';
 
 // 一维数组
 export default function SpaceLayout({
@@ -11,7 +11,9 @@ export default function SpaceLayout({
   return (
     <div className="afr-space">
       <Space size={space as any} direction="horizontal" wrap>
-        {(layoutData as Item[]).map((item, idx) => ItemSpaceRender(item, idx))}
+        {(layoutData as Item[]).map((item, idx) => (
+          <ItemRender item={item} key={idx} layoutType="space" />
+        ))}
       </Space>
     </div>
   );

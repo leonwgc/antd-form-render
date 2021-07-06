@@ -19,4 +19,4 @@ export declare type Item = {
   rules?: Rule[];
   [p: string]: unknown;
 };
-export declare type LayoutType = 'flex' | 'space';
+export declare type LayoutType = 'row' | 'space';

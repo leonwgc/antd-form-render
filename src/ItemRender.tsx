@@ -1,51 +1,45 @@
 import React from 'react';
 import { Form, Col } from 'antd';
-import { Item } from './Types';
+import { Item, LayoutType } from './Types';
 
-export const ItemFlexRender = (item: Item, key: number | string, span = 24): React.ReactElement => {
-  if (typeof item.getJSON === 'function') {
-    item = item.getJSON();
+type ItemRenderProps = {
+  item: Item;
+  span?: number | undefined;
+  layoutType: LayoutType;
+};
+
+const ItemRender = ({
+  item,
+  span = 24,
+  layoutType = 'row',
+}: ItemRenderProps): React.ReactElement => {
+  let _item = item;
+  if (typeof _item.getJSON === 'function') {
+    _item = _item.getJSON();
   }
 
-  if (typeof item !== 'object' || !item) return null;
+  if (typeof _item !== 'object' || !_item) return null;
 
   // elProps 组件的其他属性
   // itemProps Form.Item的其他属性
-  const { type, name, rules, label, elProps = {}, itemProps = {}, render, ...props } = item;
+  const { type, name, rules, label, elProps = {}, itemProps = {}, render, ...props } = _item;
 
-  return (
-    <Col span={span} key={key}>
-      {render ? (
-        render()
-      ) : (
-        <Form.Item name={name} label={label} rules={rules} {...itemProps}>
-          {React.createElement(type, { ...props, ...elProps } as React.Attributes)}
-        </Form.Item>
-      )}
-    </Col>
-  );
-};
+  let wrapperProps: Record<string, unknown> = {};
 
-export const ItemSpaceRender = (item: Item, key: number | string): React.ReactElement => {
-  if (typeof item.getJSON === 'function') {
-    item = item.getJSON();
+  if (layoutType === 'row') {
+    wrapperProps = { ...wrapperProps, span };
   }
-
-  if (typeof item !== 'object' || !item) return null;
-
-  // elProps 组件的其他属性
-  // itemProps Form.Item的其他属性
-  const { type, name, rules, label, elProps = {}, itemProps = {}, render, ...props } = item;
-
-  return (
-    <React.Fragment key={key}>
-      {render ? (
-        render()
-      ) : (
-        <Form.Item name={name} label={label} rules={rules} {...itemProps}>
-          {React.createElement(type, { ...props, ...elProps } as React.Attributes)}
-        </Form.Item>
-      )}
-    </React.Fragment>
+  return React.createElement(
+    layoutType === 'row' ? Col : React.Fragment,
+    wrapperProps,
+    render ? (
+      render()
+    ) : (
+      <Form.Item name={name} label={label} rules={rules} {...itemProps}>
+        {React.createElement(type, { ...props, ...elProps } as React.Attributes)}
+      </Form.Item>
+    )
   );
 };
+
+export default ItemRender;

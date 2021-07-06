@@ -1,8 +1,9 @@
 import React from 'react';
-import { Item } from './Types';
-export declare const ItemFlexRender: (
-  item: Item,
-  key: number | string,
-  span?: number
-) => React.ReactElement;
-export declare const ItemSpaceRender: (item: Item, key: number | string) => React.ReactElement;
+import { Item, LayoutType } from './Types';
+declare type ItemRenderProps = {
+  item: Item;
+  span?: number | undefined;
+  layoutType: LayoutType;
+};
+declare const ItemRender: ({ item, span, layoutType }: ItemRenderProps) => React.ReactElement;
+export default ItemRender;
