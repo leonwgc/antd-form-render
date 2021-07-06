@@ -1,6 +1,6 @@
 # antd-form-render
 
-简单使用 javascript 对象配置，实现 antd 表单开发。
+使用js配置，开发antd v4表单
 
 ## 安装
 
@@ -11,14 +11,17 @@
 
 ## 功能
 
-- 配置一维数组实现 1 行 1/2/3/4 列 (自动布局,自上向下，自左向右布局)
-- 配置二维数组实现 一行多列 (手动布局,每一行显示几列根据数组长度决定)
+1. 通过配置实现antd v4表单布局
+2. 实现1行1列，1行2列，1行3列，1行4列自动布局，其中每列等分宽度 (基于antd Row与Col)
+3. 实现等间距布局 (基于antd Space)
 
-### 实现 1 行 1 列
+### 示例
+
+1. 1行1列布局
 
 ```jsx
 import React, { useState } from 'react';
-import FormRender from 'antd-form-render';
+import FormRender, { FormSpaceRender } from 'antd-form-render';
 import { Form, Button, Space, Input, Radio, Select } from 'antd';
 
 export default function App() {
@@ -166,42 +169,10 @@ export default function App() {
 }
 ```
 
-### 实现 1 行 n 列如下 ,比如一行 2 列(子数组的长度决定列数，长度能被 24 整除)
+![col1.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/35d1514490734a5492e99a6599a10ff8~tplv-k3u1fbpfcp-watermark.image)
 
-```jsx
-const layout = [
-  [
-    {
-      type: Input,
-      label: '11',
-      placeholder: '请输入',
-      name: '11',
-    },
-    {
-      type: Input,
-      label: '12',
-      placeholder: '请输入',
-      name: '12',
-    },
-  ],
-  [
-    {
-      type: Input,
-      label: '21',
-      placeholder: '请输入',
-      name: '21',
-    },
-    {
-      type: Input,
-      label: '22',
-      placeholder: '请输入',
-      name: '22',
-    },
-  ],
-];
-```
 
-### 实现 1 行 2/3/4 列如下
+2. 1行n列布局
 
 ```javascript
 // 一维数组,设置了cols 为1/2/3/4 ,实现自动从左至右，从上到下的 1*cols 1行多列自动布局
@@ -220,32 +191,76 @@ for (let i = 0; i < 11; i++) {
 <FormRender layoutData={layout3} cols={cols}></FormRender>;
 ```
 
-配置说明
+![coln.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d373ba70460540d7ae224275c757cb41~tplv-k3u1fbpfcp-watermark.image)
+
+3. 等间距布局 
+```javascript
+ const spaceLayout = [
+    {
+      type: Input,
+      label: '',
+      placeholder: '搜索姓名/订单编号/员工ID',
+      name: 'name',
+      itemProps: {},
+      elProps: {
+        style: { width: 316 },
+      },
+    },
+    {
+      render() {
+        return (
+          <Space size={8} style={{ display: 'flex', alignItems: 'flex-start' }}>
+            <Form.Item name="from">
+              <DatePicker format="YYYY-MM-DD" style={{ width: 131 }} />
+            </Form.Item>
+            <span style={{ position: 'relative', top: 5 }}>至</span>
+            <Form.Item name="to">
+              <DatePicker format="YYYY-MM-DD" style={{ width: 131 }} />
+            </Form.Item>
+          </Space>
+        );
+      },
+    },
+    {
+      type: Button,
+      elProps: {
+        type: 'primary',
+        htmlType: 'submit',
+        children: '查询',
+        style: { width: 80 },
+      },
+    },
+  ];
+```
+
+
+![space.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/201ef649a38742a78cc3d8de14e37822~tplv-k3u1fbpfcp-watermark.image)
+
+组件定义
 
 ```javascript
-// 组件
-export default function FormRenderer({ layoutData, cols }: FormRenderProps): React.ReactNode;
-
-// 组件props
+// 1行n列布局组件
 export declare type FormRenderProps = {
-    layoutData: Item[] | Item[][]; // 1/2维数组
-    cols?: null | 1 | 2 | 3 | 4; // 自动布局1行显示几列 default 1
+  layoutData: Item[] | Item[][];
+  cols?: null | 1 | 2 | 3 | 4;
 };
 
-// 数组配置项
+// 等间距布局组件
+export declare type SpaceLayoutProps = {
+  layoutData: Item[];
+  space: number | number[];
+};
+
 export declare type Item = {
-    type?: React.ComponentType | string; // 组件类型， 比如Input 等
-    name?: string; //Form.Item的name
-    label?: string; // Form.Item的label
-    render?: () => React.ReactElement; //自定义 render
-    getJSON?: () => Item | null; // 动态返回Item配置
-    elProps?: Record<string, unknown>; // 组件的props配置 , 比如type为Input, elProps则会配置到Input
-    itemProps?: Record<string, unknown>;  // Form.Item的props配置，除了上面name,lable,rules三个常用的，其他的可以放在这里配置
-    rules?: Rule[]; // Form.Item的rules
+  type?: React.ComponentType | string; // 组件，比如Input,Button 
+  name?: string; // 名称，传给Form.Item的name ，作为form data的key
+  label?: string; // label名称
+  render?: () => React.ReactElement; // 自定义render
+  getJSON?: () => Item | null; // 动态返回Item 
+  elProps?: Record<string | number | symbol, unknown>; // 组件的props， 比如Button,Input 的props , 参考antd文档配置
+  itemProps?: Record<string | number | symbol, unknown>; // Form.Item的props, 参考antd文档配置
+  rules?: Rule[]; // Form.Item的rules,在itemProps里面定义也可 
 };
 
 ```
 
-运行示例， yarn start / npm start 查看 demo , 效果如下
-
-![antd-form-render.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/275d4cab80e4456c87cb90c7223353b5~tplv-k3u1fbpfcp-watermark.image)
