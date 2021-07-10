@@ -178,15 +178,13 @@ function SpaceLayout(_ref) {
   var layoutData = _ref.layoutData,
       props = _objectWithoutProperties(_ref, ["layoutData"]);
 
-  return /*#__PURE__*/React__default['default'].createElement("div", {
-    className: "afr-space"
-  }, /*#__PURE__*/React__default['default'].createElement(antd.Space, props, layoutData.map(function (item, idx) {
+  return /*#__PURE__*/React__default['default'].createElement(antd.Space, props, layoutData.map(function (item, idx) {
     return /*#__PURE__*/React__default['default'].createElement(ItemRender, {
       item: item,
       key: idx,
       layoutType: "space"
     });
-  })));
+  }));
 }
 
 var isType = function isType(type) {

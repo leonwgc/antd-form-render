@@ -248,7 +248,7 @@ export declare type FormRenderProps = {
 // 等间距布局组件
 export declare type SpaceLayoutProps = {
   layoutData: Item[];
-  space: number | number[];
+  ...props: SpaceProps // Space组件props透传
 };
 
 export declare type Item = {

@@ -1,7 +1,7 @@
 {
   "name": "antd-form-render",
-  "version": "1.3.2",
-  "description": "基于react hooks, antd v4 , js对象配置的表单渲染方案",
+  "version": "1.3.3",
+  "description": "基于react antd v4,js配置的表单渲染方案",
   "keywords": [
     "react",
     "antd",
@@ -19,8 +19,7 @@
   "scripts": {
     "prepare": "husky install",
     "lint-staged": "lint-staged",
-    "start": "packx run",
-    "build": "father-build --cjs rollup --esm rollup src/index",
+    "build": "father-build",
     "pub": "bash pub.sh"
   },
   "peerDependencies": {

@@ -9,12 +9,10 @@ export default function SpaceLayout({
   ...props
 }: SpaceLayoutProps): React.ReactElement {
   return (
-    <div className="afr-space">
-      <Space {...props}>
-        {(layoutData as Item[]).map((item, idx) => (
-          <ItemRender item={item} key={idx} layoutType="space" />
-        ))}
-      </Space>
-    </div>
+    <Space {...props}>
+      {(layoutData as Item[]).map((item, idx) => (
+        <ItemRender item={item} key={idx} layoutType="space" />
+      ))}
+    </Space>
   );
 }
