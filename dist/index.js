@@ -176,15 +176,11 @@ var ItemRender = function ItemRender(_ref) {
 
 function SpaceLayout(_ref) {
   var layoutData = _ref.layoutData,
-      _ref$space = _ref.space,
-      space = _ref$space === void 0 ? 8 : _ref$space;
+      props = _objectWithoutProperties(_ref, ["layoutData"]);
+
   return /*#__PURE__*/React__default['default'].createElement("div", {
     className: "afr-space"
-  }, /*#__PURE__*/React__default['default'].createElement(antd.Space, {
-    size: space,
-    direction: "horizontal",
-    wrap: true
-  }, layoutData.map(function (item, idx) {
+  }, /*#__PURE__*/React__default['default'].createElement(antd.Space, props, layoutData.map(function (item, idx) {
     return /*#__PURE__*/React__default['default'].createElement(ItemRender, {
       item: item,
       key: idx,

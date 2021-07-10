@@ -6,7 +6,7 @@ export declare type FormRenderProps = {
 };
 export declare type SpaceLayoutProps = {
   layoutData: Item[];
-  space: number | number[];
+  [p: string]: any;
 };
 export declare type Item = {
   type?: React.ComponentType | string;

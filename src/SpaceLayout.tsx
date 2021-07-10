@@ -6,11 +6,11 @@ import ItemRender from './ItemRender';
 // 一维数组
 export default function SpaceLayout({
   layoutData,
-  space = 8,
+  ...props
 }: SpaceLayoutProps): React.ReactElement {
   return (
     <div className="afr-space">
-      <Space size={space as any} direction="horizontal" wrap>
+      <Space {...props}>
         {(layoutData as Item[]).map((item, idx) => (
           <ItemRender item={item} key={idx} layoutType="space" />
         ))}

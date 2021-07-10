@@ -8,7 +8,7 @@ export type FormRenderProps = {
 
 export type SpaceLayoutProps = {
   layoutData: Item[];
-  space: number | number[];
+  [p: string]: any;
 };
 
 export type Item = {
