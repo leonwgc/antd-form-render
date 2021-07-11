@@ -1,12 +1,12 @@
 import React from 'react';
 import { Rule } from 'rc-field-form/lib/interface';
+import type { SpaceProps } from 'antd';
 export declare type FormRenderProps = {
   layoutData: Item[] | Item[][];
   cols?: null | 1 | 2 | 3 | 4;
 };
-export declare type SpaceLayoutProps = {
+export declare type SpaceLayoutProps = SpaceProps & {
   layoutData: Item[];
-  [p: string]: any;
 };
 export declare type Item = {
   type?: React.ComponentType | string;

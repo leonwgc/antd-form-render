@@ -1,14 +1,14 @@
 import React from 'react';
 import { Rule } from 'rc-field-form/lib/interface';
+import type { SpaceProps } from 'antd';
 
 export type FormRenderProps = {
   layoutData: Item[] | Item[][];
   cols?: null | 1 | 2 | 3 | 4;
 };
 
-export type SpaceLayoutProps = {
+export type SpaceLayoutProps = SpaceProps & {
   layoutData: Item[];
-  [p: string]: any;
 };
 
 export type Item = {
