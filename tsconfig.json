@@ -13,6 +13,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "removeComments": false,
     "target": "es5",
     "skipLibCheck": true,
     "esModuleInterop": true,
