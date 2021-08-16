@@ -1,6 +1,6 @@
 {
   "name": "antd-form-render",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "基于react antd v4,js配置的表单渲染方案",
   "keywords": [
     "react",
