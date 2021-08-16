@@ -4,7 +4,7 @@ import type { SpaceProps } from 'antd';
 
 export type FormRenderProps = {
   layoutData: Item[] | Item[][];
-  cols?: null | 1 | 2 | 3 | 4;
+  cols?: 1 | 2 | 3 | 4 | number;
 };
 
 export type SpaceLayoutProps = SpaceProps & {

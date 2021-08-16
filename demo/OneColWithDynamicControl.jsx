@@ -35,7 +35,7 @@ const OneColWithDynamicControl = () => {
       type: 'div',
       label: '你是',
       elProps: {
-        children: data.gender || '未选择',
+        children: data?.gender || '未选择',
       },
     },
     {

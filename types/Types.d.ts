@@ -3,7 +3,7 @@ import { Rule } from 'rc-field-form/lib/interface';
 import type { SpaceProps } from 'antd';
 export declare type FormRenderProps = {
   layoutData: Item[] | Item[][];
-  cols?: null | 1 | 2 | 3 | 4;
+  cols?: 1 | 2 | 3 | 4 | number;
 };
 export declare type SpaceLayoutProps = SpaceProps & {
   layoutData: Item[];

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     // Ensure that .d.ts files are created by tsc, but not .js files
     "declaration": true,
     "emitDeclarationOnly": true,
@@ -13,15 +13,19 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "removeComments": false,
+    "noImplicitAny": false,
     "target": "es5",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowJs": true,
     "strictNullChecks": false,
+    "removeComments": false,
     "outDir": "types",
-    "lib": ["es2015", "dom", "es2015.promise"]
+    "lib": ["es2015", "DOM", "es2015.promise", "ESNext"],
+    "paths": {
+      "antd-form-render": ["src"]
+    }
   },
   "include": ["src/**/*"],
-  "exclude": ["lib", "node_modules", "types"]
+  "exclude": ["lib", "node_modules"]
 }

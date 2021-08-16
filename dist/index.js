@@ -174,6 +174,10 @@ var ItemRender = function ItemRender(_ref) {
   }, itemProps), /*#__PURE__*/React__default['default'].createElement(type, _objectSpread2(_objectSpread2({}, props), elProps))));
 };
 
+/**
+ * 等间距排列 (常用于列表页面的搜索等)
+ */
+
 function SpaceLayout(_ref) {
   var layoutData = _ref.layoutData,
       props = _objectWithoutProperties(_ref, ["layoutData"]);
@@ -222,9 +226,11 @@ var renderTowDimensionLayout = function renderTowDimensionLayout(layoutData) {
       });
     }));
   }));
-}; // 默认二维数组
-// 如果是一维数组，则从上往下一行放一个 item , 除非设置了cols=2/3/4 ,自动1行cols列布局
-// 如果是二维数组，则每个子数组元素的数量，则为一行显示的item数量 ,数量应该可以被24整除
+};
+/**
+ * 如果是一维数组，则从上往下一行放一个 item , 除非设置了cols=2/3/4 ,自动1行cols列布局
+ * 如果是二维数组，则每个子数组元素的数量，则为一行显示的item数量 ,数量可以被24整除
+ */
 
 
 function FormRenderer(_ref) {

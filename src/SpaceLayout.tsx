@@ -3,7 +3,9 @@ import { Space } from 'antd';
 import { SpaceLayoutProps, Item } from './Types';
 import ItemRender from './ItemRender';
 
-// 一维数组
+/**
+ * 等间距排列 (常用于列表页面的搜索等)
+ */
 export default function SpaceLayout({
   layoutData,
   ...props

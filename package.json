@@ -19,7 +19,7 @@
   "scripts": {
     "prepare": "husky install",
     "lint-staged": "lint-staged",
-    "build": "father-build",
+    "build": "father-build && tsc",
     "pub": "bash pub.sh",
     "start": "node pack"
   },
