@@ -375,7 +375,7 @@ export interface SpaceProps extends React.HTMLAttributes<HTMLDivElement> {
     wrap?: boolean;
 }
 
-// 1行n列布局组件
+// 1行n列布局组件,如果是二维数组，则每个子数组元素的数量为一行显示的item数量 ,数量被24整除
 export declare type FormRenderProps = {
   layoutData: Item[] | Item[][];
   cols?: null | 1 | 2 | 3 | 4;
