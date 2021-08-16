@@ -20,7 +20,8 @@
     "prepare": "husky install",
     "lint-staged": "lint-staged",
     "build": "father-build",
-    "pub": "bash pub.sh"
+    "pub": "bash pub.sh",
+    "start": "node pack"
   },
   "peerDependencies": {
     "antd": ">=4.0.0",
@@ -42,9 +43,10 @@
     "@types/antd": "^1.0.0",
     "@types/react": "^16.8.2",
     "@types/react-dom": "^16.8.0",
+    "@types/styled-components": "^5.1.12",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
-    "antd": "^4.16.6",
+    "antd": "^4.16.11",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
@@ -52,11 +54,13 @@
     "father-build": "^1.19.5",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
+    "packx": "^0.4.5",
     "pre-commit": "^1.2.2",
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rimraf": "^3.0.2",
+    "styled-components": "^5.3.0",
     "typescript": "^4.2.4",
     "yargs": "^15.3.1"
   },
