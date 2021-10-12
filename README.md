@@ -1,6 +1,6 @@
 # antd-form-render
 
-使用js配置，开发antd v4表单
+使用js配置，开发antd表单
 
 ## 安装
 
@@ -231,6 +231,8 @@ export default SpaceLayout;
 ```
 
 ### 4.表单联动
+1. 定义form onValuesChange 同步状态到外部state, 触发重新渲染实现表单联动（全量渲染）
+2. 利用Form.Item dependencies/shouldUpdate和自定义render实现表单联动 (非全量渲染)
 
 ![demo4.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cb820b0216ca42d597f7898e404bb465~tplv-k3u1fbpfcp-watermark.image)
 
@@ -363,39 +365,39 @@ export default OneColWithDynamicControl;
 
 ### 组件类型定义
 
-```javascript
-export interface SpaceProps extends React.HTMLAttributes<HTMLDivElement> {
-    prefixCls?: string;
-    className?: string;
-    style?: React.CSSProperties;
-    size?: SpaceSize | [SpaceSize, SpaceSize];
-    direction?: 'horizontal' | 'vertical';
-    align?: 'start' | 'end' | 'center' | 'baseline';
-    split?: React.ReactNode;
-    wrap?: boolean;
-}
-
-// 1行n列布局组件,如果是二维数组，则每个子数组元素的数量为一行显示的item数量 ,数量被24整除
+```js
 export declare type FormRenderProps = {
-  layoutData: Item[] | Item[][];
-  cols?: null | 1 | 2 | 3 | 4;
+    /**
+     * 一维数组:从上往下一行放一个表单项 ,如果设置了cols=2/3/4 ,则一行放置cols(2/3/4)个表单项
+     * 二维数组:子数组配置的表单项目会被渲染为一行
+     */
+    layoutData: Item[] | Item[][];
+    cols?: 1 | 2 | 3 | 4;
 };
 
 // 等间距布局组件
+import type { SpaceProps } from 'antd';
 export declare type SpaceLayoutProps = SpaceProps & {
   layoutData: Item[];
 };
 
 export declare type Item = {
-  type?: React.ComponentType | string; // 组件，比如Input,Button 
-  name?: string; // 名称，传给Form.Item的name ，作为form data的key
-  label?: string; // label名称
-  render?: () => React.ReactNode; // 自定义render
-  getJSON?: () => Item | null; // 动态返回Item 
-  elProps?: Record<string | number | symbol, unknown>; // 组件的props， 比如Button,Input 的props , 参考antd文档配置
-  itemProps?: Record<string | number | symbol, unknown>; // Form.Item的props, 参考antd文档配置
-  rules?: Rule[]; // Form.Item的rules,在itemProps里面定义也可 
+    /** 组件类型，比如Input,Button,"input"  */
+    type?: React.ComponentType | string;
+    /** 传给Form.Item的name,作为form data的key */
+    name?: string;
+    /** label名称 */
+    label?: string;
+    /** 自定义render */
+    render?: () => React.ReactNode;
+    /** 动态返回Item，优先级高于render */
+    getJSON?: () => Item | null;
+    /** 组件的props,比如Button,Input的props,会透传给type定义的组件 */
+    elProps?: Record<string, unknown>;
+    /** Form.Item的props,会透传给Form.Item */
+    itemProps?: Record<string, unknown>;
+    /** Form.Item的rules,在itemProps里面定义也可,放这里主要为了兼容  */
+    rules?: Rule[];
 };
-
 ```
 

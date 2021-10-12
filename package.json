@@ -1,12 +1,13 @@
 {
   "name": "antd-form-render",
-  "version": "1.5.0",
-  "description": "基于react antd v4,js配置的表单渲染方案",
+  "version": "1.5.1",
+  "description": "使用js配置，开发antd表单",
   "keywords": [
     "react",
     "antd",
     "form",
-    "formrender"
+    "formrender",
+    "hooks"
   ],
   "license": "MIT",
   "repository": "https://github.com/leonwgc/antd-form-render",

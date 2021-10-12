@@ -176,6 +176,13 @@ var ItemRender = function ItemRender(_ref) {
 
 /**
  * 等间距排列 (常用于列表页面的搜索等)
+ *
+ * @export
+ * @param {SpaceLayoutProps} {
+ *   layoutData,
+ *   ...props 参考：antd Space组件的props
+ * }
+ * @return {*}  {React.ReactElement}
  */
 
 function SpaceLayout(_ref) {
@@ -228,8 +235,15 @@ var renderTowDimensionLayout = function renderTowDimensionLayout(layoutData) {
   }));
 };
 /**
- * 如果是一维数组，则从上往下一行放一个 item , 除非设置了cols=2/3/4 ,自动1行cols列布局
- * 如果是二维数组，则每个子数组元素的数量，则为一行显示的item数量 ,数量可以被24整除
+ * 一维数组:从上往下一行放一个表单项 ,如果设置了cols=2/3/4 ,则一行放置cols(2/3/4)个表单项
+ * 二维数组:子数组配置的表单项目会被渲染为一行
+ *
+ * @export
+ * @param {FormRenderProps} {
+ *   layoutData,
+ *   cols = 1,
+ * }
+ * @return {*}  {React.ReactElement}
  */
 
 
