@@ -11,8 +11,14 @@
 
 ## 特点
 1. 基于javascript对象配置, 简单, 灵活，高效，上手快，开发快
-2. 简单实现各类表单布局，一行一列，一行2/3/4列, 一行不定列，等间距排列，没有做不到，只有想不到
+2. 简单实现各类表单布局，一行一列，一行2/3/4列, 一行不定列，等间距排列
 3. 实现表单项联动，全量渲染，局部渲染，so easy
+4. 实现表单动态增删也易如反掌，见示例6
+5. 和React数据驱动视图理念保持一致```UI=F(state)、FormUI=antd-form-render(Array<state>) ```
+6. 以最新的hooks技术实现
+7. 一维数组结合二维数组可实现任意表单/页面排列布局
+8. 使用typescript编写，完善的类型提示和说明
+9. 经历了生产十多个大小项目使用，包括自定义装修页面组件属性设置面板动态生成，自定义设置等
 
 ## 示例
 
@@ -361,41 +367,204 @@ export default OneColWithDynamicControl;
 
 ```
 
+### 6.动态增删组件
+
+![6.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d2447631e9124db2817da583976af25d~tplv-k3u1fbpfcp-watermark.image?)
+
+```js
+import React, { useState } from 'react';
+import { Input, Radio, Form, Space, Button } from 'antd';
+import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import FormRender from 'antd-form-render';
+
+const DynamicForm = () => {
+  const [form] = Form.useForm();
+  const [jobExps, setJobExps] = useState([
+    {
+      id: 0,
+      title: '蓝翔技校挖掘机老师',
+    },
+    {
+      id: 1,
+      title: '北大青鸟厨师',
+    },
+    {
+      id: 2,
+      title: '清华扫地僧',
+    },
+  ]);
+
+  const jobExpLayout = jobExps?.map((ex, index) => ({
+    name: ['jobs', index],
+    type: Input,
+    label: '工作经历' + (index + 1),
+    key: ex.id,
+    elProps: {
+      placeholder: '请填写',
+      addonAfter: jobExps.length > 1 && (
+        <MinusCircleOutlined
+          onClick={() => {
+            const jobs = form.getFieldValue('jobs');
+            jobs.splice(index, 1);
+            setJobExps(
+              jobs.map((e, i) => ({
+                id: jobExps[i].id,
+                title: e,
+              }))
+            );
+          }}
+        />
+      ),
+    },
+    itemProps: {
+      initialValue: ex.title,
+    },
+    rules: [{ required: true }],
+  }));
+
+  const layout = [
+    {
+      type: Input,
+      label: '姓名',
+      name: 'name',
+      rules: [{ required: true, message: '请填写' }],
+      elProps: {
+        placeholder: '请填写姓名',
+      },
+    },
+    {
+      type: Radio.Group,
+      label: '性别',
+      name: 'gender',
+      rules: [{ required: true, message: '请选择' }],
+      elProps: {
+        options: [
+          { label: '女', value: 0 },
+          { label: '男', value: 1 },
+        ],
+      },
+    },
+    // 动态更新组件
+    ...jobExpLayout,
+    {
+      render() {
+        return (
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 24 }}>
+            <Button
+              icon={<PlusCircleOutlined />}
+              onClick={() => {
+                setJobExps([...jobExps, { id: +Date.now(), title: '' }]);
+              }}
+            >
+              添加工作经历
+            </Button>
+          </div>
+        );
+      },
+    },
+    {
+      type: Input.TextArea,
+      label: '个人简',
+      elProps: {
+        rows: 6,
+      },
+      placeholder: '请输入',
+      name: 'bio',
+    },
+
+    ,
+    {
+      render() {
+        return (
+          <Space style={{ justifyContent: 'flex-end', width: '100%' }}>
+            <Button type="default">取消</Button>
+            <Button type="primary" htmlType="submit">
+              保存
+            </Button>
+          </Space>
+        );
+      },
+    },
+  ];
+
+  return (
+    <div style={{ width: 600 }}>
+      <Form onFinish={console.log} form={form}>
+        <FormRender layoutData={layout}></FormRender>
+      </Form>
+    </div>
+  );
+};
+
+export default DynamicForm;
+
+```
+
 ### 组件类型定义
 
 ```js
-export declare type FormRenderProps = {
-    /**
-     * 一维数组:从上往下一行放一个表单项 ,如果设置了cols=2/3/4 ,则一行放置cols(2/3/4)个表单项
-     * 二维数组:子数组配置的表单项目会被渲染为一行
-     */
-    layoutData: Item[] | Item[][];
-    cols?: 1 | 2 | 3 | 4;
-};
-
-// 等间距布局组件
-import type { SpaceProps } from 'antd';
-export declare type SpaceLayoutProps = SpaceProps & {
-  layoutData: Item[];
-};
-
+// 配置项定义
 export declare type Item = {
-    /** 组件类型，比如Input,Button,"input"  */
-    type?: React.ComponentType | string;
-    /** 传给Form.Item的name,作为form data的key */
-    name?: string;
-    /** label名称 */
-    label?: string;
-    /** 自定义render */
-    render?: () => React.ReactNode;
-    /** 动态返回Item，优先级高于render */
-    getJSON?: () => Item | null;
-    /** 组件的props,比如Button,Input的props,会透传给type定义的组件 */
-    elProps?: Record<string, unknown>;
-    /** Form.Item的props,会透传给Form.Item */
-    itemProps?: Record<string, unknown>;
-    /** Form.Item的rules,在itemProps里面定义也可,放这里主要为了兼容  */
-    rules?: Rule[];
+  /** 组件类型，比如Input,Button,"input"  */
+  type?: React.ComponentType | string;
+  /** Form.Item name, 字段名，支持数组 */
+  name?: string | Array<string | number>;
+  /** Form.Item label, 标签的文本*/
+  label?: React.ReactNode;
+  /** 自定义渲染 */
+  render?: () => React.ReactNode;
+  /** 动态返回Item，优先级高于render */
+  getJSON?: () => Item | null;
+  /** 组件props,会透传给type定义的组件 */
+  elProps?: Record<string, unknown>;
+  /** Form.Item的props,会透传给Form.Item */
+  itemProps?: Record<string, unknown>;
+  /** Form.Itemrules,也可在itemProps里定义  */
+  rules?: Rule[];
 };
+
+// 默认导出组件
+/**
+ * 等分空间布局, 每个组件等分一行空间
+ *
+ * 一维数组:从上往下一行放一个组件 ,设置了cols则一行显示cols(1/2/3/4)个组件
+ *
+ * 二维数组:子数组配置的所有组件渲染为一行（不定列布局）
+ *
+ * 数组（或子数组）内组件会等分一行所占空间，内部采用Row,Col布局
+ *
+ * @export
+ * @param {FormRenderProps} {
+ *   layoutData: Item[] | Item[][];
+ *   cols = 1 | 2 | 3 | 4,
+ * }
+ * @return {*}  {React.ReactElement}
+ */
+export default function FormRenderer({ 
+/**
+ * 1或2维数组，存储组件配置信息/自定义渲染组件
+ */
+layoutData, 
+/**
+ * 定义一行渲染几个组件，layoutData为一维数组时生效, 可以是: 1 | 2 | 3 | 4, 默认1,
+ */
+cols, }: FormRenderProps): React.ReactElement;
+
+// 命名导出组件
+/**
+ * 等间距排列 (常用于列表页面的搜索等)
+ *
+ * @export
+ * @param {SpaceLayoutProps} {
+ *   layoutData,
+ *   ...props 参考：antd Space组件的props
+ * }
+ * @return {*}  {React.ReactElement}
+ */
+export function FormSpaceRender({ 
+/**
+ * 1维数组，存储组件配置信息/自定义渲染组件
+ */
+layoutData, ...props }: SpaceLayoutProps): React.ReactElement;
 ```
 

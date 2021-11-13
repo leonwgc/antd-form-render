@@ -12,9 +12,18 @@ export { default as FormSpaceRender } from './SpaceLayout';
  *
  * @export
  * @param {FormRenderProps} {
- *   layoutData,
+ *   layoutData: Item[] | Item[][];
  *   cols = 1 | 2 | 3 | 4,
  * }
  * @return {*}  {React.ReactElement}
  */
-export default function FormRenderer({ layoutData, cols }: FormRenderProps): React.ReactElement;
+export default function FormRenderer({
+  /**
+   * 1或2维数组，存储组件配置信息/自定义渲染组件
+   */
+  layoutData,
+  /**
+   * 定义一行渲染几个组件，layoutData为一维数组时生效, 可以是: 1 | 2 | 3 | 4, 默认1,
+   */
+  cols,
+}: FormRenderProps): React.ReactElement;

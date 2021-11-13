@@ -6,6 +6,7 @@ import OneColWithDynamicControl from './OneColWithDynamicControl';
 import OneRowNCol from './OneRowNCol';
 import SpaceLayout from './SpaceLayout';
 import TwoDimensionArray from './TwoDimensionArray';
+import DynamicForm from './DynamicForm';
 import './App.less';
 
 const { TabPane } = Tabs;
@@ -34,6 +35,9 @@ const App = () => {
         </TabPane>
         <TabPane tab="表单联动" key="5">
           <OneColWithDynamicControl />
+        </TabPane>
+        <TabPane tab="动态增删" key="6">
+          <DynamicForm />
         </TabPane>
       </Tabs>
     </StyledContainer>

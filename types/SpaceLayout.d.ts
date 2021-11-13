@@ -10,4 +10,10 @@ import { SpaceLayoutProps } from './Types';
  * }
  * @return {*}  {React.ReactElement}
  */
-export default function SpaceLayout({ layoutData, ...props }: SpaceLayoutProps): React.ReactElement;
+export default function SpaceLayout({
+  /**
+   * 1维数组，存储组件配置信息/自定义渲染组件
+   */
+  layoutData,
+  ...props
+}: SpaceLayoutProps): React.ReactElement;
