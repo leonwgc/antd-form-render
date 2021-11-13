@@ -19,19 +19,15 @@
 ### 1. 一行一列
 
 
-![demo1.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/846740cc9ee5404c8a319002809f467c~tplv-k3u1fbpfcp-watermark.image)
+![1.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8cff5cac07014d74aec5eb75acef50d6~tplv-k3u1fbpfcp-watermark.image?)
+
 
 ```js
 import React from 'react';
-import styled from 'styled-components';
-import { Form, Button, Space, Input, message } from 'antd';
+import { Form, Button, Input } from 'antd';
 import FormRender from 'antd-form-render';
 
-const StyledOneRow = styled.div`
-  width: 400px;
-`;
-
-const OneCol = () => {
+const OneRowOneCol = () => {
   const [form] = Form.useForm();
 
   const oneRowLayout = [
@@ -60,85 +56,41 @@ const OneCol = () => {
       },
     },
     {
-      type: Input.Password,
-      label: '确认密码',
-      placeholder: '请输入',
-      name: 'confirmPwd',
-      itemProps: {
-        rules: [
-          { required: true, message: '请输入' },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('pwd') === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject(new Error('两次密码不一致'));
-            },
-          }),
-        ],
-      },
-    },
-    {
-      type: Input.TextArea,
-      name: 'desc',
-      label: '简介',
-      elProps: {
-        placeholder: '个人简介',
-        rows: 4,
-      },
-    },
-    {
-      // 自定义render
       render() {
         return (
-          <Form.Item wrapperCol={{ offset: 6 }}>
-            <Space>
-              <Button htmlType="submit" type="primary">
-                确定
-              </Button>
-              <Button htmlType="reset">重置</Button>
-            </Space>
-          </Form.Item>
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button type="primary" htmlType="submit" style={{ width: 120 }}>
+              登录
+            </Button>
+          </div>
         );
       },
     },
   ];
 
   return (
-    <StyledOneRow>
-      <Form
-        form={form}
-        labelCol={{ span: 6 }}
-        onFinish={(v) => {
-          message.success(JSON.stringify(v));
-        }}
-      >
+    <div style={{ width: 400, paddingTop: 32 }}>
+      <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
         <FormRender layoutData={oneRowLayout}></FormRender>
       </Form>
-    </StyledOneRow>
+    </div>
   );
 };
 
-export default OneCol;
-
+export default OneRowOneCol;
 ```
 
-### 2. 一行多列布局
+### 2. 一行N列
 
+![2.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/de8307358c98474f865e4b633aa71030~tplv-k3u1fbpfcp-watermark.image?)
 
-![demo2.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7b2b039808964cd28f9a7baf70ae21a5~tplv-k3u1fbpfcp-watermark.image)
 
 ```js
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { Input, Radio, Form } from 'antd';
 import FormRender from 'antd-form-render';
 
-const StyledOneRow = styled.div`
-  width: 800px;
-`;
-
-const MultipleCols = () => {
+const OneRowNCol = () => {
   const layout = [];
   const [cols, setCols] = useState(4);
 
@@ -152,9 +104,9 @@ const MultipleCols = () => {
   }
 
   return (
-    <StyledOneRow>
+    <div style={{ paddingTop: 32, width: 800 }}>
       <Form layout="vertical">
-        <div style={{ margin: '16px 0' }}>
+        <div style={{ marginBottom: 24 }}>
           <Radio.Group
             onChange={(e) => setCols(Number(e.target.value))}
             optionType="button"
@@ -168,28 +120,22 @@ const MultipleCols = () => {
         </div>
         <FormRender layoutData={layout} cols={cols}></FormRender>
       </Form>
-    </StyledOneRow>
+    </div>
   );
 };
 
-export default MultipleCols;
-
+export default OneRowNCol;
 ```
 
-### 3. 等间距排列 (常用于列表页面的搜索等)
+### 3. 等间距排列
 
-![demo3.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/45f46855cad44c968f5bde33999cb0b2~tplv-k3u1fbpfcp-watermark.image)
 
+![3.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5fd4ffd55f7846a68e9184e7acbddae7~tplv-k3u1fbpfcp-watermark.image?)
 
 ```js
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { Input, Radio, Form } from 'antd';
 import { FormSpaceRender } from 'antd-form-render';
-
-const StyledOneRow = styled.div`
-  width: 1000px;
-`;
 
 const SpaceLayout = () => {
   const layout = [];
@@ -205,9 +151,9 @@ const SpaceLayout = () => {
   }
 
   return (
-    <StyledOneRow>
+    <div style={{ paddingTop: 32, width: 800 }}>
       <Form layout="horizontal">
-        <div style={{ margin: '16px 0' }}>
+        <div style={{ marginBottom: 24 }}>
           <Radio.Group
             onChange={(e) => setSpace(Number(e.target.value))}
             optionType="button"
@@ -221,42 +167,106 @@ const SpaceLayout = () => {
         </div>
         <FormSpaceRender layoutData={layout} size={space}></FormSpaceRender>
       </Form>
-    </StyledOneRow>
+    </div>
   );
 };
 
 export default SpaceLayout;
+```
+
+### 4.二维数组自定义布局
+
+![4.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f406c4f5815c466eb16f6a1fbe641326~tplv-k3u1fbpfcp-watermark.image?)
+
+```js
+import React from 'react';
+import { Input, Radio, Form, Space, Button } from 'antd';
+import FormRender from 'antd-form-render';
+
+const TwoDimensionArray = () => {
+  const layout = [
+    [
+      {
+        type: Input,
+        label: '姓名',
+        name: 'name',
+        rules: [{ required: true, message: '请填写' }],
+        elProps: {
+          placeholder: '请填写姓名',
+        },
+      },
+      {
+        type: Radio.Group,
+        label: '性别',
+        name: 'gender',
+        rules: [{ required: true, message: '请选择' }],
+        elProps: {
+          options: [
+            { label: '女', value: 0 },
+            { label: '男', value: 1 },
+          ],
+        },
+      },
+    ],
+    [
+      {
+        type: Input.TextArea,
+        label: '个人简',
+        elProps: {
+          rows: 6,
+        },
+        placeholder: '请输入',
+        name: 'bio',
+      },
+    ],
+    [
+      {
+        render() {
+          return (
+            <Space style={{ justifyContent: 'flex-end', width: '100%' }}>
+              <Button type="default">取消</Button>
+              <Button type="primary">保存</Button>
+            </Space>
+          );
+        },
+      },
+    ],
+  ];
+
+  return (
+    <div style={{ width: 600 }}>
+      <Form>
+        <FormRender layoutData={layout}></FormRender>
+      </Form>
+    </div>
+  );
+};
+
+export default TwoDimensionArray;
 
 ```
 
-### 4.表单联动
+### 5.表单联动
 1. 定义form onValuesChange 同步状态到外部state, 触发重新渲染实现表单联动（全量渲染）
 2. 利用Form.Item dependencies/shouldUpdate和自定义render实现表单联动 (非全量渲染)
 
-![demo4.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cb820b0216ca42d597f7898e404bb465~tplv-k3u1fbpfcp-watermark.image)
+
+![5.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/77a3961d95f74b87b44acc9348810a89~tplv-k3u1fbpfcp-watermark.image?)
 
 
 ```js
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Form, Button, Radio, message } from 'antd';
+import { Form, Radio } from 'antd';
 import FormRender from 'antd-form-render';
-
-const StyledOneRow = styled.div`
-  width: 600px;
-`;
-
-const StyledP = styled.p`
-  padding: 10px;
-`;
 
 const OneColWithDynamicControl = () => {
   const [form] = Form.useForm();
-
   const [form1] = Form.useForm();
 
+  //#region 全量渲染联动
+
   // 用于同步表单状态
-  const [data, setData] = useState({});
+  const [data, setData] = useState<{ gender?: string }>({});
 
   const layout = [
     {
@@ -274,23 +284,16 @@ const OneColWithDynamicControl = () => {
       type: 'div',
       label: '你是',
       elProps: {
-        children: data.gender || '未选择'
-      },
-    },
-    {
-      type: Button,
-      elProps: {
-        htmlType: 'submit',
-        type: 'primary',
-        children: '确定',
-      },
-      itemProps: {
-        wrapperCol: { offset: 6 },
+        children: data?.gender || '未选择',
       },
     },
   ];
 
-  // 基于antd dependency 实现表单联动
+  //#endregion 全量渲染联动
+
+  //#region 局部联动渲染
+
+  // 基于Form.Item dependency/shouldUpdate 实现表单联动,局部渲染
   const layout1 = [
     {
       type: Radio.Group,
@@ -305,6 +308,7 @@ const OneColWithDynamicControl = () => {
     },
     {
       render() {
+        // dependencies
         return (
           <Form.Item label="你是" dependencies={['gender']}>
             {() => {
@@ -316,45 +320,40 @@ const OneColWithDynamicControl = () => {
       },
     },
     {
-      type: Button,
-      elProps: {
-        htmlType: 'submit',
-        type: 'primary',
-        children: '确定',
-      },
-      itemProps: {
-        wrapperCol: { offset: 6 },
+      render() {
+        // shouldUpdate
+        return (
+          <Form.Item shouldUpdate label="你是">
+            {() => {
+              return form1.getFieldValue('gender');
+            }}
+          </Form.Item>
+        );
       },
     },
   ];
 
+  //#endregion 局部联动渲染
+
   return (
-    <StyledOneRow>
-      <StyledP>1.定义onValuesChange 同步状态到state , 触发重新渲染实现表单联动</StyledP>
+    <div>
+      <p>1.定义onValuesChange 同步状态到state , 触发全量渲染实现表单联动</p>
+
       <Form
         form={form}
         onValuesChange={(v) => {
           setData((p) => ({ ...p, ...v }));
         }}
-        labelCol={{ span: 6 }}
-        onFinish={(v) => {
-          message.success(JSON.stringify(v));
-        }}
       >
         <FormRender layoutData={layout}></FormRender>
       </Form>
 
-      <StyledP>2.利用Form.Item dependencies/shouldUpdate 和自定义render 实现表单联动</StyledP>
-      <Form
-        form={form1}
-        labelCol={{ span: 6 }}
-        onFinish={(v) => {
-          message.success(JSON.stringify(v));
-        }}
-      >
+      <p>2.基于Form.Item dependency/shouldUpdate 实现表单联动,局部渲染</p>
+
+      <Form form={form1}>
         <FormRender layoutData={layout1}></FormRender>
       </Form>
-    </StyledOneRow>
+    </div>
   );
 };
 

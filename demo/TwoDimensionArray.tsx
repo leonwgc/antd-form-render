@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { Input, Radio, Form, Space, Button } from 'antd';
 import FormRender from 'antd-form-render';
-
-const StyledRow = styled.div`
-  width: 600px;
-`;
 
 const TwoDimensionArray = () => {
   const layout = [
@@ -58,11 +53,11 @@ const TwoDimensionArray = () => {
   ];
 
   return (
-    <StyledRow>
+    <div style={{ width: 600 }}>
       <Form>
         <FormRender layoutData={layout}></FormRender>
       </Form>
-    </StyledRow>
+    </div>
   );
 };
 
