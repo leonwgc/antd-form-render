@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Tabs } from 'antd';
-import OneCol from './OneCol';
+import OneRowOneCol from './OneRowOneCol';
 import OneColWithDynamicControl from './OneColWithDynamicControl';
-import MultipleCols from './MultipleCols';
+import OneRowNCol from './OneRowNCol';
 import SpaceLayout from './SpaceLayout';
+import TwoDimensionArray from './TwoDimensionArray';
 import './App.less';
 
 const { TabPane } = Tabs;
@@ -20,16 +21,19 @@ const App = () => {
     <StyledContainer>
       <Tabs defaultActiveKey="1" activeKey={key} onChange={setKey}>
         <TabPane tab="一行一列" key="1">
-          <OneCol />
+          <OneRowOneCol />
         </TabPane>
-        <TabPane tab="表单联动" key="2">
-          <OneColWithDynamicControl />
+        <TabPane tab="一行N列" key="2">
+          <OneRowNCol />
         </TabPane>
-        <TabPane tab="一行多列" key="3">
-          <MultipleCols />
-        </TabPane>
-        <TabPane tab="等间距排列" key="4">
+        <TabPane tab="等间距排列" key="3">
           <SpaceLayout />
+        </TabPane>
+        <TabPane tab="二维数组自定义布局" key="4">
+          <TwoDimensionArray />
+        </TabPane>
+        <TabPane tab="表单联动" key="5">
+          <OneColWithDynamicControl />
         </TabPane>
       </Tabs>
     </StyledContainer>

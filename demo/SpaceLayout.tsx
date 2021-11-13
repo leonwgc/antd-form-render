@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { Input, Radio, Form } from 'antd';
 import { FormSpaceRender } from 'antd-form-render';
-
-const StyledOneRow = styled.div`
-  width: 1000px;
-`;
 
 const SpaceLayout = () => {
   const layout = [];
@@ -21,9 +16,9 @@ const SpaceLayout = () => {
   }
 
   return (
-    <StyledOneRow>
+    <div style={{ paddingTop: 32, width: 800 }}>
       <Form layout="horizontal">
-        <div style={{ margin: '16px 0' }}>
+        <div style={{ marginBottom: 24 }}>
           <Radio.Group
             onChange={(e) => setSpace(Number(e.target.value))}
             optionType="button"
@@ -37,7 +32,7 @@ const SpaceLayout = () => {
         </div>
         <FormSpaceRender layoutData={layout} size={space}></FormSpaceRender>
       </Form>
-    </StyledOneRow>
+    </div>
   );
 };
 

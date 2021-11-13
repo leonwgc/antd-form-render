@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { Input, Radio, Form } from 'antd';
 import FormRender from 'antd-form-render';
 
-const StyledOneRow = styled.div`
-  width: 800px;
-`;
-
-const MultipleCols = () => {
+const OneRowNCol = () => {
   const layout = [];
   const [cols, setCols] = useState(4);
 
@@ -21,9 +16,9 @@ const MultipleCols = () => {
   }
 
   return (
-    <StyledOneRow>
+    <div style={{ paddingTop: 32, width: 800 }}>
       <Form layout="vertical">
-        <div style={{ margin: '16px 0' }}>
+        <div style={{ marginBottom: 24 }}>
           <Radio.Group
             onChange={(e) => setCols(Number(e.target.value))}
             optionType="button"
@@ -37,8 +32,8 @@ const MultipleCols = () => {
         </div>
         <FormRender layoutData={layout} cols={cols}></FormRender>
       </Form>
-    </StyledOneRow>
+    </div>
   );
 };
 
-export default MultipleCols;
+export default OneRowNCol;

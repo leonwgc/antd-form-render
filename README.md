@@ -1,6 +1,6 @@
 # antd-form-render
 
-使用js配置，开发antd表单
+使用js对象配置，开发antd v4表单
 
 ## 安装
 
@@ -9,13 +9,12 @@
     $ npm install --save antd-form-render
     $ yarn add antd-form-render
 
-## 功能
+## 特点
+1. 基于javascript对象配置, 简单, 灵活，高效，上手快，开发快
+2. 简单实现各类表单布局，一行一列，一行2/3/4列, 一行不定列，等间距排列，没有做不到，只有想不到
+3. 实现表单项联动，全量渲染，局部渲染，so easy
 
-1. 通过js配置开发 antd v4表单
-2. 等宽度布局，实现1行1列，1行2列，1行3列，1行4列 (基于Row与Col排列)
-3. 等间距布局 (基于Space排列)
-
-
+## 示例
 
 ### 1. 一行一列
 
