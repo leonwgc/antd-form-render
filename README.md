@@ -1,49 +1,49 @@
 # antd-form-render
 
-使用js对象配置，开发antd v4表单
+使用 js 配置，开发 ant-design 表单
 
 ## 安装
 
-用 npm [npm](https://npmjs.org/) / [yarn](https://yarnpkg.com) 安装:
+用 [npm](https://npmjs.org/) / [yarn](https://yarnpkg.com) 安装:
 
     $ npm install --save antd-form-render
     $ yarn add antd-form-render
 
 ## 特点
-1. 基于javascript对象配置, 简单, 灵活，高效，上手快，开发快
-2. 简单实现各类表单布局，一行一列，一行2/3/4列, 一行不定列，等间距排列
-3. 实现表单项联动，全量渲染，局部渲染，so easy
-4. 实现表单动态增删也易如反掌，见示例6
-5. 和React数据驱动视图理念保持一致```UI=F(state)、FormUI=antd-form-render(Array<state>) ```
-6. 以最新的hooks技术实现
-7. 一维数组结合二维数组可实现任意表单/页面排列布局
-8. 使用typescript编写，完善的类型提示和说明
-9. 经历了生产十多个大小项目使用，包括自定义装修页面组件属性设置面板动态生成，自定义设置等
+
+1. 基于 js 配置开发
+2. 支持等分空间排列 / 等间距排列
+3. 支持表单联动
+4. 支持全量渲染 / 局部渲染
+5. 支持动态增 / 删 / 改表单项目
+6. 与react数据驱动视图理念保持一致`UI=F(state)`
+7. 基于react-hooks
+8. 基于一维数组 / 二维数组, 可实现任意表单布局
+9. 使用 typescript 编写，开发智能提示
+10. 经历了生产十多个大小项目使用
 
 ## 示例
 
-### 1. 一行一列
-
+#### 1. 一行一列排列
 
 ![1.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8cff5cac07014d74aec5eb75acef50d6~tplv-k3u1fbpfcp-watermark.image?)
-
 
 ```js
 import React from 'react';
 import { Form, Button, Input } from 'antd';
 import FormRender from 'antd-form-render';
 
-const OneRowOneCol = () => {
+const Ex = () => {
   const [form] = Form.useForm();
 
-  const oneRowLayout = [
+  const layoutData = [
     {
       type: Input,
-      label: '手机号',
-      placeholder: '请输入',
       name: 'tel',
+      label: '手机号',
       elProps: {
         maxLength: 11,
+        placeholder: '请输入',
       },
       itemProps: {
         rules: [
@@ -64,44 +64,37 @@ const OneRowOneCol = () => {
     {
       render() {
         return (
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button type="primary" htmlType="submit" style={{ width: 120 }}>
-              登录
-            </Button>
-          </div>
+          <Button type="primary" htmlType="submit">
+            登录
+          </Button>
         );
       },
     },
   ];
 
   return (
-    <div style={{ width: 400, paddingTop: 32 }}>
-      <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
-        <FormRender layoutData={oneRowLayout}></FormRender>
-      </Form>
-    </div>
+    <Form form={form}>
+      <FormRender layoutData={layoutData}></FormRender>
+    </Form>
   );
 };
-
-export default OneRowOneCol;
 ```
 
-### 2. 一行N列
+#### 2. 一行n列排列 (n<=4)
 
 ![2.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/de8307358c98474f865e4b633aa71030~tplv-k3u1fbpfcp-watermark.image?)
-
 
 ```js
 import React, { useState } from 'react';
 import { Input, Radio, Form } from 'antd';
 import FormRender from 'antd-form-render';
 
-const OneRowNCol = () => {
-  const layout = [];
+const Ex = () => {
+  const layoutData = [];
   const [cols, setCols] = useState(4);
 
   for (let i = 0; i < 11; i++) {
-    layout.push({
+    layoutData.push({
       type: Input,
       label: `输入框${i + 1}`,
       placeholder: '请输入',
@@ -110,31 +103,21 @@ const OneRowNCol = () => {
   }
 
   return (
-    <div style={{ paddingTop: 32, width: 800 }}>
-      <Form layout="vertical">
-        <div style={{ marginBottom: 24 }}>
-          <Radio.Group
-            onChange={(e) => setCols(Number(e.target.value))}
-            optionType="button"
-            value={cols}
-          >
-            <Radio value={1}>1行1列</Radio>
-            <Radio value={2}>1行2列</Radio>
-            <Radio value={3}>1行3列</Radio>
-            <Radio value={4}>1行4列</Radio>
-          </Radio.Group>
-        </div>
-        <FormRender layoutData={layout} cols={cols}></FormRender>
-      </Form>
-    </div>
+    <Form layout="vertical">
+      <Radio.Group onChange={(e) => setCols(Number(e.target.value))} value={cols}>
+        <Radio value={1}>1行1列</Radio>
+        <Radio value={2}>1行2列</Radio>
+        <Radio value={3}>1行3列</Radio>
+        <Radio value={4}>1行4列</Radio>
+      </Radio.Group>
+
+      <FormRender layoutData={layoutData} cols={cols}></FormRender>
+    </Form>
   );
 };
-
-export default OneRowNCol;
 ```
 
-### 3. 等间距排列
-
+#### 3. 等间距排列
 
 ![3.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5fd4ffd55f7846a68e9184e7acbddae7~tplv-k3u1fbpfcp-watermark.image?)
 
@@ -143,7 +126,7 @@ import React, { useState } from 'react';
 import { Input, Radio, Form } from 'antd';
 import { FormSpaceRender } from 'antd-form-render';
 
-const SpaceLayout = () => {
+const Ex = () => {
   const layout = [];
   const [space, setSpace] = useState(8);
 
@@ -157,30 +140,21 @@ const SpaceLayout = () => {
   }
 
   return (
-    <div style={{ paddingTop: 32, width: 800 }}>
-      <Form layout="horizontal">
-        <div style={{ marginBottom: 24 }}>
-          <Radio.Group
-            onChange={(e) => setSpace(Number(e.target.value))}
-            optionType="button"
-            value={space}
-          >
-            <Radio value={8}>8px</Radio>
-            <Radio value={16}>16px</Radio>
-            <Radio value={24}>24px</Radio>
-            <Radio value={32}>32px</Radio>
-          </Radio.Group>
-        </div>
-        <FormSpaceRender layoutData={layout} size={space}></FormSpaceRender>
-      </Form>
-    </div>
+    <Form layout="horizontal">
+      <Radio.Group onChange={(e) => setSpace(Number(e.target.value))} value={space}>
+        <Radio value={8}>8px</Radio>
+        <Radio value={16}>16px</Radio>
+        <Radio value={24}>24px</Radio>
+        <Radio value={32}>32px</Radio>
+      </Radio.Group>
+
+      <FormSpaceRender layoutData={layout} size={space}></FormSpaceRender>
+    </Form>
   );
 };
-
-export default SpaceLayout;
 ```
 
-### 4.二维数组自定义布局
+#### 4.二维数组自定义布局
 
 ![4.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f406c4f5815c466eb16f6a1fbe641326~tplv-k3u1fbpfcp-watermark.image?)
 
@@ -189,8 +163,8 @@ import React from 'react';
 import { Input, Radio, Form, Space, Button } from 'antd';
 import FormRender from 'antd-form-render';
 
-const TwoDimensionArray = () => {
-  const layout = [
+const Ex = () => {
+  const layoutData = [
     [
       {
         type: Input,
@@ -229,7 +203,7 @@ const TwoDimensionArray = () => {
       {
         render() {
           return (
-            <Space style={{ justifyContent: 'flex-end', width: '100%' }}>
+            <Space>
               <Button type="default">取消</Button>
               <Button type="primary">保存</Button>
             </Space>
@@ -240,32 +214,26 @@ const TwoDimensionArray = () => {
   ];
 
   return (
-    <div style={{ width: 600 }}>
-      <Form>
-        <FormRender layoutData={layout}></FormRender>
-      </Form>
-    </div>
+    <Form>
+      <FormRender layoutData={layoutData}></FormRender>
+    </Form>
   );
 };
-
-export default TwoDimensionArray;
-
 ```
 
-### 5.表单联动
-1. 定义form onValuesChange 同步状态到外部state, 触发重新渲染实现表单联动（全量渲染）
-2. 利用Form.Item dependencies/shouldUpdate和自定义render实现表单联动 (非全量渲染)
+#### 5.表单联动
 
+1. 定义 form onValuesChange 同步状态到外部 state, 触发重新渲染实现表单联动（全量渲染）
+2. 利用 Form.Item dependencies / shouldUpdate 和自定义 render 实现表单联动 (非全量渲染)
 
 ![5.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/77a3961d95f74b87b44acc9348810a89~tplv-k3u1fbpfcp-watermark.image?)
-
 
 ```js
 import React, { useState } from 'react';
 import { Form, Radio } from 'antd';
 import FormRender from 'antd-form-render';
 
-const OneColWithDynamicControl = () => {
+const Ex = () => {
   const [form] = Form.useForm();
   const [form1] = Form.useForm();
 
@@ -274,7 +242,7 @@ const OneColWithDynamicControl = () => {
   // 用于同步表单状态
   const [data, setData] = useState<{ gender?: string }>({});
 
-  const layout = [
+  const layoutData = [
     {
       type: Radio.Group,
       label: '性别',
@@ -300,7 +268,7 @@ const OneColWithDynamicControl = () => {
   //#region 局部联动渲染
 
   // 基于Form.Item dependency/shouldUpdate 实现表单联动,局部渲染
-  const layout1 = [
+  const layoutData1 = [
     {
       type: Radio.Group,
       label: '性别',
@@ -351,23 +319,23 @@ const OneColWithDynamicControl = () => {
           setData((p) => ({ ...p, ...v }));
         }}
       >
-        <FormRender layoutData={layout}></FormRender>
+        <FormRender layoutData={layoutData}></FormRender>
       </Form>
 
       <p>2.基于Form.Item dependency/shouldUpdate 实现表单联动,局部渲染</p>
 
       <Form form={form1}>
-        <FormRender layoutData={layout1}></FormRender>
+        <FormRender layoutData={layoutData1}></FormRender>
       </Form>
     </div>
   );
 };
 
-export default OneColWithDynamicControl;
+
 
 ```
 
-### 6.动态增删组件
+#### 6.动态增删组件
 
 ![6.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d2447631e9124db2817da583976af25d~tplv-k3u1fbpfcp-watermark.image?)
 
@@ -377,7 +345,7 @@ import { Input, Radio, Form, Space, Button } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import FormRender from 'antd-form-render';
 
-const DynamicForm = () => {
+const Ex = () => {
   const [form] = Form.useForm();
   const [jobExps, setJobExps] = useState([
     {
@@ -488,16 +456,13 @@ const DynamicForm = () => {
   ];
 
   return (
-    <div style={{ width: 600 }}>
-      <Form onFinish={console.log} form={form}>
-        <FormRender layoutData={layout}></FormRender>
-      </Form>
-    </div>
+    <Form onFinish={console.log} form={form}>
+      <FormRender layoutData={layout}></FormRender>
+    </Form>
   );
 };
 
 export default DynamicForm;
-
 ```
 
 ### 组件类型定义
@@ -505,11 +470,11 @@ export default DynamicForm;
 ```js
 // 配置项定义
 export declare type Item = {
-  /** 组件类型，比如Input,Button,"input"  */
+  /** 要渲染的组件，比如Input,Button,"input"  */
   type?: React.ComponentType | string;
-  /** Form.Item name, 字段名，支持数组 */
+  /** 字段名，支持数组，透传给Form.Item */
   name?: string | Array<string | number>;
-  /** Form.Item label, 标签的文本*/
+  /** 标签 透传给Form.Item*/
   label?: React.ReactNode;
   /** 自定义渲染 */
   render?: () => React.ReactNode;
@@ -540,11 +505,11 @@ export declare type Item = {
  * }
  * @return {*}  {React.ReactElement}
  */
-export default function FormRenderer({ 
+export default function FormRenderer({
 /**
  * 1或2维数组，存储组件配置信息/自定义渲染组件
  */
-layoutData, 
+layoutData,
 /**
  * 定义一行渲染几个组件，layoutData为一维数组时生效, 可以是: 1 | 2 | 3 | 4, 默认1,
  */
@@ -561,10 +526,9 @@ cols, }: FormRenderProps): React.ReactElement;
  * }
  * @return {*}  {React.ReactElement}
  */
-export function FormSpaceRender({ 
+export function FormSpaceRender({
 /**
  * 1维数组，存储组件配置信息/自定义渲染组件
  */
 layoutData, ...props }: SpaceLayoutProps): React.ReactElement;
 ```
-
