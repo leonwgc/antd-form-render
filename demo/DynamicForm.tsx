@@ -1,51 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, Radio, Form, Space, Button } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import FormRender from 'antd-form-render';
 
 const DynamicForm = () => {
   const [form] = Form.useForm();
-  const [jobExps, setJobExps] = useState([
-    {
-      id: 0,
-      title: '蓝翔技校挖掘机老师',
-    },
-    {
-      id: 1,
-      title: '北大青鸟厨师',
-    },
-    {
-      id: 2,
-      title: '清华扫地僧',
-    },
-  ]);
 
-  const jobExpLayout = jobExps?.map((ex, index) => ({
+  const [data, setData] = useState<any>({
+    jobs: ['job1', 'job2', 'job3'],
+  });
+
+  const jobExpLayout = data.jobs?.map((ex, index) => ({
     name: ['jobs', index],
     type: Input,
     label: '工作经历' + (index + 1),
-    key: ex.id,
     elProps: {
       placeholder: '请填写',
-      addonAfter: jobExps.length > 1 && (
+      addonAfter: data.jobs.length > 1 && (
         <MinusCircleOutlined
           onClick={() => {
-            const jobs = form.getFieldValue('jobs');
+            const { jobs = [''] } = form.getFieldsValue();
+
             jobs.splice(index, 1);
-            setJobExps(
-              jobs.map((e, i) => ({
-                id: jobExps[i].id,
-                title: e,
-              }))
-            );
+
+            // form
+            form.setFieldsValue({ jobs: jobs });
+
+            // state
+            const newData = { ...data, jobs: jobs };
+            setData(newData);
           }}
         />
       ),
     },
-    itemProps: {
-      initialValue: ex.title,
-    },
-    rules: [{ required: true }],
   }));
 
   const layout = [
@@ -62,12 +49,22 @@ const DynamicForm = () => {
       type: Radio.Group,
       label: '性别',
       name: 'gender',
-      rules: [{ required: true, message: '请选择' }],
       elProps: {
         options: [
           { label: '女', value: 0 },
           { label: '男', value: 1 },
         ],
+      },
+    },
+    {
+      getJSON() {
+        return data.gender !== undefined
+          ? {
+              label: '性别',
+              type: 'div',
+              children: data.gender == 1 ? '男' : '女',
+            }
+          : null;
       },
     },
     // 动态更新组件
@@ -79,7 +76,11 @@ const DynamicForm = () => {
             <Button
               icon={<PlusCircleOutlined />}
               onClick={() => {
-                setJobExps([...jobExps, { id: +Date.now(), title: '' }]);
+                const { jobs = [''] } = form.getFieldsValue();
+                const newJobs = jobs.concat(['']);
+                form.setFieldsValue({ jobs: newJobs });
+
+                setData({ ...data, jobs: newJobs });
               }}
             >
               添加工作经历
@@ -114,8 +115,18 @@ const DynamicForm = () => {
   ];
 
   return (
-    <div style={{ width: 600 }}>
-      <Form onFinish={console.log} form={form}>
+    <div>
+      <Form
+        initialValues={data}
+        onFinish={(values) => {
+          console.log(values);
+          console.log('data:', data);
+        }}
+        form={form}
+        onValuesChange={(c, a) => {
+          setData(a);
+        }}
+      >
         <FormRender layoutData={layout}></FormRender>
       </Form>
     </div>
