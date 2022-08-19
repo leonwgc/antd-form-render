@@ -8,24 +8,23 @@
     "isolatedModules": true,
     "jsx": "react",
     "module": "ESNext",
-    "sourceMap": false,
+    "sourceMap": true,
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "target": "es5",
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "importHelpers": true,
     "allowJs": true,
     "strictNullChecks": false,
     "removeComments": false,
-    "outDir": "types",
-    "lib": ["es2015", "DOM", "es2015.promise", "ESNext"],
+    "declarationDir": "types",
+    "lib": ["es2015", "DOM"],
     "paths": {
       "antd-form-render": ["src"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["lib", "node_modules", "demo"]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

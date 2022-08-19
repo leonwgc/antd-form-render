@@ -1,11 +1,13 @@
-module.exports = {
-  presets: [
-    require.resolve('@babel/preset-env'),
-    require.resolve('@babel/preset-react'),
-    require.resolve('@babel/preset-typescript'),
-  ],
-  plugins: [
-    ['@babel/plugin-proposal-decorators', { legacy: true }],
-    ['@babel/plugin-proposal-class-properties', { loose: false }],
-  ],
+const presets = [
+  require.resolve('@babel/preset-env'),
+  require.resolve('@babel/preset-react'),
+  require.resolve('@babel/preset-typescript'),
+];
+
+module.exports = (api) => {
+  const isTest = api.env('test');
+
+  return {
+    presets: isTest ? presets : undefined,
+  };
 };

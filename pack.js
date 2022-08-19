@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { default: pack } = require('packx');
+const { default: pack } = require('packw');
 const path = require('path');
 
 pack(true, {
@@ -10,7 +10,7 @@ pack(true, {
     path: path.resolve(__dirname, 'output'),
   },
   devServer: {
-    port: 9200,
+    port: 9101,
   },
   resolve: {
     alias: {
