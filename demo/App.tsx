@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { Tabs } from 'antd';
 import OneRowOneCol from './OneRowOneCol';
 import OneColWithDynamicControl from './OneColWithDynamicControl';
@@ -11,16 +10,12 @@ import './App.less';
 
 const { TabPane } = Tabs;
 
-const StyledContainer = styled.div`
-  padding: 20px;
-`;
-
 const App = () => {
   const [key, setKey] = useState('1');
 
   return (
-    <StyledContainer>
-      <Tabs defaultActiveKey="1" activeKey={key} onChange={setKey}>
+    <div>
+      <Tabs defaultActiveKey="1" activeKey={key} onChange={setKey} style={{ padding: '0 20px' }}>
         <TabPane tab="一行一列" key="1">
           <OneRowOneCol />
         </TabPane>
@@ -40,7 +35,7 @@ const App = () => {
           <DynamicForm />
         </TabPane>
       </Tabs>
-    </StyledContainer>
+    </div>
   );
 };
 
