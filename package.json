@@ -7,7 +7,8 @@
     "antd",
     "form",
     "formrender",
-    "hooks"
+    "hooks",
+    "lowcode"
   ],
   "license": "MIT",
   "repository": "https://github.com/leonwgc/antd-form-render",
@@ -30,23 +31,14 @@
   },
   "devDependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.7",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-proposal-decorators": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.9.6",
-    "@babel/preset-env": "^7.8.7",
-    "@babel/preset-react": "^7.8.3",
-    "@babel/preset-stage-0": "^7.8.3",
-    "@babel/preset-typescript": "^7.8.3",
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
     "@types/antd": "^1.0.0",
     "@types/react": "^16.8.2",
     "@types/react-dom": "^16.8.0",
     "@types/styled-components": "^5.1.12",
-    "@typescript-eslint/eslint-plugin": "^4.22.1",
-    "@typescript-eslint/parser": "^4.22.1",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
     "antd": "^4.22.6",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
@@ -70,10 +62,8 @@
     "types"
   ],
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,less}": [
-      "eslint --cache --fix",
-      "prettier --write"
+    "*.{js,jsx,ts,tsx,json,css,scss,less}": [
+      "eslint --cache --fix"
     ]
-  },
-  "dependencies": {}
+  }
 }
