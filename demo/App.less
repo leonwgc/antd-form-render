@@ -1,1 +1,39 @@
 @import '~antd/dist/antd.less';
+
+@primary-color: #005cff;
+@link-color: #005cff;
+
+html {
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  height: 100%;
+}
+body {
+  font-family: PingFangSC-Regular, 'helvetica neue', 'hiragino sans gb', arial, 'microsoft yahei ui',
+    'microsoft yahei', simsun, sans-serif;
+  font-size: 14px;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+ul,
+li {
+  list-style: none;
+}
+
+.clearfix {
+  &::before {
+    display: table;
+    content: '';
+  }
+  &::after {
+    display: table;
+    clear: both;
+    content: '';
+  }
+}

@@ -1,37 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Input, Radio, Form, Space, Button } from 'antd';
-import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import FormRender from 'antd-form-render';
+
+type FormData = {
+  gender: '0' | '1' | '';
+  name: string;
+  bio: string;
+  tels: string[];
+};
 
 const DynamicForm = () => {
   const [form] = Form.useForm();
-
-  const [data, setData] = useState<any>({
-    jobs: ['job1', 'job2', 'job3'],
+  const [data, setData] = useState<FormData>({
+    gender: '0',
+    tels: ['15901634301'],
+    name: 'leon',
+    bio: '',
   });
+  const [tels, setTels] = useState(['']); // telephone list
 
-  const jobExpLayout = data.jobs?.map((ex, index) => ({
-    name: ['jobs', index],
-    type: Input,
-    label: '工作经历' + (index + 1),
-    elProps: {
-      placeholder: '请填写',
-      addonAfter: data.jobs.length > 1 && (
-        <MinusCircleOutlined
-          onClick={() => {
-            const { jobs = [''] } = form.getFieldsValue();
-
-            jobs.splice(index, 1);
-
-            // form
-            form.setFieldsValue({ jobs: jobs });
-
-            // state
-            const newData = { ...data, jobs: jobs };
-            setData(newData);
-          }}
-        />
-      ),
+  const telsLayout = tels?.map((item, index) => ({
+    render() {
+      return (
+        <Space align="start" style={{ width: '100%' }}>
+          <Form.Item
+            name={['tels', index]}
+            rules={[
+              {
+                pattern: /^1\d{10}$/,
+                message: '请输入正确的手机号码',
+              },
+            ]}
+            validateTrigger="onBlur"
+          >
+            <Input maxLength={11} placeholder="请输手机号" style={{ width: 350 }} />
+          </Form.Item>
+          {tels.length > 1 && (
+            <Button
+              type="link"
+              onClick={() => {
+                const tels = form.getFieldValue('tels');
+                tels.splice(index, 1);
+                form.setFieldsValue({ tels: [...tels] });
+                setTels([...tels]);
+              }}
+            >
+              删除
+            </Button>
+          )}
+        </Space>
+      );
     },
   }));
 
@@ -43,6 +61,33 @@ const DynamicForm = () => {
       rules: [{ required: true, message: '请填写' }],
       elProps: {
         placeholder: '请填写姓名',
+      },
+    },
+    {
+      render() {
+        return <div style={{ margin: '12px 0' }}>手机号</div>;
+      },
+    },
+
+    ...telsLayout,
+    {
+      render() {
+        return (
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button
+              type="link"
+              style={{ padding: 0 }}
+              onClick={() => {
+                const tels = form.getFieldValue('tels') || [''];
+                const newTels = [...tels, ''];
+                form.setFieldsValue({ tels: newTels });
+                setTels(newTels);
+              }}
+            >
+              + 手机号
+            </Button>
+          </div>
+        );
       },
     },
     {
@@ -62,49 +107,28 @@ const DynamicForm = () => {
           ? {
               label: '性别',
               type: 'div',
-              children: data.gender == 1 ? '男' : '女',
+              children: data.gender == '1' ? '男' : '女',
             }
           : null;
       },
     },
-    // 动态更新组件
-    ...jobExpLayout,
-    {
-      render() {
-        return (
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 24 }}>
-            <Button
-              icon={<PlusCircleOutlined />}
-              onClick={() => {
-                const { jobs = [''] } = form.getFieldsValue();
-                const newJobs = jobs.concat(['']);
-                form.setFieldsValue({ jobs: newJobs });
 
-                setData({ ...data, jobs: newJobs });
-              }}
-            >
-              添加工作经历
-            </Button>
-          </div>
-        );
-      },
-    },
     {
       type: Input.TextArea,
-      label: '个人简',
+      label: '个人简介',
       elProps: {
         rows: 6,
       },
       placeholder: '请输入',
       name: 'bio',
     },
-
-    ,
     {
       render() {
         return (
           <Space style={{ justifyContent: 'flex-end', width: '100%' }}>
-            <Button type="default">取消</Button>
+            <Button type="default" onClick={() => form.resetFields()}>
+              取消
+            </Button>
             <Button type="primary" htmlType="submit">
               保存
             </Button>
@@ -117,12 +141,13 @@ const DynamicForm = () => {
   return (
     <div>
       <Form
+        form={form}
+        style={{ width: 400 }}
+        layout={'vertical'}
         initialValues={data}
         onFinish={(values) => {
           console.log(values);
-          console.log('data:', data);
         }}
-        form={form}
         onValuesChange={(c, a) => {
           setData(a);
         }}
