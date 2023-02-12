@@ -3,21 +3,21 @@ import { Input, Radio, Form, Space, Button } from 'antd';
 import FormRender from 'antd-form-render';
 
 type FormData = {
-  gender: '0' | '1' | '';
+  gender: '0' | '1';
   name: string;
-  bio: string;
   tels: string[];
 };
 
 const DynamicForm = () => {
   const [form] = Form.useForm();
+
   const [data, setData] = useState<FormData>({
     gender: '0',
-    tels: ['15901634301'],
+    tels: ['15901634301', '17721222222'],
     name: 'leon',
-    bio: '',
   });
-  const [tels, setTels] = useState(['']); // telephone list
+
+  const [tels, setTels] = useState([...data.tels]); // telephone list
 
   const telsLayout = tels?.map((item, index) => ({
     render() {
@@ -96,8 +96,8 @@ const DynamicForm = () => {
       name: 'gender',
       elProps: {
         options: [
-          { label: '女', value: 0 },
-          { label: '男', value: 1 },
+          { label: '女', value: '0' },
+          { label: '男', value: '1' },
         ],
       },
     },
@@ -113,15 +113,6 @@ const DynamicForm = () => {
       },
     },
 
-    {
-      type: Input.TextArea,
-      label: '个人简介',
-      elProps: {
-        rows: 6,
-      },
-      placeholder: '请输入',
-      name: 'bio',
-    },
     {
       render() {
         return (
