@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Radio, Form, Space, Button } from 'antd';
-import FormRender from 'antd-form-render';
+import { FormRender } from 'antd-form-render';
 
 type FormData = {
   gender: '0' | '1';

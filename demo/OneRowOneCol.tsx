@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button, Input } from 'antd';
-import FormRender from 'antd-form-render';
+import { FormRender } from 'antd-form-render';
 
 const OneRowOneCol = () => {
   const [form] = Form.useForm();

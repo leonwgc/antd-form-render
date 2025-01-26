@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Radio, Form } from 'antd';
-import FormRender from 'antd-form-render';
+import { FormRender } from 'antd-form-render';
 
 const OneRowNCol = () => {
   const layout = [];
