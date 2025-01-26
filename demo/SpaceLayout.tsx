@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Input, Radio, Form } from 'antd';
-import { FormSpaceRender } from 'antd-form-render';
+import { FormSpaceRender, Item } from 'antd-form-render';
 
 const SpaceLayout = () => {
-  const layout = [];
+  const layout: Item[] = [];
   const [space, setSpace] = useState(8);
 
   for (let i = 0; i < 3; i++) {

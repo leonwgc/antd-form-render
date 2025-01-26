@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Input, Radio, Form } from 'antd';
-import { FormRender } from 'antd-form-render';
+import { FormRender, Item } from 'antd-form-render';
 
 const OneRowNCol = () => {
-  const layout = [];
+  const layout: Item[] = [];
   const [cols, setCols] = useState(4);
 
   for (let i = 0; i < 11; i++) {

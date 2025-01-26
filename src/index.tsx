@@ -12,7 +12,7 @@ const isNumber = isType('Number');
 
 const renderTowDimensionLayout = (layoutData) => {
   return (
-    <div className="afr-flex">
+    <>
       {layoutData.map((arr, idx) => {
         const len = arr.length;
         if (24 % len !== 0) {
@@ -28,7 +28,7 @@ const renderTowDimensionLayout = (layoutData) => {
           </Row>
         );
       })}
-    </div>
+    </>
   );
 };
 
