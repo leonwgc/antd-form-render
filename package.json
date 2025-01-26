@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/leonwgc/antd-form-render/issues"
   },
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "typings": "types/index.d.ts",
   "scripts": {
