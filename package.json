@@ -5,10 +5,9 @@
   "keywords": [
     "react",
     "antd",
+    "ant design form builder",
     "form",
-    "formrender",
-    "hooks",
-    "lowcode"
+    "formrender"
   ],
   "license": "MIT",
   "repository": "https://github.com/leonwgc/antd-form-render",
@@ -25,7 +24,7 @@
     "start": "node pack --dev"
   },
   "peerDependencies": {
-    "antd": ">=5.0.0"
+    "antd": ">=4.0.0"
   },
   "devDependencies": {
     "@ant-design/icons": "^4.7.0",
