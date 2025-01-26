@@ -136,8 +136,7 @@ var ItemRender = function ItemRender(_ref) {
     _item = _item.getJSON();
   }
 
-  if (_typeof(_item) !== 'object' || !_item) return null; // elProps 组件的其他属性
-  // itemProps Form.Item的其他属性
+  if (_typeof(_item) !== 'object' || !_item) return null;
 
   var _item2 = _item,
       type = _item2.type,
@@ -205,17 +204,12 @@ var renderTowDimensionLayout = function renderTowDimensionLayout(layoutData) {
     var len = arr.length;
 
     if (24 % len !== 0) {
-      throw new Error('数组的长度必须能被24整除');
+      throw new Error('The length of the array must be divisible by 24');
     }
 
     var span = 24 / len;
     return /*#__PURE__*/React.createElement(Row, {
-      key: idx,
-      gutter: {
-        xs: 8,
-        sm: 16,
-        md: 24
-      }
+      key: idx
     }, arr.map(function (item, subIndex) {
       return /*#__PURE__*/React.createElement(ItemRender, {
         item: item,
@@ -244,7 +238,7 @@ var renderTowDimensionLayout = function renderTowDimensionLayout(layoutData) {
  */
 
 
-function FormRenderer(_ref) {
+function FormRender(_ref) {
   var layoutData = _ref.layoutData,
       _ref$cols = _ref.cols,
       cols = _ref$cols === void 0 ? 1 : _ref$cols;
@@ -298,5 +292,5 @@ function FormRenderer(_ref) {
   })));
 }
 
-export default FormRenderer;
-export { SpaceLayout as FormSpaceRender };
+export default FormRender;
+export { FormRender, SpaceLayout as FormSpaceRender };

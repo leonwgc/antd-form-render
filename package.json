@@ -1,6 +1,6 @@
 {
   "name": "antd-form-render",
-  "version": "1.6.2",
+  "version": "2.0.0--alpha.0",
   "description": "使用js配置，开发antd表单",
   "keywords": [
     "react",
@@ -26,20 +26,18 @@
     "start": "node pack --dev"
   },
   "peerDependencies": {
-    "antd": ">=4.0.0",
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "antd": ">=5.0.0"
   },
   "devDependencies": {
     "@ant-design/icons": "^4.7.0",
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
-    "@types/react": "^18.0.28",
+    "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.10",
     "@types/styled-components": "^5.1.12",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
-    "antd": "^4.24.7",
+    "antd": "^5.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.34.0",
     "eslint-plugin-react": "^7.19.0",

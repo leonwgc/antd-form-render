@@ -20,8 +20,6 @@ const ItemRender = ({
 
   if (typeof _item !== 'object' || !_item) return null;
 
-  // elProps 组件的其他属性
-  // itemProps Form.Item的其他属性
   const { type, name, rules, label, elProps = {}, itemProps = {}, render, ...props } = _item;
 
   let wrapperProps: Record<string, unknown> = {};

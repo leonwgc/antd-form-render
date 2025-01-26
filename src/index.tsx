@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Row } from 'antd';
 import { FormRenderProps, Item } from './Types';
 import ItemRender from './ItemRender';
-export { default as FormSpaceRender } from './SpaceLayout';
+import { default as FormSpaceRender } from './SpaceLayout';
 
 const isType = (type) => (n) => {
   return Object.prototype.toString.call(n) === `[object ${type}]`;
@@ -16,12 +16,12 @@ const renderTowDimensionLayout = (layoutData) => {
       {layoutData.map((arr, idx) => {
         const len = arr.length;
         if (24 % len !== 0) {
-          throw new Error('数组的长度必须能被24整除');
+          throw new Error('The length of the array must be divisible by 24');
         }
         const span = 24 / len;
 
         return (
-          <Row key={idx} gutter={{ xs: 8, sm: 16, md: 24 }}>
+          <Row key={idx}>
             {arr.map((item, subIndex) => (
               <ItemRender item={item} key={subIndex} span={span} layoutType="row" />
             ))}
@@ -48,7 +48,7 @@ const renderTowDimensionLayout = (layoutData) => {
  * }
  * @return {*}  {React.ReactElement}
  */
-export default function FormRenderer({
+const FormRender: FC<FormRenderProps> = ({
   /**
    * 1或2维数组，存储组件配置信息/自定义渲染组件
    */
@@ -57,7 +57,7 @@ export default function FormRenderer({
    * 定义一行渲染几个组件，layoutData为一维数组时生效, 可以是: 1 | 2 | 3 | 4, 默认1,
    */
   cols = 1,
-}: FormRenderProps): React.ReactElement {
+}) => {
   let isOneDimensionArray = false;
   const firstItem = layoutData[0];
   if (!Array.isArray(firstItem)) {
@@ -91,14 +91,20 @@ export default function FormRenderer({
   }
 
   return !isOneDimensionArray ? (
-    renderTowDimensionLayout(layoutData)
+    <>{renderTowDimensionLayout(layoutData)}</>
   ) : (
-    <div className="afr-flex">
+    <>
       <Row>
         {(layoutData as Item[]).map((item, idx) => (
           <ItemRender item={item} key={idx} span={24} layoutType="row" />
         ))}
       </Row>
-    </div>
+    </>
   );
-}
+};
+
+export default FormRender;
+
+export { FormRender, FormSpaceRender };
+
+export type { Item };
