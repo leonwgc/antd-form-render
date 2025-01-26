@@ -1,6 +1,7 @@
 # use yalc to test publish package
-update version
+
 yalc publish
 
 in app
-yalc link antd-form-render 
+yalc add antd-form-render -for first time
+yalc update xxx@version - none-first time
