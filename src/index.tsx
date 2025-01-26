@@ -2,7 +2,7 @@ import React from 'react';
 import { Row } from 'antd';
 import { FormRenderProps, Item } from './Types';
 import ItemRender from './ItemRender';
-import { default as FormSpaceRender } from './SpaceLayout';
+import { default as _FormSpaceRender } from './SpaceLayout';
 
 const isType = (type) => (n) => {
   return Object.prototype.toString.call(n) === `[object ${type}]`;
@@ -47,7 +47,7 @@ const renderTowDimensionLayout = (layoutData) => {
  *   cols = 1 | 2 | 3 | 4,
  * }
  */
-const FormRender: React.FC<FormRenderProps> = ({
+export const FormRender: React.FC<FormRenderProps> = ({
   /**
    * 1或2维数组，存储组件配置信息/自定义渲染组件
    */
@@ -102,6 +102,6 @@ const FormRender: React.FC<FormRenderProps> = ({
   );
 };
 
-export { FormRender, FormSpaceRender };
+export const FormSpaceRender = _FormSpaceRender;
 
 export type { Item };

@@ -8,7 +8,6 @@ import { SpaceLayoutProps } from './Types';
  *   layoutData,
  *   ...props 参考：antd Space组件的props
  * }
- * @return {*}  {React.ReactElement}
  */
 declare const SpaceLayout: React.FC<SpaceLayoutProps>;
 export default SpaceLayout;

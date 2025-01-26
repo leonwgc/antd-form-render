@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormRenderProps, Item } from './Types';
-import { default as FormSpaceRender } from './SpaceLayout';
 /**
  * 等分空间布局, 每个组件等分一行空间
  *
@@ -16,6 +15,6 @@ import { default as FormSpaceRender } from './SpaceLayout';
  *   cols = 1 | 2 | 3 | 4,
  * }
  */
-declare const FormRender: React.FC<FormRenderProps>;
-export { FormRender, FormSpaceRender };
+export declare const FormRender: React.FC<FormRenderProps>;
+export declare const FormSpaceRender: React.FC<import("./Types").SpaceLayoutProps>;
 export type { Item };

@@ -1,6 +1,6 @@
 {
   "name": "antd-form-render",
-  "version": "2.0.0",
+  "version": "2.0.0-alpha.0",
   "description": "使用js配置，开发antd表单",
   "keywords": [
     "react",
@@ -20,6 +20,7 @@
   "typings": "types/index.d.ts",
   "scripts": {
     "build": "tsup && tsc",
+    "dev": "tsup --watch",
     "build:doc": "node pack",
     "start": "node pack --dev"
   },

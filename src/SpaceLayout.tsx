@@ -10,7 +10,6 @@ import ItemRender from './ItemRender';
  *   layoutData,
  *   ...props 参考：antd Space组件的props
  * }
- * @return {*}  {React.ReactElement}
  */
 const SpaceLayout: React.FC<SpaceLayoutProps> = ({
   /**
