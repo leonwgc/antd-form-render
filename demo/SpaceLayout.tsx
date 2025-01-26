@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Radio, Form } from 'antd';
+import { Input, Radio, Form, Button } from 'antd';
 import { FormSpaceRender, Item } from 'antd-form-render';
 
 const SpaceLayout = () => {
@@ -15,8 +15,12 @@ const SpaceLayout = () => {
     });
   }
 
+  layout.push({
+    render: () => <Button type="primary">submit</Button>,
+  });
+
   return (
-    <div style={{ paddingTop: 32, width: 800 }}>
+    <div style={{ paddingTop: 32 }}>
       <Form layout="horizontal">
         <div style={{ marginBottom: 24 }}>
           <Radio.Group
