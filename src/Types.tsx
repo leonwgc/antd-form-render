@@ -1,4 +1,3 @@
-import React from 'react';
 import { Rule } from 'rc-field-form/lib/interface';
 import type { SpaceProps } from 'antd';
 

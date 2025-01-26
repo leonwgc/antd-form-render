@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Row } from 'antd';
 import { FormRenderProps, Item } from './Types';
 import ItemRender from './ItemRender';
@@ -46,9 +46,8 @@ const renderTowDimensionLayout = (layoutData) => {
  *   layoutData: Item[] | Item[][];
  *   cols = 1 | 2 | 3 | 4,
  * }
- * @return {*}  {React.ReactElement}
  */
-const FormRender: FC<FormRenderProps> = ({
+const FormRender: React.FC<FormRenderProps> = ({
   /**
    * 1或2维数组，存储组件配置信息/自定义渲染组件
    */
@@ -102,8 +101,6 @@ const FormRender: FC<FormRenderProps> = ({
     </>
   );
 };
-
-export default FormRender;
 
 export { FormRender, FormSpaceRender };
 

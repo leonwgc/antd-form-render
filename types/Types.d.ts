@@ -1,7 +1,6 @@
-import React from 'react';
 import { Rule } from 'rc-field-form/lib/interface';
 import type { SpaceProps } from 'antd';
-export declare type Item = {
+export type Item = {
     /** 组件类型，比如Input,Button,"input"  */
     type?: React.ComponentType | string;
     /** Form.Item name, 字段名，支持数组 */
@@ -19,7 +18,7 @@ export declare type Item = {
     /** Form.Itemrules,也可在itemProps里定义  */
     rules?: Rule[];
 };
-export declare type FormRenderProps = {
+export type FormRenderProps = {
     /**
      * 1或2维数组，存储组件配置信息/自定义渲染组件
      */
@@ -29,10 +28,10 @@ export declare type FormRenderProps = {
      */
     cols?: number;
 };
-export declare type SpaceLayoutProps = SpaceProps & {
+export type SpaceLayoutProps = SpaceProps & {
     /**
      * 1维数组，存储组件配置信息/自定义渲染组件
      */
     layoutData: Item[];
 };
-export declare type LayoutType = 'row' | 'space';
+export type LayoutType = 'row' | 'space';

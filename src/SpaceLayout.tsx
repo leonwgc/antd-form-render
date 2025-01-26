@@ -12,13 +12,13 @@ import ItemRender from './ItemRender';
  * }
  * @return {*}  {React.ReactElement}
  */
-export default function SpaceLayout({
+const SpaceLayout: React.FC<SpaceLayoutProps> = ({
   /**
    * 1维数组，存储组件配置信息/自定义渲染组件
    */
   layoutData,
   ...props
-}: SpaceLayoutProps): React.ReactElement {
+}) => {
   return (
     <Space {...props}>
       {(layoutData as Item[]).map((item, idx) => (
@@ -26,4 +26,6 @@ export default function SpaceLayout({
       ))}
     </Space>
   );
-}
+};
+
+export default SpaceLayout;

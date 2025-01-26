@@ -1,6 +1,6 @@
 {
   "name": "antd-form-render",
-  "version": "2.0.0--alpha.0",
+  "version": "2.0.0",
   "description": "使用js配置，开发antd表单",
   "keywords": [
     "react",
@@ -19,9 +19,7 @@
   "module": "dist/index.esm.js",
   "typings": "types/index.d.ts",
   "scripts": {
-    "prepare": "husky install",
-    "lint-staged": "lint-staged",
-    "build": "father-build && tsc",
+    "build": "tsup && tsc",
     "build:doc": "node pack",
     "start": "node pack --dev"
   },
@@ -30,8 +28,6 @@
   },
   "devDependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@commitlint/cli": "^12.1.1",
-    "@commitlint/config-conventional": "^12.1.1",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.10",
     "@types/styled-components": "^5.1.12",
@@ -43,24 +39,17 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "father-build": "^1.19.5",
-    "husky": "^6.0.0",
-    "lint-staged": "^10.5.4",
     "packw": "^2.0.0",
-    "pre-commit": "^1.2.2",
     "prettier": "^2.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^4.7.4",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3",
     "yargs": "^15.3.1"
   },
   "files": [
     "dist",
     "types"
   ],
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,scss,less}": [
-      "eslint --cache --fix"
-    ]
-  },
   "dependencies": {}
 }

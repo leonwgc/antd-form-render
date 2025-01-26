@@ -8,11 +8,7 @@ type ItemRenderProps = {
   layoutType: LayoutType;
 };
 
-const ItemRender = ({
-  item,
-  span = 24,
-  layoutType = 'row',
-}: ItemRenderProps): React.ReactElement => {
+const ItemRender: React.FC<ItemRenderProps> = ({ item, span = 24, layoutType = 'row' }) => {
   let _item = item;
   if (typeof _item.getJSON === 'function') {
     _item = _item.getJSON();

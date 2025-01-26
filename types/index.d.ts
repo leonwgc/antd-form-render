@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React from 'react';
 import { FormRenderProps, Item } from './Types';
 import { default as FormSpaceRender } from './SpaceLayout';
 /**
@@ -15,9 +15,7 @@ import { default as FormSpaceRender } from './SpaceLayout';
  *   layoutData: Item[] | Item[][];
  *   cols = 1 | 2 | 3 | 4,
  * }
- * @return {*}  {React.ReactElement}
  */
-declare const FormRender: FC<FormRenderProps>;
-export default FormRender;
+declare const FormRender: React.FC<FormRenderProps>;
 export { FormRender, FormSpaceRender };
 export type { Item };
