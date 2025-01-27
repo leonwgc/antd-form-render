@@ -35,7 +35,7 @@ const FlexLayout = () => {
           <Radio value={32}>32px</Radio>
         </Radio.Group>
       </div>
-      <FlexRender layout={layout} gap={space} justify="flex-end" />
+      <FlexRender layout={layout}  />
     </Form>
   );
 };

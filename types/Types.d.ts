@@ -1,5 +1,5 @@
 import { Rule } from 'rc-field-form/lib/interface';
-import type { SpaceProps, FlexProps } from 'antd';
+import type { SpaceProps, FlexProps, RowProps } from 'antd';
 /**
  * Render配置项
  *
@@ -40,7 +40,7 @@ export type Item = {
      */
     rules?: Rule[];
 };
-export type GridRenderProps = {
+export type GridRenderProps = RowProps & {
     /**
      * 布局配置
      */
