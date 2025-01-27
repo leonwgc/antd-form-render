@@ -22,23 +22,21 @@ const FlexLayout = () => {
   });
 
   return (
-    <div style={{ paddingTop: 32 }}>
-      <Form layout="horizontal">
-        <div style={{ marginBottom: 24 }}>
-          <Radio.Group
-            onChange={(e) => setSpace(Number(e.target.value))}
-            optionType="button"
-            value={space}
-          >
-            <Radio value={8}>8px</Radio>
-            <Radio value={16}>16px</Radio>
-            <Radio value={24}>24px</Radio>
-            <Radio value={32}>32px</Radio>
-          </Radio.Group>
-        </div>
-        <FlexRender layout={layout} gap={space} justify="flex-end" />
-      </Form>
-    </div>
+    <Form layout="horizontal">
+      <div style={{ marginBottom: 24 }}>
+        <Radio.Group
+          onChange={(e) => setSpace(Number(e.target.value))}
+          optionType="button"
+          value={space}
+        >
+          <Radio value={8}>8px</Radio>
+          <Radio value={16}>16px</Radio>
+          <Radio value={24}>24px</Radio>
+          <Radio value={32}>32px</Radio>
+        </Radio.Group>
+      </div>
+      <FlexRender layout={layout} gap={space} justify="flex-end" />
+    </Form>
   );
 };
 

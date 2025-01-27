@@ -1,32 +1,29 @@
 import React from 'react';
 import { Row } from 'antd';
+import type { RowProps } from 'antd';
 import { GridRenderProps, Item } from './Types';
 import ItemRender from './ItemRender';
 
-const renderRows = (layout: Item[][]) => {
+const renderRows = (layout: Item[][], rest: RowProps = {}) => {
   return layout.map((arr: Item[], idx) => {
     const len = arr.length;
-    if (24 % len !== 0) {
-      throw new Error('The length of the array must be divisible by 24');
-    }
-    const span = 24 / len;
+    const span = ~~(24 / len);
 
     return (
-      <Row key={idx}>
-        {arr.map((item, subIndex) => (
-          <ItemRender
-            item={item}
-            key={subIndex}
-            span={span}
-            layoutType="grid"
-          />
+      <Row key={idx} {...rest}>
+        {arr.map((item, key) => (
+          <ItemRender item={item} key={key} span={span} layoutType="grid" />
         ))}
       </Row>
     );
   });
 };
 
-const GridRender: React.FC<GridRenderProps> = ({ layout, columnCount = 1 }) => {
+const GridRender: React.FC<GridRenderProps> = ({
+  layout,
+  columnCount = 1,
+  ...rest
+}) => {
   const arr = layout as Item[];
   const _layout: Item[][] = [];
   do {
@@ -47,7 +44,7 @@ const GridRender: React.FC<GridRenderProps> = ({ layout, columnCount = 1 }) => {
     }
   } while (arr.length);
 
-  return renderRows(_layout);
+  return renderRows(_layout, rest as RowProps);
 };
 
 export default GridRender;

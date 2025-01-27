@@ -44,11 +44,9 @@ const GridOneColumn = () => {
   ];
 
   return (
-    <div style={{ width: 400, paddingTop: 32 }}>
-      <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
-        <GridRender layout={oneColumn}></GridRender>
-      </Form>
-    </div>
+    <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
+      <GridRender layout={oneColumn}></GridRender>
+    </Form>
   );
 };
 
