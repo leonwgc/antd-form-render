@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button, Input } from 'antd';
-import { FormRender } from 'antd-form-render';
+import { GridRender } from '../src';
 
 const OneRowOneCol = () => {
   const [form] = Form.useForm();
@@ -46,7 +46,7 @@ const OneRowOneCol = () => {
   return (
     <div style={{ width: 400, paddingTop: 32 }}>
       <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
-        <FormRender layoutData={oneRowLayout}></FormRender>
+        <GridRender layout={oneRowLayout}></GridRender>
       </Form>
     </div>
   );

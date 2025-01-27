@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Radio, Form, Button } from 'antd';
-import { FormSpaceRender, Item } from '../src';
+import { SpaceRender, Item } from '../src';
 
 const SpaceLayout = () => {
   const layout: Item[] = [];
@@ -36,7 +36,7 @@ const SpaceLayout = () => {
             <Radio value={32}>32px</Radio>
           </Radio.Group>
         </div>
-        <FormSpaceRender layoutData={layout} size={space}></FormSpaceRender>
+        <SpaceRender layout={layout} size={space}></SpaceRender>
       </Form>
     </div>
   );

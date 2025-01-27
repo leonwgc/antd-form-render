@@ -1,37 +1,62 @@
 import { Rule } from 'rc-field-form/lib/interface';
-import type { SpaceProps } from 'antd';
+import type { SpaceProps, FlexProps } from 'antd';
+/**
+ * Render配置项
+ *
+ * @export
+ * @interface Item
+ */
 export type Item = {
-    /** 组件类型，比如Input,Button,"input"  */
+    /**
+     * React组件类型，例如：Input、DatePicker, "input"
+     */
     type?: React.ComponentType | string;
-    /** Form.Item name, 字段名，支持数组 */
+    /**
+     * Form.Item name 字段
+     */
     name?: string | Array<string | number>;
-    /** Form.Item label, 标签的文本*/
+    /**
+     * Form.Item label
+     */
     label?: React.ReactNode;
-    /** 自定义渲染 */
+    /**
+     * 自定义渲染
+     */
     render?: () => React.ReactNode;
-    /** 动态返回Item，优先级高于render */
+    /**
+     * 动态返回Item，优先级高于render
+     */
     getJSON?: () => Item | null;
-    /** 组件props,会透传给type定义的组件 */
+    /**
+     * 组件props,会透传给type定义的组件
+     */
     elProps?: Record<string, unknown>;
-    /** Form.Item的props,会透传给Form.Item */
+    /**
+     * Form.Item的props,会透传给Form.Item
+     */
     itemProps?: Record<string, unknown>;
-    /** Form.Itemrules,也可在itemProps里定义  */
+    /**
+     * Form.Itemrules,也可在itemProps里定义
+     */
     rules?: Rule[];
 };
-export type FormRenderProps = {
+export type GridRenderProps = {
     /**
-     * 1或2维数组，存储组件配置信息/自定义渲染组件
+     * 布局配置
      */
-    layoutData: Item[] | Item[][];
+    layout: Item[];
     /**
-     * 定义一行渲染几个组件，layoutData为一维数组时生效, 可以是: 1 | 2 | 3 | 4, 默认1,
+     * GridRender 一行的列数, 可以是: 1 | 2 | 3 | 4, 默认1,
      */
-    cols?: number;
+    columnCount?: number;
 };
-export type SpaceLayoutProps = SpaceProps & {
+export type SpaceRenderProps = SpaceProps & {
     /**
      * 1维数组，存储组件配置信息/自定义渲染组件
      */
-    layoutData: Item[];
+    layout: Item[];
 };
-export type LayoutType = 'row' | 'space';
+export type FlexRenderProps = FlexProps & {
+    layout: Item[];
+};
+export type layoutType = 'grid' | 'space' | 'flex';

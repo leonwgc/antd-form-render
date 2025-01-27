@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Radio, Form } from 'antd';
-import { FormRender, Item } from '../src';
+import { GridRender, Item } from '../src';
 
 const OneRowNCol = () => {
   const layout: Item[] = [];
@@ -33,7 +33,7 @@ const OneRowNCol = () => {
             <Radio value={4}>1行4列</Radio>
           </Radio.Group>
         </div>
-        <FormRender layoutData={layout} cols={cols}></FormRender>
+        <GridRender layout={layout} columnCount={cols}></GridRender>
       </Form>
     </div>
   );

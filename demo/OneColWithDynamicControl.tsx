@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Radio } from 'antd';
-import { FormRender } from '../src';
+import { GridRender } from '../src';
 
 const OneColWithDynamicControl = () => {
   const [form] = Form.useForm();
@@ -88,13 +88,13 @@ const OneColWithDynamicControl = () => {
           setData((p) => ({ ...p, ...v }));
         }}
       >
-        <FormRender layoutData={layout}></FormRender>
+        <GridRender layout={layout}></GridRender>
       </Form>
 
       <p>2.基于Form.Item dependency/shouldUpdate 实现表单联动,局部渲染</p>
 
       <Form form={form1}>
-        <FormRender layoutData={layout1}></FormRender>
+        <GridRender layout={layout1}></GridRender>
       </Form>
     </div>
   );

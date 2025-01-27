@@ -1,17 +1,17 @@
 import React from 'react';
 import { Form, Col } from 'antd';
-import { Item, LayoutType } from './Types';
+import { Item, layoutType } from './Types';
 
 type ItemRenderProps = {
   item: Item;
   span?: number | undefined;
-  layoutType: LayoutType;
+  layoutType: layoutType;
 };
 
 const ItemRender: React.FC<ItemRenderProps> = ({
   item,
   span = 24,
-  layoutType = 'row',
+  layoutType,
 }) => {
   let _item = item;
   if (typeof _item.getJSON === 'function') {
@@ -33,11 +33,11 @@ const ItemRender: React.FC<ItemRenderProps> = ({
 
   let wrapperProps: Record<string, unknown> = {};
 
-  if (layoutType === 'row') {
+  if (layoutType === 'grid') {
     wrapperProps = { ...wrapperProps, span };
   }
   return React.createElement(
-    layoutType === 'row' ? Col : React.Fragment,
+    layoutType === 'grid' ? Col : React.Fragment,
     wrapperProps,
     <Form.Item name={name} label={label} rules={rules} {...itemProps}>
       {render

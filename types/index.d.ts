@@ -1,20 +1,4 @@
-import React from 'react';
-import { FormRenderProps, Item } from './Types';
-/**
- * 等分空间布局, 每个组件等分一行空间
- *
- * 一维数组:从上往下一行放一个组件 ,设置了cols则一行显示cols(1/2/3/4)个组件
- *
- * 二维数组:子数组配置的所有组件渲染为一行（不定列布局）
- *
- * 数组（或子数组）内组件会等分一行所占空间，内部采用Row,Col布局
- *
- * @export
- * @param {FormRenderProps} {
- *   layoutData: Item[] | Item[][];
- *   cols = 1 | 2 | 3 | 4,
- * }
- */
-export declare const FormRender: React.FC<FormRenderProps>;
-export declare const FormSpaceRender: React.FC<import("./Types").SpaceLayoutProps>;
-export type { Item };
+export type { Item } from './Types';
+export { default as GridRender } from './GridRender';
+export { default as SpaceRender } from './SpaceRender';
+export { default as FlexRender } from './FlexRender';

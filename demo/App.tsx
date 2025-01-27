@@ -4,7 +4,6 @@ import OneRowOneCol from './OneRowOneCol';
 import OneColWithDynamicControl from './OneColWithDynamicControl';
 import OneRowNCol from './OneRowNCol';
 import SpaceLayout from './SpaceLayout';
-import TwoDimensionArray from './TwoDimensionArray';
 import DynamicForm from './DynamicForm';
 import './App.less';
 
@@ -30,9 +29,6 @@ const App = () => {
         </TabPane>
         <TabPane tab="等间距排列" key="3">
           <SpaceLayout />
-        </TabPane>
-        <TabPane tab="二维数组自定义布局" key="4">
-          <TwoDimensionArray />
         </TabPane>
         <TabPane tab="表单联动" key="5">
           <OneColWithDynamicControl />

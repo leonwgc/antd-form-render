@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Radio, Form, Space, Button } from 'antd';
-import { FormRender } from '../src';
+import { GridRender } from '../src';
 
 type FormData = {
   gender: '0' | '1';
@@ -147,7 +147,7 @@ const DynamicForm = () => {
           setData(a);
         }}
       >
-        <FormRender layoutData={layout}></FormRender>
+        <GridRender layout={layout}></GridRender>
       </Form>
     </div>
   );
