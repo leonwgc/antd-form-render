@@ -4,7 +4,7 @@ import { FlexRender, Item } from '../src';
 
 const FlexLayout = () => {
   const layout: Item[] = [];
-  const [space, setSpace] = useState(8);
+  const [gap, setGap] = useState(8);
 
   for (let i = 0; i < 3; i++) {
     layout.push({
@@ -25,9 +25,9 @@ const FlexLayout = () => {
     <Form layout="horizontal">
       <div style={{ marginBottom: 24 }}>
         <Radio.Group
-          onChange={(e) => setSpace(Number(e.target.value))}
+          onChange={(e) => setGap(Number(e.target.value))}
           optionType="button"
-          value={space}
+          value={gap}
         >
           <Radio value={8}>8px</Radio>
           <Radio value={16}>16px</Radio>
@@ -35,7 +35,7 @@ const FlexLayout = () => {
           <Radio value={32}>32px</Radio>
         </Radio.Group>
       </div>
-      <FlexRender layout={layout}  />
+      <FlexRender layout={layout} gap={gap} justify="flex-end" />
     </Form>
   );
 };
