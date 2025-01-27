@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Radio } from 'antd';
 import { GridRender } from '../src';
 
-const OneColWithDynamicControl = () => {
+const DynamicRender = () => {
   const [form] = Form.useForm();
   const [form1] = Form.useForm();
 
@@ -100,4 +100,4 @@ const OneColWithDynamicControl = () => {
   );
 };
 
-export default OneColWithDynamicControl;
+export default DynamicRender;

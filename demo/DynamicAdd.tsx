@@ -8,7 +8,7 @@ type FormData = {
   tels: string[];
 };
 
-const DynamicForm = () => {
+const DynamicAdd = () => {
   const [form] = Form.useForm();
 
   const [data, setData] = useState<FormData>({
@@ -153,4 +153,4 @@ const DynamicForm = () => {
   );
 };
 
-export default DynamicForm;
+export default DynamicAdd;

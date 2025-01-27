@@ -68,7 +68,7 @@ export type SpaceRenderProps = SpaceProps & {
   layout: Item[];
 };
 
-export type FlexRenderProps = FlexProps & {
+export type FlexRenderProps = Partial<FlexProps> & {
   layout: Item[];
 };
 

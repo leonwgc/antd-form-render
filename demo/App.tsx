@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Tabs } from 'antd';
-import OneRowOneCol from './OneRowOneCol';
-import OneColWithDynamicControl from './OneColWithDynamicControl';
-import OneRowNCol from './OneRowNCol';
+import GridOneColumn from './GridOneColumn';
+import DynamicRender from './DynamicRender';
+import GridNColumns from './GridNColumns';
 import SpaceLayout from './SpaceLayout';
-import DynamicForm from './DynamicForm';
+import DynamicAdd from './DynamicAdd';
 import './App.less';
+import FlexLayout from './FlexLayout';
 
 const { TabPane } = Tabs;
 
@@ -21,20 +22,23 @@ const App = () => {
         onChange={setKey}
         style={{ padding: 32 }}
       >
-        <TabPane tab="一行一列" key="1">
-          <OneRowOneCol />
+        <TabPane tab="Grid 一列" key="1">
+          <GridOneColumn />
         </TabPane>
-        <TabPane tab="一行N列" key="2">
-          <OneRowNCol />
+        <TabPane tab="Grid 1到4列" key="2">
+          <GridNColumns />
         </TabPane>
-        <TabPane tab="等间距排列" key="3">
+        <TabPane tab="Space 布局" key="3">
           <SpaceLayout />
         </TabPane>
+        <TabPane tab="Flex 布局" key="7">
+          <FlexLayout />
+        </TabPane>
         <TabPane tab="表单联动" key="5">
-          <OneColWithDynamicControl />
+          <DynamicRender />
         </TabPane>
         <TabPane tab="动态增删" key="6">
-          <DynamicForm />
+          <DynamicAdd />
         </TabPane>
       </Tabs>
     </div>

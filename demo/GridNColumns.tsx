@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input, Radio, Form } from 'antd';
 import { GridRender, Item } from '../src';
 
-const OneRowNCol = () => {
+const GridNColumns = () => {
   const layout: Item[] = [];
   const [cols, setCols] = useState(4);
 
@@ -39,4 +39,4 @@ const OneRowNCol = () => {
   );
 };
 
-export default OneRowNCol;
+export default GridNColumns;

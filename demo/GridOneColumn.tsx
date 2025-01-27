@@ -2,10 +2,10 @@ import React from 'react';
 import { Form, Button, Input } from 'antd';
 import { GridRender } from '../src';
 
-const OneRowOneCol = () => {
+const GridOneColumn = () => {
   const [form] = Form.useForm();
 
-  const oneRowLayout = [
+  const oneColumn = [
     {
       type: Input,
       label: '手机号',
@@ -46,10 +46,10 @@ const OneRowOneCol = () => {
   return (
     <div style={{ width: 400, paddingTop: 32 }}>
       <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
-        <GridRender layout={oneRowLayout}></GridRender>
+        <GridRender layout={oneColumn}></GridRender>
       </Form>
     </div>
   );
 };
 
-export default OneRowOneCol;
+export default GridOneColumn;

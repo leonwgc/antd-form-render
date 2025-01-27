@@ -56,7 +56,7 @@ export type SpaceRenderProps = SpaceProps & {
      */
     layout: Item[];
 };
-export type FlexRenderProps = FlexProps & {
+export type FlexRenderProps = Partial<FlexProps> & {
     layout: Item[];
 };
 export type layoutType = 'grid' | 'space' | 'flex';
