@@ -20,8 +20,8 @@
   "scripts": {
     "build": "tsup && tsc",
     "dev": "tsup --watch",
-    "build:doc": "node pack",
-    "start": "node pack --dev"
+    "docs": "node pack --doc",
+    "start": "node pack"
   },
   "peerDependencies": {
     "antd": ">=4.0.0"
@@ -51,5 +51,7 @@
     "dist",
     "types"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "packrs": "^0.2.1"
+  }
 }
