@@ -1,6 +1,6 @@
 # antd-form-render
 
-使用 js 配置，开发 ant-design 表单
+使用 js 配置，开发 ant-design 表单， [在线示例](https://leonwgc.github.io/antd-form-render/)
 
 ## 安装
 
@@ -11,21 +11,20 @@
 
 ## 特点
 
-1. 基于 js 配置开发ant design 表单项目
-2. 支持Grid, Flex, Space 三种布局
+1. 基于 js 配置开发 ant design 表单项
+2. 支持 Grid, Flex, Space 三种布局
 3. 支持表单联动
 4. 支持全量渲染 / 局部渲染
 5. 支持动态增 / 删 / 改表单项目
-6. 与react数据驱动视图理念保持一致`UI=F(state)`
-7. 基于react-hooks
+6. 与 react 数据驱动视图理念保持一致`UI=F(state)`
+7. 基于 react-hooks
 8. 使用 typescript 编写，开发智能提示
 
 ## 示例
 
-####  Grid 一行一列布局
+#### Grid 一行一列布局
 
-
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/fdad9492d7f94fb28634bbae2111d0dc~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738038989&x-orig-sign=uYe7qNnrGG4xiEx1xu3mcjhVEgw%3D)
+![image](./imgs/grid1.png)
 
 ```tsx
 import React from 'react';
@@ -81,12 +80,11 @@ const GridOneColumn = () => {
 };
 
 export default GridOneColumn;
-
 ```
 
-#### Grid 一行1 ~ 4列
+#### Grid 一行 1 ~ 4 列
 
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/a84f62d5624f469a9b14b72aba383f9c~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738039192&x-orig-sign=sY6yY4nuwsAlz27b5zrH7bs%2BT%2B0%3D)
+![image](./imgs/gridN.png)
 
 ```tsx
 import React, { useState } from 'react';
@@ -132,12 +130,11 @@ const GridNColumns = () => {
 };
 
 export default GridNColumns;
-
 ```
 
 #### Space 布局
 
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/b12ed1ce19b14edcb9bcd4d4f1a51ee0~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738039266&x-orig-sign=bGZxCewNUX9UlOnXVx98FjBUqmU%3D)
+![image](./imgs/space.png)
 
 ```tsx
 import React, { useState } from 'react';
@@ -183,12 +180,11 @@ const SpaceLayout = () => {
 };
 
 export default SpaceLayout;
-
 ```
 
 #### Flex 布局
 
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/9fc22216c04c4e5793cb68c9081f1e4d~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738039442&x-orig-sign=yFfkmg6lIFcZnAyOj3wPgAAaTZM%3D)
+![image](./imgs/flex.png)
 
 ```tsx
 import React, { useState } from 'react';
@@ -234,7 +230,6 @@ const FlexLayout = () => {
 };
 
 export default FlexLayout;
-
 ```
 
 #### 表单联动
@@ -242,8 +237,7 @@ export default FlexLayout;
 1. 定义 form onValuesChange 同步状态到外部 state, 触发重新渲染实现表单联动（全量渲染）
 2. 利用 Form.Item dependencies / shouldUpdate 和自定义 render 实现表单联动 (非全量渲染)
 
-
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/f9d024002ba4425c9ce0fa5cb33c68e9~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738039577&x-orig-sign=75EHHztqlbfEvEf2Ktn6qeoNcA8%3D)
+![image](./imgs/dep-update.png)
 
 ```tsx
 import React, { useState } from 'react';
@@ -349,12 +343,11 @@ const DynamicRender = () => {
 };
 
 export default DynamicRender;
-
 ```
 
 #### 动态增删
 
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/152a4daae13d4789877d0e2e0f5886e4~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738039742&x-orig-sign=03Ezr3H6MMpYMHJSliJpsv3gU7M%3D)
+![image](./imgs/list.png)
 
 ```js
 import React, { useState } from 'react';
@@ -362,19 +355,22 @@ import { Input, Radio, Form, Space, Button } from 'antd';
 import { GridRender } from 'antd-form-render';
 
 type FormData = {
-  gender: '0' | '1';
-  name: string;
-  tels: string[];
+  gender: '0' | '1',
+  name: string,
+  tels: string[],
 };
 
 const DynamicAdd = () => {
   const [form] = Form.useForm();
 
-  const [data, setData] = useState<FormData>({
-    gender: '0',
-    tels: ['15901631201', '17721222222'],
-    name: 'leon',
-  });
+  const [data, setData] =
+    useState <
+    FormData >
+    {
+      gender: '0',
+      tels: ['15901631201', '17721222222'],
+      name: 'leon',
+    };
 
   const [tels, setTels] = useState([...data.tels]); // telephone list
 
@@ -513,7 +509,6 @@ const DynamicAdd = () => {
 };
 
 export default DynamicAdd;
-
 ```
 
 ### 组件类型定义
@@ -528,60 +523,59 @@ import type { SpaceProps, FlexProps, RowProps } from 'antd';
  * @interface Item
  */
 export type Item = {
-    /**
-     * React组件类型，例如：Input、DatePicker, "input"
-     */
-    type?: React.ComponentType | string;
-    /**
-     * Form.Item name 字段
-     */
-    name?: string | Array<string | number>;
-    /**
-     * Form.Item label
-     */
-    label?: React.ReactNode;
-    /**
-     * 自定义渲染
-     */
-    render?: () => React.ReactNode;
-    /**
-     * 动态返回Item，优先级高于render
-     */
-    getJSON?: () => Item | null;
-    /**
-     * 组件props,会透传给type定义的组件
-     */
-    elProps?: Record<string, unknown>;
-    /**
-     * Form.Item的props,会透传给Form.Item
-     */
-    itemProps?: Record<string, unknown>;
-    /**
-     * Form.Itemrules,也可在itemProps里定义
-     */
-    rules?: Rule[];
+  /**
+   * React组件类型，例如：Input、DatePicker, "input"
+   */
+  type?: React.ComponentType | string;
+  /**
+   * Form.Item name 字段
+   */
+  name?: string | Array<string | number>;
+  /**
+   * Form.Item label
+   */
+  label?: React.ReactNode;
+  /**
+   * 自定义渲染
+   */
+  render?: () => React.ReactNode;
+  /**
+   * 动态返回Item，优先级高于render
+   */
+  getJSON?: () => Item | null;
+  /**
+   * 组件props,会透传给type定义的组件
+   */
+  elProps?: Record<string, unknown>;
+  /**
+   * Form.Item的props,会透传给Form.Item
+   */
+  itemProps?: Record<string, unknown>;
+  /**
+   * Form.Itemrules,也可在itemProps里定义
+   */
+  rules?: Rule[];
 };
 export type GridRenderProps = RowProps & {
-    /**
-     * 布局配置
-     */
-    layout: Item[];
-    /**
-     * GridRender 一行的列数, 可以是: 1 | 2 | 3 | 4, 默认1,
-     */
-    columnCount?: number;
+  /**
+   * 布局配置
+   */
+  layout: Item[];
+  /**
+   * GridRender 一行的列数, 可以是: 1 | 2 | 3 | 4, 默认1,
+   */
+  columnCount?: number;
 };
 export type SpaceRenderProps = SpaceProps & {
-    /**
-     * 1维数组，存储组件配置信息/自定义渲染组件
-     */
-    layout: Item[];
+  /**
+   * 1维数组，存储组件配置信息/自定义渲染组件
+   */
+  layout: Item[];
 };
 export type FlexRenderProps = Partial<FlexProps> & {
-    layout: Item[];
+  layout: Item[];
 };
 export type layoutType = 'grid' | 'space' | 'flex';
-
 
 /**
  * Grid布局
@@ -612,8 +606,4 @@ declare const FlexRender: React.FC<FlexRenderProps>;
  * @returns {React.ReactElement} The rendered space layout.
  */
 declare const SpaceRender: React.FC<SpaceRenderProps>;
-
-
 ```
-
-
