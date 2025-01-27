@@ -12,5 +12,8 @@ const isDev = !doc;
     html: {
       title: 'antd-form-render',
     },
+    output: {
+      assetPrefix: './',
+    },
   },
 });
