@@ -19,7 +19,7 @@ const SpaceLayout: React.FC<SpaceLayoutProps> = ({
   ...props
 }) => {
   return (
-    <Space align="start" {...props}>
+    <Space {...props}>
       {(layoutData as Item[]).map((item, idx) => (
         <ItemRender item={item} key={idx} layoutType="space" />
       ))}

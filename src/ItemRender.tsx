@@ -8,7 +8,11 @@ type ItemRenderProps = {
   layoutType: LayoutType;
 };
 
-const ItemRender: React.FC<ItemRenderProps> = ({ item, span = 24, layoutType = 'row' }) => {
+const ItemRender: React.FC<ItemRenderProps> = ({
+  item,
+  span = 24,
+  layoutType = 'row',
+}) => {
   let _item = item;
   if (typeof _item.getJSON === 'function') {
     _item = _item.getJSON();
@@ -16,7 +20,16 @@ const ItemRender: React.FC<ItemRenderProps> = ({ item, span = 24, layoutType = '
 
   if (typeof _item !== 'object' || !_item) return null;
 
-  const { type, name, rules, label, elProps = {}, itemProps = {}, render, ...props } = _item;
+  const {
+    type,
+    name,
+    rules,
+    label,
+    elProps = {},
+    itemProps = {},
+    render,
+    ...props
+  } = _item;
 
   let wrapperProps: Record<string, unknown> = {};
 
@@ -26,13 +39,14 @@ const ItemRender: React.FC<ItemRenderProps> = ({ item, span = 24, layoutType = '
   return React.createElement(
     layoutType === 'row' ? Col : React.Fragment,
     wrapperProps,
-    render ? (
-      render()
-    ) : (
-      <Form.Item name={name} label={label} rules={rules} {...itemProps}>
-        {React.createElement(type, { ...props, ...elProps } as React.Attributes)}
-      </Form.Item>
-    )
+    <Form.Item name={name} label={label} rules={rules} {...itemProps}>
+      {render
+        ? render()
+        : React.createElement(type, {
+            ...props,
+            ...elProps,
+          } as React.Attributes)}
+    </Form.Item>
   );
 };
 
