@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Input } from 'antd';
+import { Form, Button, Input, Flex } from 'antd';
 import { GridRender } from '../src';
 
 const GridOneColumn = () => {
@@ -33,18 +33,23 @@ const GridOneColumn = () => {
     {
       render() {
         return (
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button type="primary" htmlType="submit" style={{ width: 120 }}>
-              登录
+          <Flex justify="flex-end">
+            <Button type="primary" htmlType="submit">
+              保存
             </Button>
-          </div>
+          </Flex>
         );
       },
     },
   ];
 
   return (
-    <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
+    <Form
+      form={form}
+      labelAlign="right"
+      style={{ width: 400 }}
+      layout="vertical"
+    >
       <GridRender layout={oneColumn} />
     </Form>
   );
