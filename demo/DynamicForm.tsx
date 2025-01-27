@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Radio, Form, Space, Button } from 'antd';
-import { FormRender } from 'antd-form-render';
+import { FormRender } from '../src';
 
 type FormData = {
   gender: '0' | '1';
@@ -33,7 +33,11 @@ const DynamicForm = () => {
             ]}
             validateTrigger="onBlur"
           >
-            <Input maxLength={11} placeholder="请输手机号" style={{ width: 350 }} />
+            <Input
+              maxLength={11}
+              placeholder="请输手机号"
+              style={{ width: 350 }}
+            />
           </Form.Item>
           {tels.length > 1 && (
             <Button

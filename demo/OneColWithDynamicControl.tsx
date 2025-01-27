@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Radio } from 'antd';
-import { FormRender } from 'antd-form-render';
+import { FormRender } from '../src';
 
 const OneColWithDynamicControl = () => {
   const [form] = Form.useForm();

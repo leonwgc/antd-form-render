@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Radio, Form } from 'antd';
-import { FormRender, Item } from 'antd-form-render';
+import { FormRender, Item } from '../src';
 
 const OneRowNCol = () => {
   const layout: Item[] = [];
@@ -10,8 +10,11 @@ const OneRowNCol = () => {
     layout.push({
       type: Input,
       label: `输入框${i + 1}`,
-      placeholder: '请输入',
+
       name: `name${i}`,
+      elProps: {
+        placeholder: '请输入',
+      },
     });
   }
 

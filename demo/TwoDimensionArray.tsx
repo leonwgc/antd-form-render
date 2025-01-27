@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, Radio, Form, Space, Button } from 'antd';
-import { FormRender } from 'antd-form-render';
+import { FormRender } from '../src';
 
 const TwoDimensionArray = () => {
   const layout = [

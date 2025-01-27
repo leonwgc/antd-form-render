@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Radio, Form, Button } from 'antd';
-import { FormSpaceRender, Item } from 'antd-form-render';
+import { FormSpaceRender, Item } from '../src';
 
 const SpaceLayout = () => {
   const layout: Item[] = [];
@@ -8,10 +8,12 @@ const SpaceLayout = () => {
 
   for (let i = 0; i < 3; i++) {
     layout.push({
+      name: `name${i}`,
       type: Input,
       label: `输入框${i + 1}`,
-      placeholder: '请输入',
-      name: `name${i}`,
+      elProps: {
+        placeholder: '请输入',
+      },
     });
   }
 
