@@ -13,7 +13,7 @@ const DynamicForm = () => {
 
   const [data, setData] = useState<FormData>({
     gender: '0',
-    tels: ['15901634301', '17721222222'],
+    tels: ['15901631201', '17721222222'],
     name: 'leon',
   });
 

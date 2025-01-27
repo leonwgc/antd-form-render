@@ -15,7 +15,13 @@ const App = () => {
 
   return (
     <div>
-      <Tabs defaultActiveKey="1" activeKey={key} onChange={setKey} style={{ padding: '0 20px' }}>
+      <Tabs
+        tabPosition="left"
+        defaultActiveKey="1"
+        activeKey={key}
+        onChange={setKey}
+        style={{ padding: 32 }}
+      >
         <TabPane tab="一行一列" key="1">
           <OneRowOneCol />
         </TabPane>
