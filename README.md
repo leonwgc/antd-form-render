@@ -11,39 +11,38 @@
 
 ## 特点
 
-1. 基于 js 配置开发
-2. 支持等分空间排列 / 等间距排列
+1. 基于 js 配置开发ant design 表单项目
+2. 支持Grid, Flex, Space 三种布局
 3. 支持表单联动
 4. 支持全量渲染 / 局部渲染
 5. 支持动态增 / 删 / 改表单项目
 6. 与react数据驱动视图理念保持一致`UI=F(state)`
 7. 基于react-hooks
-8. 基于一维数组 / 二维数组, 可实现任意表单布局
-9. 使用 typescript 编写，开发智能提示
-10. 经历了生产十多个大小项目使用
+8. 使用 typescript 编写，开发智能提示
 
 ## 示例
 
-#### 1. 一行一列排列
+####  Grid 一行一列布局
 
-![1.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8cff5cac07014d74aec5eb75acef50d6~tplv-k3u1fbpfcp-watermark.image?)
 
-```js
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/fdad9492d7f94fb28634bbae2111d0dc~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738038989&x-orig-sign=uYe7qNnrGG4xiEx1xu3mcjhVEgw%3D)
+
+```tsx
 import React from 'react';
 import { Form, Button, Input } from 'antd';
-import FormRender from 'antd-form-render';
+import { GridRender } from 'antd-form-render';
 
-const Ex = () => {
+const GridOneColumn = () => {
   const [form] = Form.useForm();
 
-  const layoutData = [
+  const oneColumn = [
     {
       type: Input,
-      name: 'tel',
       label: '手机号',
+      placeholder: '请输入',
+      name: 'tel',
       elProps: {
         maxLength: 11,
-        placeholder: '请输入',
       },
       itemProps: {
         rules: [
@@ -64,176 +63,194 @@ const Ex = () => {
     {
       render() {
         return (
-          <Button type="primary" htmlType="submit">
-            登录
-          </Button>
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button type="primary" htmlType="submit" style={{ width: 120 }}>
+              登录
+            </Button>
+          </div>
         );
       },
     },
   ];
 
   return (
-    <Form form={form}>
-      <FormRender layoutData={layoutData}></FormRender>
+    <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
+      <GridRender layout={oneColumn} />
     </Form>
   );
 };
+
+export default GridOneColumn;
+
 ```
 
-#### 2. 一行n列排列 (n<=4)
+#### Grid 一行1 ~ 4列
 
-![2.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/de8307358c98474f865e4b633aa71030~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/a84f62d5624f469a9b14b72aba383f9c~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738039192&x-orig-sign=sY6yY4nuwsAlz27b5zrH7bs%2BT%2B0%3D)
 
-```js
+```tsx
 import React, { useState } from 'react';
 import { Input, Radio, Form } from 'antd';
-import FormRender from 'antd-form-render';
+import { GridRender } from 'antd-form-render';
 
-const Ex = () => {
-  const layoutData = [];
+const GridNColumns = () => {
+  const layout: Item[] = [];
   const [cols, setCols] = useState(4);
 
   for (let i = 0; i < 11; i++) {
-    layoutData.push({
+    layout.push({
       type: Input,
       label: `输入框${i + 1}`,
-      placeholder: '请输入',
       name: `name${i}`,
+      elProps: {
+        placeholder: '请输入',
+      },
     });
   }
 
   return (
     <Form layout="vertical">
-      <Radio.Group onChange={(e) => setCols(Number(e.target.value))} value={cols}>
-        <Radio value={1}>1行1列</Radio>
-        <Radio value={2}>1行2列</Radio>
-        <Radio value={3}>1行3列</Radio>
-        <Radio value={4}>1行4列</Radio>
-      </Radio.Group>
-
-      <FormRender layoutData={layoutData} cols={cols}></FormRender>
+      <div style={{ marginBottom: 24 }}>
+        <Radio.Group
+          onChange={(e) => setCols(Number(e.target.value))}
+          optionType="button"
+          value={cols}
+        >
+          <Radio value={1}>1行1列</Radio>
+          <Radio value={2}>1行2列</Radio>
+          <Radio value={3}>1行3列</Radio>
+          <Radio value={4}>1行4列</Radio>
+        </Radio.Group>
+      </div>
+      <GridRender
+        layout={layout}
+        columnCount={cols}
+        gutter={[8, 8]}
+      ></GridRender>
     </Form>
   );
 };
+
+export default GridNColumns;
+
 ```
 
-#### 3. 等间距排列
+#### Space 布局
 
-![3.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5fd4ffd55f7846a68e9184e7acbddae7~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/b12ed1ce19b14edcb9bcd4d4f1a51ee0~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738039266&x-orig-sign=bGZxCewNUX9UlOnXVx98FjBUqmU%3D)
 
-```js
+```tsx
 import React, { useState } from 'react';
-import { Input, Radio, Form } from 'antd';
-import { FormSpaceRender } from 'antd-form-render';
+import { Input, Radio, Form, Button } from 'antd';
+import { SpaceRender } from 'antd-form-render';
 
-const Ex = () => {
-  const layout = [];
+const SpaceLayout = () => {
+  const layout: Item[] = [];
   const [space, setSpace] = useState(8);
 
   for (let i = 0; i < 3; i++) {
     layout.push({
+      name: `name${i}`,
       type: Input,
       label: `输入框${i + 1}`,
-      placeholder: '请输入',
-      name: `name${i}`,
+      elProps: {
+        placeholder: '请输入',
+      },
     });
   }
 
+  layout.push({
+    render: () => <Button type="primary">submit</Button>,
+  });
+
   return (
     <Form layout="horizontal">
-      <Radio.Group onChange={(e) => setSpace(Number(e.target.value))} value={space}>
-        <Radio value={8}>8px</Radio>
-        <Radio value={16}>16px</Radio>
-        <Radio value={24}>24px</Radio>
-        <Radio value={32}>32px</Radio>
-      </Radio.Group>
-
-      <FormSpaceRender layoutData={layout} size={space}></FormSpaceRender>
+      <div style={{ marginBottom: 24 }}>
+        <Radio.Group
+          onChange={(e) => setSpace(Number(e.target.value))}
+          optionType="button"
+          value={space}
+        >
+          <Radio value={8}>8px</Radio>
+          <Radio value={16}>16px</Radio>
+          <Radio value={24}>24px</Radio>
+          <Radio value={32}>32px</Radio>
+        </Radio.Group>
+      </div>
+      <SpaceRender layout={layout} size={space}></SpaceRender>
     </Form>
   );
 };
+
+export default SpaceLayout;
+
 ```
 
-#### 4.二维数组自定义布局
+#### Flex 布局
 
-![4.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f406c4f5815c466eb16f6a1fbe641326~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/9fc22216c04c4e5793cb68c9081f1e4d~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738039442&x-orig-sign=yFfkmg6lIFcZnAyOj3wPgAAaTZM%3D)
 
-```js
-import React from 'react';
-import { Input, Radio, Form, Space, Button } from 'antd';
-import FormRender from 'antd-form-render';
+```tsx
+import React, { useState } from 'react';
+import { Input, Radio, Form, Button } from 'antd';
+import { FlexRender, Item } from 'antd-form-render';
 
-const Ex = () => {
-  const layoutData = [
-    [
-      {
-        type: Input,
-        label: '姓名',
-        name: 'name',
-        rules: [{ required: true, message: '请填写' }],
-        elProps: {
-          placeholder: '请填写姓名',
-        },
-      },
-      {
-        type: Radio.Group,
-        label: '性别',
-        name: 'gender',
-        rules: [{ required: true, message: '请选择' }],
-        elProps: {
-          options: [
-            { label: '女', value: 0 },
-            { label: '男', value: 1 },
-          ],
-        },
-      },
-    ],
-    [
-      {
-        type: Input.TextArea,
-        label: '个人简',
-        elProps: {
-          rows: 6,
-        },
+const FlexLayout = () => {
+  const layout: Item[] = [];
+  const [gap, setGap] = useState(8);
+
+  for (let i = 0; i < 3; i++) {
+    layout.push({
+      name: `name${i}`,
+      type: Input,
+      label: `输入框${i + 1}`,
+      elProps: {
         placeholder: '请输入',
-        name: 'bio',
       },
-    ],
-    [
-      {
-        render() {
-          return (
-            <Space>
-              <Button type="default">取消</Button>
-              <Button type="primary">保存</Button>
-            </Space>
-          );
-        },
-      },
-    ],
-  ];
+    });
+  }
+
+  layout.push({
+    render: () => <Button type="primary">submit</Button>,
+  });
 
   return (
-    <Form>
-      <FormRender layoutData={layoutData}></FormRender>
+    <Form layout="horizontal">
+      <div style={{ marginBottom: 24 }}>
+        <Radio.Group
+          onChange={(e) => setGap(Number(e.target.value))}
+          optionType="button"
+          value={gap}
+        >
+          <Radio value={8}>8px</Radio>
+          <Radio value={16}>16px</Radio>
+          <Radio value={24}>24px</Radio>
+          <Radio value={32}>32px</Radio>
+        </Radio.Group>
+      </div>
+      <FlexRender layout={layout} gap={gap} justify="flex-end" />
     </Form>
   );
 };
+
+export default FlexLayout;
+
 ```
 
-#### 5.表单联动
+#### 表单联动
 
 1. 定义 form onValuesChange 同步状态到外部 state, 触发重新渲染实现表单联动（全量渲染）
 2. 利用 Form.Item dependencies / shouldUpdate 和自定义 render 实现表单联动 (非全量渲染)
 
-![5.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/77a3961d95f74b87b44acc9348810a89~tplv-k3u1fbpfcp-watermark.image?)
 
-```js
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/f9d024002ba4425c9ce0fa5cb33c68e9~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738039577&x-orig-sign=75EHHztqlbfEvEf2Ktn6qeoNcA8%3D)
+
+```tsx
 import React, { useState } from 'react';
 import { Form, Radio } from 'antd';
-import FormRender from 'antd-form-render';
+import { GridRender } from 'antd-form-render';
 
-const Ex = () => {
+const DynamicRender = () => {
   const [form] = Form.useForm();
   const [form1] = Form.useForm();
 
@@ -242,7 +259,7 @@ const Ex = () => {
   // 用于同步表单状态
   const [data, setData] = useState<{ gender?: string }>({});
 
-  const layoutData = [
+  const layout = [
     {
       type: Radio.Group,
       label: '性别',
@@ -268,7 +285,7 @@ const Ex = () => {
   //#region 局部联动渲染
 
   // 基于Form.Item dependency/shouldUpdate 实现表单联动,局部渲染
-  const layoutData1 = [
+  const layout1 = [
     {
       type: Radio.Group,
       label: '性别',
@@ -319,75 +336,84 @@ const Ex = () => {
           setData((p) => ({ ...p, ...v }));
         }}
       >
-        <FormRender layoutData={layoutData}></FormRender>
+        <GridRender layout={layout}></GridRender>
       </Form>
 
       <p>2.基于Form.Item dependency/shouldUpdate 实现表单联动,局部渲染</p>
 
       <Form form={form1}>
-        <FormRender layoutData={layoutData1}></FormRender>
+        <GridRender layout={layout1}></GridRender>
       </Form>
     </div>
   );
 };
 
-
+export default DynamicRender;
 
 ```
 
-#### 6.动态增删组件
+#### 动态增删
 
-![6.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d2447631e9124db2817da583976af25d~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/152a4daae13d4789877d0e2e0f5886e4~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbGVvbndnYw==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNzY0OTE1ODIyOTAzMDQ4In0%3D&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1738039742&x-orig-sign=03Ezr3H6MMpYMHJSliJpsv3gU7M%3D)
 
 ```js
 import React, { useState } from 'react';
 import { Input, Radio, Form, Space, Button } from 'antd';
-import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import FormRender from 'antd-form-render';
+import { GridRender } from 'antd-form-render';
 
-const Ex = () => {
+type FormData = {
+  gender: '0' | '1';
+  name: string;
+  tels: string[];
+};
+
+const DynamicAdd = () => {
   const [form] = Form.useForm();
-  const [jobExps, setJobExps] = useState([
-    {
-      id: 0,
-      title: '蓝翔技校挖掘机老师',
-    },
-    {
-      id: 1,
-      title: '北大青鸟厨师',
-    },
-    {
-      id: 2,
-      title: '清华扫地僧',
-    },
-  ]);
 
-  const jobExpLayout = jobExps?.map((ex, index) => ({
-    name: ['jobs', index],
-    type: Input,
-    label: '工作经历' + (index + 1),
-    key: ex.id,
-    elProps: {
-      placeholder: '请填写',
-      addonAfter: jobExps.length > 1 && (
-        <MinusCircleOutlined
-          onClick={() => {
-            const jobs = form.getFieldValue('jobs');
-            jobs.splice(index, 1);
-            setJobExps(
-              jobs.map((e, i) => ({
-                id: jobExps[i].id,
-                title: e,
-              }))
-            );
-          }}
-        />
-      ),
+  const [data, setData] = useState<FormData>({
+    gender: '0',
+    tels: ['15901631201', '17721222222'],
+    name: 'leon',
+  });
+
+  const [tels, setTels] = useState([...data.tels]); // telephone list
+
+  const telsLayout = tels?.map((item, index) => ({
+    render() {
+      return (
+        <Space align="start" style={{ width: '100%' }}>
+          <Form.Item
+            name={['tels', index]}
+            rules={[
+              {
+                pattern: /^1\d{10}$/,
+                message: '请输入正确的手机号码',
+              },
+            ]}
+            validateTrigger="onBlur"
+          >
+            <Input
+              maxLength={11}
+              placeholder="请输手机号"
+              style={{ width: 350 }}
+            />
+          </Form.Item>
+          {tels.length > 1 && (
+            <Button
+              type="link"
+              onClick={() => {
+                const tels = form.getFieldValue('tels');
+                tels.splice(index, 1);
+                form.setFieldsValue({ tels: [...tels] });
+                setTels([...tels]);
+              }}
+            >
+              删除
+            </Button>
+          )}
+        </Space>
+      );
     },
-    itemProps: {
-      initialValue: ex.title,
-    },
-    rules: [{ required: true }],
   }));
 
   const layout = [
@@ -401,51 +427,62 @@ const Ex = () => {
       },
     },
     {
-      type: Radio.Group,
-      label: '性别',
-      name: 'gender',
-      rules: [{ required: true, message: '请选择' }],
-      elProps: {
-        options: [
-          { label: '女', value: 0 },
-          { label: '男', value: 1 },
-        ],
+      render() {
+        return <div style={{ margin: '12px 0' }}>手机号</div>;
       },
     },
-    // 动态更新组件
-    ...jobExpLayout,
+
+    ...telsLayout,
     {
       render() {
         return (
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 24 }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button
-              icon={<PlusCircleOutlined />}
+              type="link"
+              style={{ padding: 0 }}
               onClick={() => {
-                setJobExps([...jobExps, { id: +Date.now(), title: '' }]);
+                const tels = form.getFieldValue('tels') || [''];
+                const newTels = [...tels, ''];
+                form.setFieldsValue({ tels: newTels });
+                setTels(newTels);
               }}
             >
-              添加工作经历
+              + 手机号
             </Button>
           </div>
         );
       },
     },
     {
-      type: Input.TextArea,
-      label: '个人简',
+      type: Radio.Group,
+      label: '性别',
+      name: 'gender',
       elProps: {
-        rows: 6,
+        options: [
+          { label: '女', value: '0' },
+          { label: '男', value: '1' },
+        ],
       },
-      placeholder: '请输入',
-      name: 'bio',
+    },
+    {
+      getJSON() {
+        return data.gender !== undefined
+          ? {
+              label: '性别',
+              type: 'div',
+              children: data.gender == '1' ? '男' : '女',
+            }
+          : null;
+      },
     },
 
-    ,
     {
       render() {
         return (
           <Space style={{ justifyContent: 'flex-end', width: '100%' }}>
-            <Button type="default">取消</Button>
+            <Button type="default" onClick={() => form.resetFields()}>
+              取消
+            </Button>
             <Button type="primary" htmlType="submit">
               保存
             </Button>
@@ -456,79 +493,127 @@ const Ex = () => {
   ];
 
   return (
-    <Form onFinish={console.log} form={form}>
-      <FormRender layoutData={layout}></FormRender>
-    </Form>
+    <div>
+      <Form
+        form={form}
+        style={{ width: 400 }}
+        layout={'vertical'}
+        initialValues={data}
+        onFinish={(values) => {
+          console.log(values);
+        }}
+        onValuesChange={(c, a) => {
+          setData(a);
+        }}
+      >
+        <GridRender layout={layout}></GridRender>
+      </Form>
+    </div>
   );
 };
 
-export default DynamicForm;
+export default DynamicAdd;
+
 ```
 
 ### 组件类型定义
 
-```js
-// 配置项定义
-export declare type Item = {
-  /** 要渲染的组件，比如Input,Button,"input"  */
-  type?: React.ComponentType | string;
-  /** 字段名，支持数组，透传给Form.Item */
-  name?: string | Array<string | number>;
-  /** 标签 透传给Form.Item*/
-  label?: React.ReactNode;
-  /** 自定义渲染 */
-  render?: () => React.ReactNode;
-  /** 动态返回Item，优先级高于render */
-  getJSON?: () => Item | null;
-  /** 组件props,会透传给type定义的组件 */
-  elProps?: Record<string, unknown>;
-  /** Form.Item的props,会透传给Form.Item */
-  itemProps?: Record<string, unknown>;
-  /** Form.Itemrules,也可在itemProps里定义  */
-  rules?: Rule[];
+```ts
+import { Rule } from 'rc-field-form/lib/interface';
+import type { SpaceProps, FlexProps, RowProps } from 'antd';
+/**
+ * Render配置项
+ *
+ * @export
+ * @interface Item
+ */
+export type Item = {
+    /**
+     * React组件类型，例如：Input、DatePicker, "input"
+     */
+    type?: React.ComponentType | string;
+    /**
+     * Form.Item name 字段
+     */
+    name?: string | Array<string | number>;
+    /**
+     * Form.Item label
+     */
+    label?: React.ReactNode;
+    /**
+     * 自定义渲染
+     */
+    render?: () => React.ReactNode;
+    /**
+     * 动态返回Item，优先级高于render
+     */
+    getJSON?: () => Item | null;
+    /**
+     * 组件props,会透传给type定义的组件
+     */
+    elProps?: Record<string, unknown>;
+    /**
+     * Form.Item的props,会透传给Form.Item
+     */
+    itemProps?: Record<string, unknown>;
+    /**
+     * Form.Itemrules,也可在itemProps里定义
+     */
+    rules?: Rule[];
 };
+export type GridRenderProps = RowProps & {
+    /**
+     * 布局配置
+     */
+    layout: Item[];
+    /**
+     * GridRender 一行的列数, 可以是: 1 | 2 | 3 | 4, 默认1,
+     */
+    columnCount?: number;
+};
+export type SpaceRenderProps = SpaceProps & {
+    /**
+     * 1维数组，存储组件配置信息/自定义渲染组件
+     */
+    layout: Item[];
+};
+export type FlexRenderProps = Partial<FlexProps> & {
+    layout: Item[];
+};
+export type layoutType = 'grid' | 'space' | 'flex';
 
-// 默认导出组件
-/**
- * 等分空间布局, 每个组件等分一行空间
- *
- * 一维数组:从上往下一行放一个组件 ,设置了cols则一行显示cols(1/2/3/4)个组件
- *
- * 二维数组:子数组配置的所有组件渲染为一行（不定列布局）
- *
- * 数组（或子数组）内组件会等分一行所占空间，内部采用Row,Col布局
- *
- * @export
- * @param {FormRenderProps} {
- *   layoutData: Item[] | Item[][];
- *   cols = 1 | 2 | 3 | 4,
- * }
- * @return {*}  {React.ReactElement}
- */
-export default function FormRenderer({
-/**
- * 1或2维数组，存储组件配置信息/自定义渲染组件
- */
-layoutData,
-/**
- * 定义一行渲染几个组件，layoutData为一维数组时生效, 可以是: 1 | 2 | 3 | 4, 默认1,
- */
-cols, }: FormRenderProps): React.ReactElement;
 
-// 命名导出组件
 /**
- * 等间距排列 (常用于列表页面的搜索等)
+ * Grid布局
  *
- * @export
- * @param {SpaceLayoutProps} {
- *   layoutData,
- *   ...props 参考：antd Space组件的props
- * }
- * @return {*}  {React.ReactElement}
+ * @param {GridRenderProps} props - The properties for the GridRender component.
+ * @param {Item[]} props.layout - The layout data, an array of items to be rendered in the grid.
+ * @param {number} [props.columnCount=1] - The number of columns in the grid.
+ * @param {object} ..rest - Additional properties to be passed to the inner Row component.
+ * @returns {React.ReactElement} The rendered grid layout.
  */
-export function FormSpaceRender({
+declare const GridRender: React.FC<GridRenderProps>;
+
 /**
- * 1维数组，存储组件配置信息/自定义渲染组件
+ * Flex布局
+ *
+ * @param {FlexRenderProps} props - The properties for the FlexRender component.
+ * @param {Item[]} props.layout - The layout data, an array of items to be rendered in the flex layout.
+ * @param {FlexProps} [props.flexProps] - Additional properties to be passed to the inner Flex component.
+ * @returns {React.ReactElement} The rendered flex layout.
  */
-layoutData, ...props }: SpaceLayoutProps): React.ReactElement;
+declare const FlexRender: React.FC<FlexRenderProps>;
+
+/**
+ * Space 布局
+ *
+ * @param {SpaceRenderProps} props - The properties for the SpaceRender component.
+ * @param {Item[]} props.layout - The layout data, an array of items to be rendered in the space.
+ * @returns {React.ReactElement} The rendered space layout.
+ */
+declare const SpaceRender: React.FC<SpaceRenderProps>;
+
+
 ```
+
+
