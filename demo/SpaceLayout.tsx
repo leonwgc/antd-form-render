@@ -3,26 +3,33 @@ import { Input, Radio, Form, Button } from 'antd';
 import { SpaceRender, Item } from '../src';
 
 const SpaceLayout = () => {
+  const [form] = Form.useForm();
   const layout: Item[] = [];
   const [space, setSpace] = useState(8);
 
   for (let i = 0; i < 3; i++) {
     layout.push({
       name: `name${i}`,
-      type: Input,
       label: `输入框${i + 1}`,
-      elProps: {
-        placeholder: '请输入',
-      },
+      element: <Input placeholder="请输入" />,
     });
   }
 
   layout.push({
-    render: () => <Button type="primary">submit</Button>,
+    element: (
+      <Button
+        type="primary"
+        onClick={() => {
+          console.log(form.getFieldsValue());
+        }}
+      >
+        submit
+      </Button>
+    ),
   });
 
   return (
-    <Form layout="horizontal">
+    <Form form={form} layout="horizontal">
       <div style={{ marginBottom: 24 }}>
         <Radio.Group
           onChange={(e) => setSpace(Number(e.target.value))}
@@ -35,7 +42,8 @@ const SpaceLayout = () => {
           <Radio value={32}>32px</Radio>
         </Radio.Group>
       </div>
-      <SpaceRender layout={layout} size={space}></SpaceRender>
+
+      <SpaceRender layout={layout} size={space} />
     </Form>
   );
 };

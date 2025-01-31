@@ -25,10 +25,11 @@ const ItemRender: React.FC<ItemRenderProps> = ({
     name,
     rules,
     label,
+    element,
     elProps = {},
     itemProps = {},
     render,
-    ...props
+    ...rest
   } = _item;
 
   let wrapperProps: Record<string, unknown> = {};
@@ -39,13 +40,24 @@ const ItemRender: React.FC<ItemRenderProps> = ({
   return React.createElement(
     layoutType === 'grid' ? Col : React.Fragment,
     wrapperProps,
-    <Form.Item name={name} label={label} rules={rules} {...itemProps}>
-      {render
-        ? render()
-        : React.createElement(type, {
-            ...props,
-            ...elProps,
-          } as React.Attributes)}
+    <Form.Item
+      name={name}
+      label={label}
+      rules={rules}
+      {...rest}
+      {...itemProps}
+      shouldUpdate={
+        itemProps.shouldUpdate ||
+        typeof element === 'function' ||
+        typeof render === 'function'
+      }
+    >
+      {typeof element !== 'undefined'
+        ? element
+        : typeof render !== 'undefined'
+        ? render
+        : typeof type !== 'undefined' &&
+          React.createElement(type, elProps as React.Attributes)}
     </Form.Item>
   );
 };

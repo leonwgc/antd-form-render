@@ -3,6 +3,7 @@ import { Input, Radio, Form, Button } from 'antd';
 import { FlexRender, Item } from '../src';
 
 const FlexLayout = () => {
+  const [form] = Form.useForm();
   const layout: Item[] = [];
   const [gap, setGap] = useState(8);
 
@@ -18,11 +19,20 @@ const FlexLayout = () => {
   }
 
   layout.push({
-    render: () => <Button type="primary">submit</Button>,
+    element: (
+      <Button
+        type="primary"
+        onClick={() => {
+          console.log(form.getFieldsValue());
+        }}
+      >
+        submit
+      </Button>
+    ),
   });
 
   return (
-    <Form layout="horizontal">
+    <Form form={form} layout="horizontal">
       <div style={{ marginBottom: 24 }}>
         <Radio.Group
           onChange={(e) => setGap(Number(e.target.value))}
@@ -35,6 +45,7 @@ const FlexLayout = () => {
           <Radio value={32}>32px</Radio>
         </Radio.Group>
       </div>
+
       <FlexRender layout={layout} gap={gap} justify="flex-end" />
     </Form>
   );

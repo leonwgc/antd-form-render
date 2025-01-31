@@ -1,56 +1,36 @@
 import React from 'react';
 import { Form, Button, Input, Flex } from 'antd';
-import { GridRender } from '../src';
+import { GridRender, Item } from '../src';
 
 const GridOneColumn = () => {
   const [form] = Form.useForm();
 
-  const oneColumn = [
+  const layout: Item[] = [
     {
-      type: Input,
       label: '手机号',
-      placeholder: '请输入',
       name: 'tel',
-      elProps: {
-        maxLength: 11,
-      },
-      itemProps: {
-        rules: [
-          { required: true, message: '请输入' },
-          { pattern: /^1\d{10}$/, message: '手机号必须为11位数字' },
-        ],
-      },
+      rules: [{ required: true, message: '请输入' }],
+      element: <Input placeholder="请输入" maxLength={11} />,
     },
     {
-      type: Input.Password,
       label: '密码',
-      placeholder: '请输入',
       name: 'pwd',
-      itemProps: {
-        rules: [{ required: true, message: '请输入' }],
-      },
+      element: <Input.Password placeholder="请输入"></Input.Password>,
     },
     {
-      render() {
-        return (
-          <Flex justify="flex-end">
-            <Button type="primary" htmlType="submit">
-              保存
-            </Button>
-          </Flex>
-        );
-      },
+      element: (
+        <Flex justify="flex-end">
+          <Button type="primary" htmlType="submit">
+            保存
+          </Button>
+        </Flex>
+      ),
     },
   ];
 
   return (
-    <Form
-      form={form}
-      labelAlign="right"
-      style={{ width: 400 }}
-      layout="vertical"
-    >
-      <GridRender layout={oneColumn} />
+    <Form form={form} layout="vertical" style={{ width: 400 }}>
+      <GridRender layout={layout} />
     </Form>
   );
 };

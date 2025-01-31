@@ -37,9 +37,9 @@ const App = () => {
         <TabPane tab="表单联动" key="5">
           <DynamicRender />
         </TabPane>
-        <TabPane tab="动态增删" key="6">
+        {/* <TabPane tab="动态增删" key="6">
           <DynamicAdd />
-        </TabPane>
+        </TabPane> */}
       </Tabs>
     </div>
   );

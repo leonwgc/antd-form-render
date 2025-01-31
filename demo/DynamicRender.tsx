@@ -1,100 +1,46 @@
-import React, { useState } from 'react';
-import { Form, Radio } from 'antd';
-import { GridRender } from '../src';
+import React from 'react';
+import { Form, Checkbox, Input } from 'antd';
+import { GridRender, Item } from '../src';
 
 const DynamicRender = () => {
   const [form] = Form.useForm();
-  const [form1] = Form.useForm();
 
-  //#region 全量渲染联动
-
-  // 用于同步表单状态
-  const [data, setData] = useState<{ gender?: string }>({});
-
-  const layout = [
+  const layout: Item[] = [
     {
-      type: Radio.Group,
-      label: '性别',
-      name: 'gender',
-      elProps: {
-        options: [
-          { label: '男', value: '男生' },
-          { label: '女', value: '女生' },
-        ],
-      },
+      label: '姓名',
+      name: 'name',
+      element: <Input placeholder="请输入" />,
     },
     {
-      type: 'div',
-      label: '你是',
-      elProps: {
-        children: data?.gender || '未选择',
+      itemProps: {
+        noStyle: true,
       },
-    },
-  ];
-
-  //#endregion 全量渲染联动
-
-  //#region 局部联动渲染
-
-  // 基于Form.Item dependency/shouldUpdate 实现表单联动,局部渲染
-  const layout1 = [
-    {
-      type: Radio.Group,
-      label: '性别',
-      name: 'gender',
-      elProps: {
-        options: [
-          { label: '男', value: '男生' },
-          { label: '女', value: '女生' },
-        ],
-      },
+      element: () =>
+        form.getFieldValue('name') ? (
+          <div style={{ marginBottom: 24 }}>
+            姓名: {form.getFieldValue('name')}
+          </div>
+        ) : null,
     },
     {
-      render() {
-        // dependencies
-        return (
-          <Form.Item label="你是" dependencies={['gender']}>
-            {() => {
-              const gender = form1.getFieldValue('gender');
-              return gender || '未选择';
-            }}
-          </Form.Item>
-        );
-      },
+      label: '喜欢的运动',
+      name: 'sports',
+      element: <Checkbox.Group options={['篮球', '足球', '排球']} />,
     },
     {
-      render() {
-        // shouldUpdate
-        return (
-          <Form.Item shouldUpdate label="你是">
-            {() => {
-              return form1.getFieldValue('gender');
-            }}
-          </Form.Item>
-        );
-      },
+      element: () =>
+        form.getFieldValue('sports')?.length ? (
+          <div> 你的选择: {form.getFieldValue('sports')?.join(', ')}</div>
+        ) : (
+          '未选择任何运动'
+        ),
     },
   ];
-
-  //#endregion 局部联动渲染
 
   return (
     <div>
-      <p>1.定义onValuesChange 同步状态到state , 触发全量渲染实现表单联动</p>
-
-      <Form
-        form={form}
-        onValuesChange={(v) => {
-          setData((p) => ({ ...p, ...v }));
-        }}
-      >
+      <Form form={form}>
         <GridRender layout={layout}></GridRender>
-      </Form>
-
-      <p>2.基于Form.Item dependency/shouldUpdate 实现表单联动,局部渲染</p>
-
-      <Form form={form1}>
-        <GridRender layout={layout1}></GridRender>
       </Form>
     </div>
   );

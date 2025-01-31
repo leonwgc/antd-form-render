@@ -8,12 +8,9 @@ const GridNColumns = () => {
 
   for (let i = 0; i < 11; i++) {
     layout.push({
-      type: Input,
       label: `输入框${i + 1}`,
       name: `name${i}`,
-      elProps: {
-        placeholder: '请输入',
-      },
+      element: <Input placeholder="请输入" />,
     });
   }
 
@@ -31,11 +28,8 @@ const GridNColumns = () => {
           <Radio value={4}>1行4列</Radio>
         </Radio.Group>
       </div>
-      <GridRender
-        layout={layout}
-        columnCount={cols}
-        gutter={[8, 8]}
-      ></GridRender>
+
+      <GridRender layout={layout} columnCount={cols} gutter={[8, 8]} />
     </Form>
   );
 };

@@ -13,12 +13,9 @@
 
 1. 基于 js 配置开发 ant design 表单项
 2. 支持 Grid, Flex, Space 三种布局
-3. 支持表单联动
-4. 支持全量渲染 / 局部渲染
-5. 支持动态增 / 删 / 改表单项目
-6. 与 react 数据驱动视图理念保持一致`UI=F(state)`
-7. 基于 react-hooks
-8. 使用 typescript 编写，开发智能提示
+3. 与 react 数据驱动视图理念保持一致`UI=F(state)`
+4. 基于 react-hooks
+5. 使用 typescript 编写，开发智能提示
 
 ## 示例
 
@@ -34,47 +31,32 @@ import { GridRender } from 'antd-form-render';
 const GridOneColumn = () => {
   const [form] = Form.useForm();
 
-  const oneColumn = [
+  const layout: Item[] = [
     {
-      type: Input,
       label: '手机号',
-      placeholder: '请输入',
       name: 'tel',
-      elProps: {
-        maxLength: 11,
-      },
-      itemProps: {
-        rules: [
-          { required: true, message: '请输入' },
-          { pattern: /^1\d{10}$/, message: '手机号必须为11位数字' },
-        ],
-      },
+      rules: [{ required: true, message: '请输入' }],
+      element: <Input placeholder="请输入" maxLength={11} />,
     },
     {
-      type: Input.Password,
       label: '密码',
-      placeholder: '请输入',
       name: 'pwd',
-      itemProps: {
-        rules: [{ required: true, message: '请输入' }],
-      },
+      element: <Input.Password placeholder="请输入"></Input.Password>,
     },
     {
-      render() {
-        return (
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button type="primary" htmlType="submit" style={{ width: 120 }}>
-              登录
-            </Button>
-          </div>
-        );
-      },
+      element: (
+        <Flex justify="flex-end">
+          <Button type="primary" htmlType="submit">
+            保存
+          </Button>
+        </Flex>
+      ),
     },
   ];
 
   return (
-    <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
-      <GridRender layout={oneColumn} />
+    <Form form={form} layout="vertical" style={{ width: 400 }}>
+      <GridRender layout={layout} />
     </Form>
   );
 };
@@ -97,12 +79,9 @@ const GridNColumns = () => {
 
   for (let i = 0; i < 11; i++) {
     layout.push({
-      type: Input,
       label: `输入框${i + 1}`,
       name: `name${i}`,
-      elProps: {
-        placeholder: '请输入',
-      },
+      element: <Input placeholder="请输入" />,
     });
   }
 
@@ -120,11 +99,8 @@ const GridNColumns = () => {
           <Radio value={4}>1行4列</Radio>
         </Radio.Group>
       </div>
-      <GridRender
-        layout={layout}
-        columnCount={cols}
-        gutter={[8, 8]}
-      ></GridRender>
+
+      <GridRender layout={layout} columnCount={cols} gutter={[8, 8]} />
     </Form>
   );
 };
@@ -142,26 +118,33 @@ import { Input, Radio, Form, Button } from 'antd';
 import { SpaceRender } from 'antd-form-render';
 
 const SpaceLayout = () => {
+  const [form] = Form.useForm();
   const layout: Item[] = [];
   const [space, setSpace] = useState(8);
 
   for (let i = 0; i < 3; i++) {
     layout.push({
       name: `name${i}`,
-      type: Input,
       label: `输入框${i + 1}`,
-      elProps: {
-        placeholder: '请输入',
-      },
+      element: <Input placeholder="请输入" />,
     });
   }
 
   layout.push({
-    render: () => <Button type="primary">submit</Button>,
+    element: (
+      <Button
+        type="primary"
+        onClick={() => {
+          console.log(form.getFieldsValue());
+        }}
+      >
+        submit
+      </Button>
+    ),
   });
 
   return (
-    <Form layout="horizontal">
+    <Form form={form} layout="horizontal">
       <div style={{ marginBottom: 24 }}>
         <Radio.Group
           onChange={(e) => setSpace(Number(e.target.value))}
@@ -174,7 +157,8 @@ const SpaceLayout = () => {
           <Radio value={32}>32px</Radio>
         </Radio.Group>
       </div>
-      <SpaceRender layout={layout} size={space}></SpaceRender>
+
+      <SpaceRender layout={layout} size={space} />
     </Form>
   );
 };
@@ -192,6 +176,7 @@ import { Input, Radio, Form, Button } from 'antd';
 import { FlexRender, Item } from 'antd-form-render';
 
 const FlexLayout = () => {
+  const [form] = Form.useForm();
   const layout: Item[] = [];
   const [gap, setGap] = useState(8);
 
@@ -207,11 +192,20 @@ const FlexLayout = () => {
   }
 
   layout.push({
-    render: () => <Button type="primary">submit</Button>,
+    element: (
+      <Button
+        type="primary"
+        onClick={() => {
+          console.log(form.getFieldsValue());
+        }}
+      >
+        submit
+      </Button>
+    ),
   });
 
   return (
-    <Form layout="horizontal">
+    <Form form={form} layout="horizontal">
       <div style={{ marginBottom: 24 }}>
         <Radio.Group
           onChange={(e) => setGap(Number(e.target.value))}
@@ -224,12 +218,11 @@ const FlexLayout = () => {
           <Radio value={32}>32px</Radio>
         </Radio.Group>
       </div>
+
       <FlexRender layout={layout} gap={gap} justify="flex-end" />
     </Form>
   );
 };
-
-export default FlexLayout;
 ```
 
 #### 表单联动
@@ -240,103 +233,50 @@ export default FlexLayout;
 ![image](./imgs/dep-update.png)
 
 ```tsx
-import React, { useState } from 'react';
-import { Form, Radio } from 'antd';
-import { GridRender } from 'antd-form-render';
+import React from 'react';
+import { Form, Radio, Divider } from 'antd';
+import { GridRender, Item } from 'antd-form-render';
 
 const DynamicRender = () => {
   const [form] = Form.useForm();
-  const [form1] = Form.useForm();
 
-  //#region 全量渲染联动
-
-  // 用于同步表单状态
-  const [data, setData] = useState<{ gender?: string }>({});
-
-  const layout = [
+  const layout: Item[] = [
     {
-      type: Radio.Group,
       label: '性别',
       name: 'gender',
-      elProps: {
-        options: [
-          { label: '男', value: '男生' },
-          { label: '女', value: '女生' },
-        ],
-      },
+      element: (
+        <Radio.Group
+          options={[
+            { label: '男', value: '男生' },
+            { label: '女', value: '女生' },
+          ]}
+        />
+      ),
     },
     {
-      type: 'div',
-      label: '你是',
-      elProps: {
-        children: data?.gender || '未选择',
-      },
+      element: <Divider orientation="left"> element() </Divider>,
+    },
+    {
+      element: () =>
+        form.getFieldValue('gender') && (
+          <div> 你的性别(element()) {form.getFieldValue('gender')}</div>
+        ),
+    },
+    {
+      element: <Divider orientation="left"> render() </Divider>,
+    },
+    {
+      render: () =>
+        form.getFieldValue('gender') && (
+          <div> 你的性别(render()) {form.getFieldValue('gender')}</div>
+        ),
     },
   ];
-
-  //#endregion 全量渲染联动
-
-  //#region 局部联动渲染
-
-  // 基于Form.Item dependency/shouldUpdate 实现表单联动,局部渲染
-  const layout1 = [
-    {
-      type: Radio.Group,
-      label: '性别',
-      name: 'gender',
-      elProps: {
-        options: [
-          { label: '男', value: '男生' },
-          { label: '女', value: '女生' },
-        ],
-      },
-    },
-    {
-      render() {
-        // dependencies
-        return (
-          <Form.Item label="你是" dependencies={['gender']}>
-            {() => {
-              const gender = form1.getFieldValue('gender');
-              return gender || '未选择';
-            }}
-          </Form.Item>
-        );
-      },
-    },
-    {
-      render() {
-        // shouldUpdate
-        return (
-          <Form.Item shouldUpdate label="你是">
-            {() => {
-              return form1.getFieldValue('gender');
-            }}
-          </Form.Item>
-        );
-      },
-    },
-  ];
-
-  //#endregion 局部联动渲染
 
   return (
     <div>
-      <p>1.定义onValuesChange 同步状态到state , 触发全量渲染实现表单联动</p>
-
-      <Form
-        form={form}
-        onValuesChange={(v) => {
-          setData((p) => ({ ...p, ...v }));
-        }}
-      >
+      <Form form={form}>
         <GridRender layout={layout}></GridRender>
-      </Form>
-
-      <p>2.基于Form.Item dependency/shouldUpdate 实现表单联动,局部渲染</p>
-
-      <Form form={form1}>
-        <GridRender layout={layout1}></GridRender>
       </Form>
     </div>
   );
