@@ -10,11 +10,8 @@ const FlexLayout = () => {
   for (let i = 0; i < 3; i++) {
     layout.push({
       name: `name${i}`,
-      type: Input,
       label: `输入框${i + 1}`,
-      elProps: {
-        placeholder: '请输入',
-      },
+      element: <Input placeholder="请输入" />,
     });
   }
 
