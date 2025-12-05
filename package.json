@@ -21,7 +21,11 @@
     "build": "tsup && tsc",
     "dev": "tsup --watch",
     "docs": "node pack --doc",
-    "start": "node pack"
+    "start": "node pack",
+    "prepublishOnly": "npm run build",
+    "publish--patch": "./publish.sh patch",
+    "publish--minor": "./publish.sh minor",
+    "publish--major": "./publish.sh major"
   },
   "peerDependencies": {
     "antd": ">=4.0.0"
