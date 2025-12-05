@@ -1,30 +1,30 @@
 <div align="center">
   <h1>🚀 Antd Form Render</h1>
-  <p>基于配置的 Ant Design 表单渲染器</p>
+  <p>Configuration-based Ant Design Form Renderer</p>
 
   [![npm version](https://img.shields.io/npm/v/antd-form-render.svg?style=flat-square)](https://www.npmjs.com/package/antd-form-render)
   [![npm downloads](https://img.shields.io/npm/dm/antd-form-render.svg?style=flat-square)](https://www.npmjs.com/package/antd-form-render)
   [![license](https://img.shields.io/npm/l/antd-form-render.svg?style=flat-square)](https://github.com/leonwgc/antd-form-render/blob/master/LICENSE)
   [![typescript](https://img.shields.io/badge/TypeScript-Ready-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 
-  [English](./README.en.md) | 简体中文
+  English | [简体中文](./README.md)
 
-  [📖 在线示例](https://leonwgc.github.io/antd-form-render/) | [🐛 报告问题](https://github.com/leonwgc/antd-form-render/issues)
+  [📖 Live Demo](https://leonwgc.github.io/antd-form-render/) | [🐛 Report Issues](https://github.com/leonwgc/antd-form-render/issues)
 </div>
 
 ---
 
-## ✨ 特性
+## ✨ Features
 
-- 🎯 **配置驱动** - 使用简洁的 JavaScript 配置构建复杂表单
-- 🎨 **多种布局** - 支持 Grid、Flex、Space 三种灵活布局方式
-- 🔄 **数据驱动** - 遵循 React 理念 `UI = F(state)`，轻松实现表单联动
-- 🪝 **Hooks 优先** - 基于 React Hooks，完美适配现代 React 开发
-- 📘 **TypeScript** - 完整的类型定义，提供出色的开发体验
-- ⚡️ **轻量高效** - 核心代码简洁，零额外依赖
-- 🎭 **灵活扩展** - 支持自定义渲染，满足各种业务场景
+- 🎯 **Configuration Driven** - Build complex forms with concise JavaScript configuration
+- 🎨 **Multiple Layouts** - Support Grid, Flex, and Space layouts
+- 🔄 **Data Driven** - Follow React philosophy `UI = F(state)` for easy form interaction
+- 🪝 **Hooks First** - Built with React Hooks, perfect for modern React development
+- 📘 **TypeScript** - Full type definitions for excellent developer experience
+- ⚡️ **Lightweight** - Clean core code with zero extra dependencies
+- 🎭 **Flexible Extension** - Support custom rendering for various business scenarios
 
-## 📦 安装
+## 📦 Installation
 
 ```bash
 # npm
@@ -37,11 +37,11 @@ yarn add antd-form-render
 pnpm add antd-form-render
 ```
 
-**注意：** 需要在项目中安装 `antd >= 4.0.0` 和 `react >= 16.8.0`
+**Note:** Requires `antd >= 4.0.0` and `react >= 16.8.0` in your project.
 
-## 🎯 快速开始
+## 🎯 Quick Start
 
-### 基础用法
+### Basic Usage
 
 ```tsx
 import React from 'react';
@@ -53,27 +53,27 @@ const App = () => {
 
   const layout = [
     {
-      label: '用户名',
+      label: 'Username',
       name: 'username',
-      rules: [{ required: true, message: '请输入用户名' }],
-      element: <Input placeholder="请输入用户名" />,
+      rules: [{ required: true, message: 'Please input username' }],
+      element: <Input placeholder="Enter username" />,
     },
     {
-      label: '密码',
+      label: 'Password',
       name: 'password',
-      element: <Input.Password placeholder="请输入密码" />,
+      element: <Input.Password placeholder="Enter password" />,
     },
     {
       element: (
         <Button type="primary" htmlType="submit">
-          提交
+          Submit
         </Button>
       ),
     },
   ];
 
   const onFinish = (values) => {
-    console.log('表单数据:', values);
+    console.log('Form values:', values);
   };
 
   return (
@@ -86,16 +86,16 @@ const App = () => {
 export default App;
 ```
 
-## 📚 布局方式
+## 📚 Layout Types
 
-### 1️⃣ Grid 布局
+### 1️⃣ Grid Layout
 
-适合需要严格栅格对齐的表单场景。
+Suitable for forms requiring strict grid alignment.
 
-#### 单列布局
+#### Single Column Layout
 
 <details>
-<summary>查看代码</summary>
+<summary>View Code</summary>
 
 ```tsx
 import React from 'react';
@@ -107,20 +107,20 @@ const GridOneColumn = () => {
 
   const layout = [
     {
-      label: '手机号',
+      label: 'Phone',
       name: 'tel',
-      rules: [{ required: true, message: '请输入手机号' }],
-      element: <Input placeholder="请输入" maxLength={11} />,
+      rules: [{ required: true, message: 'Please input phone number' }],
+      element: <Input placeholder="Enter phone" maxLength={11} />,
     },
     {
-      label: '密码',
+      label: 'Password',
       name: 'pwd',
-      element: <Input.Password placeholder="请输入密码" />,
+      element: <Input.Password placeholder="Enter password" />,
     },
     {
       element: (
         <Button type="primary" htmlType="submit" block>
-          保存
+          Save
         </Button>
       ),
     },
@@ -136,12 +136,12 @@ const GridOneColumn = () => {
 
 </details>
 
-![Grid 单列布局](./imgs/grid1.png)
+![Grid Single Column](./imgs/grid1.png)
 
-#### 多列布局
+#### Multi-Column Layout
 
 <details>
-<summary>查看代码</summary>
+<summary>View Code</summary>
 
 ```tsx
 import React, { useState } from 'react';
@@ -151,9 +151,9 @@ import { GridRender } from 'antd-form-render';
 const GridNColumns = () => {
   const [cols, setCols] = useState(4);
   const layout = Array.from({ length: 11 }, (_, i) => ({
-    label: `输入框${i + 1}`,
+    label: `Field ${i + 1}`,
     name: `name${i}`,
-    element: <Input placeholder="请输入" />,
+    element: <Input placeholder="Enter value" />,
   }));
 
   return (
@@ -164,10 +164,10 @@ const GridNColumns = () => {
         value={cols}
         style={{ marginBottom: 24 }}
       >
-        <Radio value={1}>1列</Radio>
-        <Radio value={2}>2列</Radio>
-        <Radio value={3}>3列</Radio>
-        <Radio value={4}>4列</Radio>
+        <Radio value={1}>1 Column</Radio>
+        <Radio value={2}>2 Columns</Radio>
+        <Radio value={3}>3 Columns</Radio>
+        <Radio value={4}>4 Columns</Radio>
       </Radio.Group>
 
       <GridRender layout={layout} columnCount={cols} gutter={[8, 8]} />
@@ -178,14 +178,14 @@ const GridNColumns = () => {
 
 </details>
 
-![Grid 多列布局](./imgs/gridN.png)
+![Grid Multi-Column](./imgs/gridN.png)
 
-### 2️⃣ Space 布局
+### 2️⃣ Space Layout
 
-适合内联或工具栏表单场景。
+Suitable for inline or toolbar form scenarios.
 
 <details>
-<summary>查看代码</summary>
+<summary>View Code</summary>
 
 ```tsx
 import React, { useState } from 'react';
@@ -199,13 +199,13 @@ const SpaceLayout = () => {
   const layout = [
     ...Array.from({ length: 3 }, (_, i) => ({
       name: `name${i}`,
-      label: `输入框${i + 1}`,
-      element: <Input placeholder="请输入" />,
+      label: `Field ${i + 1}`,
+      element: <Input placeholder="Enter value" />,
     })),
     {
       element: (
         <Button type="primary" onClick={() => console.log(form.getFieldsValue())}>
-          提交
+          Submit
         </Button>
       ),
     },
@@ -233,14 +233,14 @@ const SpaceLayout = () => {
 
 </details>
 
-![Space 布局](./imgs/space.png)
+![Space Layout](./imgs/space.png)
 
-### 3️⃣ Flex 布局
+### 3️⃣ Flex Layout
 
-适合需要灵活对齐和分布的表单场景。
+Suitable for forms requiring flexible alignment and distribution.
 
 <details>
-<summary>查看代码</summary>
+<summary>View Code</summary>
 
 ```tsx
 import React, { useState } from 'react';
@@ -254,13 +254,13 @@ const FlexLayout = () => {
   const layout = [
     ...Array.from({ length: 3 }, (_, i) => ({
       name: `name${i}`,
-      label: `输入框${i + 1}`,
-      element: <Input placeholder="请输入" />,
+      label: `Field ${i + 1}`,
+      element: <Input placeholder="Enter value" />,
     })),
     {
       element: (
         <Button type="primary" onClick={() => console.log(form.getFieldsValue())}>
-          提交
+          Submit
         </Button>
       ),
     },
@@ -288,22 +288,22 @@ const FlexLayout = () => {
 
 </details>
 
-![Flex 布局](./imgs/flex.png)
+![Flex Layout](./imgs/flex.png)
 
-## 🔄 表单联动
+## 🔄 Form Interaction
 
-实现表单项之间的动态交互有两种方式：
+There are two ways to implement dynamic interaction between form items:
 
-### 方式一：状态驱动（全量渲染）
+### Method 1: State Driven (Full Rendering)
 
-通过 `onValuesChange` 同步表单状态到外部 state，触发重新渲染。
+Synchronize form state to external state via `onValuesChange` to trigger re-rendering.
 
-### 方式二：局部更新（推荐）
+### Method 2: Partial Update (Recommended)
 
-利用 Form.Item 的 `dependencies` / `shouldUpdate` 和自定义渲染函数，实现按需更新。
+Use Form.Item's `dependencies` / `shouldUpdate` with custom render functions for on-demand updates.
 
 <details>
-<summary>查看代码</summary>
+<summary>View Code</summary>
 
 ```tsx
 import React from 'react';
@@ -315,33 +315,33 @@ const DynamicRender = () => {
 
   const layout = [
     {
-      label: '姓名',
+      label: 'Name',
       name: 'name',
-      element: <Input placeholder="请输入姓名" />,
+      element: <Input placeholder="Enter your name" />,
     },
     {
       itemProps: { noStyle: true },
       element: () =>
         form.getFieldValue('name') ? (
           <div style={{ marginBottom: 24, color: '#1890ff' }}>
-            你好, {form.getFieldValue('name')}!
+            Hello, {form.getFieldValue('name')}!
           </div>
         ) : null,
     },
     {
-      label: '喜欢的运动',
+      label: 'Favorite Sports',
       name: 'sports',
-      element: <Checkbox.Group options={['篮球', '足球', '排球']} />,
+      element: <Checkbox.Group options={['Basketball', 'Football', 'Volleyball']} />,
     },
     {
       element: () => {
         const sports = form.getFieldValue('sports');
         return sports?.length ? (
           <div style={{ padding: '12px', background: '#f0f0f0', borderRadius: 4 }}>
-            ✅ 你选择了: {sports.join(', ')}
+            ✅ You selected: {sports.join(', ')}
           </div>
         ) : (
-          <div style={{ color: '#999' }}>请选择你喜欢的运动</div>
+          <div style={{ color: '#999' }}>Please select your favorite sports</div>
         );
       },
     },
@@ -357,84 +357,84 @@ const DynamicRender = () => {
 
 </details>
 
-![表单联动](./imgs/dynamic.png)
+![Form Interaction](./imgs/dynamic.png)
 
-## 📖 API 文档
+## 📖 API Documentation
 
-### Item 配置项
+### Item Configuration
 
-| 属性 | 说明 | 类型 | 默认值 |
+| Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| `element` | React 节点，优先级最高 | `ReactNode \| (() => ReactNode)` | - |
-| `type` | 组件类型，如 Input、DatePicker | `ComponentType \| string` | - |
-| `name` | Form.Item 的 name 字段 | `string \| (string \| number)[]` | - |
-| `label` | Form.Item 的 label | `ReactNode` | - |
-| `rules` | 表单验证规则 | `Rule[]` | - |
-| `render` | 自定义渲染函数 | `() => ReactNode` | - |
-| `getJSON` | 动态返回 Item，优先级高于 render | `() => Item \| null` | - |
-| `elProps` | 透传给组件的 props | `Record<string, unknown>` | - |
-| `itemProps` | 透传给 Form.Item 的 props | `FormItemProps` | - |
+| `element` | React node with highest priority | `ReactNode \| (() => ReactNode)` | - |
+| `type` | Component type, e.g., Input, DatePicker | `ComponentType \| string` | - |
+| `name` | Form.Item name field | `string \| (string \| number)[]` | - |
+| `label` | Form.Item label | `ReactNode` | - |
+| `rules` | Validation rules | `Rule[]` | - |
+| `render` | Custom render function | `() => ReactNode` | - |
+| `getJSON` | Dynamically return Item, higher priority than render | `() => Item \| null` | - |
+| `elProps` | Props passed to component | `Record<string, unknown>` | - |
+| `itemProps` | Props passed to Form.Item | `FormItemProps` | - |
 
 ### GridRender Props
 
-| 属性 | 说明 | 类型 | 默认值 |
+| Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| `layout` | 布局配置数组 | `Item[]` | **必填** |
-| `columnCount` | 一行的列数 (1-4) | `number` | `1` |
-| `gutter` | 栅格间距 | `number \| [number, number]` | `0` |
-| ...rest | 其他 Row 组件的 props | `RowProps` | - |
+| `layout` | Layout configuration array | `Item[]` | **Required** |
+| `columnCount` | Number of columns per row (1-4) | `number` | `1` |
+| `gutter` | Grid spacing | `number \| [number, number]` | `0` |
+| ...rest | Other Row component props | `RowProps` | - |
 
 ### SpaceRender Props
 
-| 属性 | 说明 | 类型 | 默认值 |
+| Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| `layout` | 布局配置数组 | `Item[]` | **必填** |
-| `size` | 间距大小 | `number \| 'small' \| 'middle' \| 'large'` | `'small'` |
-| `direction` | 排列方向 | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| ...rest | 其他 Space 组件的 props | `SpaceProps` | - |
+| `layout` | Layout configuration array | `Item[]` | **Required** |
+| `size` | Spacing size | `number \| 'small' \| 'middle' \| 'large'` | `'small'` |
+| `direction` | Layout direction | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| ...rest | Other Space component props | `SpaceProps` | - |
 
 ### FlexRender Props
 
-| 属性 | 说明 | 类型 | 默认值 |
+| Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| `layout` | 布局配置数组 | `Item[]` | **必填** |
-| `gap` | 间距大小 | `number \| string` | - |
-| `justify` | 主轴对齐方式 | `'flex-start' \| 'flex-end' \| 'center' \| 'space-between' \| 'space-around'` | - |
-| `align` | 交叉轴对齐方式 | `'flex-start' \| 'flex-end' \| 'center' \| 'stretch'` | - |
-| ...rest | 其他 Flex 组件的 props | `FlexProps` | - |
+| `layout` | Layout configuration array | `Item[]` | **Required** |
+| `gap` | Spacing size | `number \| string` | - |
+| `justify` | Main axis alignment | `'flex-start' \| 'flex-end' \| 'center' \| 'space-between' \| 'space-around'` | - |
+| `align` | Cross axis alignment | `'flex-start' \| 'flex-end' \| 'center' \| 'stretch'` | - |
+| ...rest | Other Flex component props | `FlexProps` | - |
 
-## 🎯 使用场景
+## 🎯 Use Cases
 
-- ✅ **企业后台管理系统** - 快速构建复杂的数据录入表单
-- ✅ **搜索过滤器** - 动态配置多条件搜索表单
-- ✅ **配置面板** - 可视化的配置项管理
-- ✅ **问卷调查** - 动态生成调查问卷表单
-- ✅ **数据导入向导** - 多步骤表单流程
+- ✅ **Enterprise Admin Systems** - Quickly build complex data entry forms
+- ✅ **Search Filters** - Dynamically configure multi-condition search forms
+- ✅ **Configuration Panels** - Visual configuration management
+- ✅ **Surveys & Questionnaires** - Dynamically generate survey forms
+- ✅ **Data Import Wizards** - Multi-step form workflows
 
-## 🤝 贡献指南
+## 🤝 Contributing
 
-欢迎贡献代码、提出建议或报告问题！
+Contributions, suggestions, and bug reports are welcome!
 
 ```bash
-# 克隆仓库
+# Clone repository
 git clone https://github.com/leonwgc/antd-form-render.git
 
-# 安装依赖
+# Install dependencies
 npm install
 
-# 启动开发服务器
+# Start dev server
 npm start
 
-# 构建
+# Build
 npm run build
 ```
 
-## 📄 许可证
+## 📄 License
 
 [MIT](./LICENSE) © [leonwgc](https://github.com/leonwgc)
 
 ---
 
 <div align="center">
-  <sub>用 ❤️ 构建</sub>
+  <sub>Built with ❤️</sub>
 </div>
